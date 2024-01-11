@@ -1,9 +1,12 @@
 import CharacterSheet from "./components/CharacterSheet";
 
+
 function App() {
   return (
     <>
-      <CharacterSheet />
+      <div data-bs-theme="dark">
+        <CharacterSheet />
+      </div>
     </>
   );
 }

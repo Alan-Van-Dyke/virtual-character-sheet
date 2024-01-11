@@ -1,17 +1,34 @@
-import { useState } from "react";
-
 interface AbilityBarProps {
+  setStrength: (val: number) => void;
+  setDexterity: (val: number) => void;
+  setConstitution: (val: number) => void;
+  setIntelligence: (val: number) => void;
+  setWisdom: (val: number) => void;
+  setCharisma: (val: number) => void;
+  strength: number;
+  dexterity: number;
+  constitution: number;
+  intelligence: number;
+  wisdom: number;
+  charisma: number;
   editModeEnabled: boolean;
 }
 
-const AbilityBar = ({ editModeEnabled }: AbilityBarProps) => {
-  const [strength, setStrength] = useState(10);
-  const [dexterity, setDexterity] = useState(10);
-  const [constitution, setConstitution] = useState(10);
-  const [intelligence, setIntelligence] = useState(10);
-  const [wisdom, setWisdom] = useState(10);
-  const [charisma, setCharisma] = useState(10);
-
+const AbilityBar = ({
+  editModeEnabled,
+  setStrength,
+  setDexterity,
+  setConstitution,
+  setIntelligence,
+  setWisdom,
+  setCharisma,
+  strength,
+  dexterity,
+  constitution,
+  intelligence,
+  wisdom,
+  charisma,
+}: AbilityBarProps) => {
   return (
     <div className="container text-center">
       <div className="row">
@@ -27,9 +44,9 @@ const AbilityBar = ({ editModeEnabled }: AbilityBarProps) => {
             }
             readOnly={!editModeEnabled}
             onChange={(event) => setStrength(event.target.valueAsNumber)}
-            defaultValue={strength}
+            value={strength}
           ></input>
-          <h5> {Math.floor((strength - 10) / 2)} </h5>
+          <h5> {((strength > 9) ? "+" : "") + Math.floor((strength - 10) / 2)} </h5>
         </div>
 
         <div className="col card ability-box">
@@ -44,9 +61,9 @@ const AbilityBar = ({ editModeEnabled }: AbilityBarProps) => {
             }
             readOnly={!editModeEnabled}
             onChange={(event) => setDexterity(event.target.valueAsNumber)}
-            defaultValue={dexterity}
+            value={dexterity}
           ></input>
-          <h5> {Math.floor((dexterity - 10) / 2)} </h5>
+          <h5> {((dexterity > 9) ? "+" : "") + Math.floor((dexterity - 10) / 2)} </h5>
         </div>
 
         <div className="col card ability-box">
@@ -61,9 +78,9 @@ const AbilityBar = ({ editModeEnabled }: AbilityBarProps) => {
             }
             readOnly={!editModeEnabled}
             onChange={(event) => setConstitution(event.target.valueAsNumber)}
-            defaultValue={constitution}
+            value={constitution}
           ></input>
-          <h5> {Math.floor((constitution - 10) / 2)} </h5>
+          <h5> {((constitution > 9) ? "+" : "") + Math.floor((constitution - 10) / 2)} </h5>
         </div>
 
         <div className="col card ability-box">
@@ -78,9 +95,9 @@ const AbilityBar = ({ editModeEnabled }: AbilityBarProps) => {
             }
             readOnly={!editModeEnabled}
             onChange={(event) => setIntelligence(event.target.valueAsNumber)}
-            defaultValue={intelligence}
+            value={intelligence}
           ></input>
-          <h5> {Math.floor((intelligence - 10) / 2)} </h5>
+          <h5> {((intelligence > 9) ? "+" : "") + Math.floor((intelligence - 10) / 2)} </h5>
         </div>
 
         <div className="col card ability-box">
@@ -95,9 +112,9 @@ const AbilityBar = ({ editModeEnabled }: AbilityBarProps) => {
             }
             readOnly={!editModeEnabled}
             onChange={(event) => setWisdom(event.target.valueAsNumber)}
-            defaultValue={wisdom}
+            value={wisdom}
           ></input>
-          <h5> {Math.floor((wisdom - 10) / 2)} </h5>
+          <h5> {((wisdom > 9) ? "+" : "") + Math.floor((wisdom - 10) / 2)} </h5>
         </div>
 
         <div className="col card ability-box">
@@ -112,9 +129,9 @@ const AbilityBar = ({ editModeEnabled }: AbilityBarProps) => {
             }
             readOnly={!editModeEnabled}
             onChange={(event) => setCharisma(event.target.valueAsNumber)}
-            defaultValue={charisma}
+            value={charisma}
           ></input>
-          <h5> {Math.floor((charisma - 10) / 2)} </h5>
+          <h5> {((charisma > 9) ? "+" : "") + Math.floor((charisma - 10) / 2)} </h5>
         </div>
       </div>
     </div>
