@@ -126,7 +126,7 @@ const CharacterSheet = () => {
               <div className="container card prof-card">
                 <div className="row">
                   <div className="col-3">
-                    <label>Proficiency Bonus: </label>
+                    <label className="center-label">Proficiency Bonus: </label>
                   </div>
                   <div className="col">
                     <input

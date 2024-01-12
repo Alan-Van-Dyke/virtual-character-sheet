@@ -8,6 +8,10 @@
   padding: 5px;
 }
 
+.center-label {
+  margin: 0 auto;
+}
+
 .combat-stat-options{
   padding:2px;
   font-size: 1em;
