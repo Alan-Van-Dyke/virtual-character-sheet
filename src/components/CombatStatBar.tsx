@@ -202,11 +202,7 @@ const CombatStatBar = ({
             </Card>
           </Col>
         </Row>
-        <Row>
-          <Col className="ability-box">
-            <Card>HEALTH</Card>
-          </Col>
-        </Row>
+       
       </Container>
     </Card>
   );

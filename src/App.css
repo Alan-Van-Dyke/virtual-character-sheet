@@ -4,7 +4,19 @@
   width: auto;
 }
 
+.edit-mode-container{
+  padding:5px;
+}
+
+.top-bar-buttons{
+  padding:5px;
+}
+
 .prof-card {
+  padding: 5px;
+}
+
+.hit-dice-card {
   padding: 5px;
 }
 

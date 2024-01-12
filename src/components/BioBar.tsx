@@ -93,7 +93,7 @@ const BioBar = ({
         ) : (
           <>
             <Row>
-              <h1><b>{"Your Name Here" || charName}</b></h1>
+              <h1><b>{charName || "Your Name Here"}</b></h1>
             </Row>
             <Row>
               <Col><h4>{"Class: "}<b>{charClass}</b></h4></Col>
