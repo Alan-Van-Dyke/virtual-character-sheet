@@ -44,7 +44,7 @@ const CharacterSheet = () => {
   const [shieldBonus, setShieldBonus] = useState(0);
 
   const [speed, setSpeed] = useState(30);
-  const [initiativeBonus, setInitiativeBonus] = useState(0);
+  const [initiativeBonus, setInitiativeBonus] = useState(Math.floor((dexterity - 10) / 2));
 
   const handleToggleEditMode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditModeEnabled(event.target.checked);

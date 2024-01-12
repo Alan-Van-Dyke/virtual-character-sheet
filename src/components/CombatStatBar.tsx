@@ -53,7 +53,6 @@ const CombatStatBar = ({
         setACBonus(0);
         break;
     }
-
   };
 
   return (
@@ -61,7 +60,7 @@ const CombatStatBar = ({
       <Container className="ability-box">
         <Row>
           <Col className="ability-box">
-            <Card>
+            <Card className="prof-card">
               <h5>
                 <b>Armor Class</b>
               </h5>
@@ -117,28 +116,73 @@ const CombatStatBar = ({
                 </Container>
               ) : (
                 <h3 className="text-center">
-                  {baseAC+acBonus+shieldBonus}
+                  {baseAC + acBonus + shieldBonus}
                 </h3>
               )}
             </Card>
           </Col>
           <Col className="ability-box">
-            <Card>
+            <Card className="prof-card">
               <h5>
                 <b>Speed</b>
               </h5>
-              {editModeEnabled ? null : (
+              {editModeEnabled ? (
+                <input
+                  type="number"
+                  className="form-control text-center ability-input"
+                  readOnly={!editModeEnabled}
+                  onChange={(event) => setSpeed(event.target.valueAsNumber)}
+                  defaultValue={speed}
+                ></input>
+              ) : (
                 <h3 className="text-center">{speed}</h3>
               )}
             </Card>
           </Col>
           <Col className="ability-box">
-            <Card>
+            <Card className="prof-card">
               <h5>
-                <b>Initiative Bonus</b>
+                <b>Initiative</b>
               </h5>
-              {editModeEnabled ? null : (
-                <h3 className="text-center">{initiativeBonus}</h3>
+              {editModeEnabled ? (
+                <Container>
+                  <Row>
+                    <label>Dexterity Mod</label>
+                  </Row>
+                  <Row>
+                    <label>
+                      {(dexterity > 9 ? "+" : "") +
+                        Math.floor((dexterity - 10) / 2)}
+                    </label>
+                  </Row>
+                  <Row>
+                    <Col className="text-center">Other Bonus</Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <input
+                        type="number"
+                        className={
+                          (editModeEnabled
+                            ? "form-control"
+                            : "form-control-plaintext") +
+                          " text-center ability-input"
+                        }
+                        readOnly={!editModeEnabled}
+                        onChange={(event) => {
+                          !Number.isNaN(event.target.valueAsNumber)
+                            ? setInitiativeBonus(event.target.valueAsNumber)
+                            : console.log("nan");
+                        }}
+                        defaultValue={initiativeBonus}
+                      ></input>
+                    </Col>
+                  </Row>
+                </Container>
+              ) : (
+                <h3 className="text-center">
+                  {Math.floor((dexterity - 10) / 2) + initiativeBonus}
+                </h3>
               )}
             </Card>
           </Col>
