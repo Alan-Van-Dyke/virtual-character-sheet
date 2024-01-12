@@ -32,6 +32,7 @@ const CombatStatBar = ({
 }: CombatStatBarProps) => {
   const [armorType, setArmorType] = useState("light"); // only used for persisting the dropdown selection between edit mode usages
   const [hasShield, setHasShield] = useState(false);
+  const [userUpdatedAC, setUserUpdatedAC] = useState(false); // workaround solution for first loading dexterity bonus on AC if the user doesn't select an armor option
 
   const handleACBonusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const dexterityMod = Math.floor((dexterity - 10) / 2);
@@ -53,7 +54,13 @@ const CombatStatBar = ({
         setACBonus(0);
         break;
     }
+    setUserUpdatedAC(true);
   };
+
+  //Default AC bonus for first time case where user updated dexterity but didn't select armor type
+  if (!userUpdatedAC) {
+    setACBonus(Math.floor((dexterity - 10) / 2));
+  }
 
   return (
     <Card>
@@ -70,10 +77,19 @@ const CombatStatBar = ({
                     <Col>
                       <label>Base AC</label>
                       <input
-                        id="base-ac-input"
                         type="number"
-                        className="form-control text-center"
-                        value={baseAC}
+                        className={
+                          (editModeEnabled
+                            ? "form-control"
+                            : "form-control-plaintext") +
+                          " text-center ability-input"
+                        }
+                        onChange={(event) => {
+                          !Number.isNaN(event.target.valueAsNumber)
+                            ? setBaseAC(event.target.valueAsNumber)
+                            : console.log("nan");
+                        }}
+                        defaultValue={baseAC}
                       ></input>
                     </Col>
                   </Row>
@@ -168,7 +184,6 @@ const CombatStatBar = ({
                             : "form-control-plaintext") +
                           " text-center ability-input"
                         }
-                        readOnly={!editModeEnabled}
                         onChange={(event) => {
                           !Number.isNaN(event.target.valueAsNumber)
                             ? setInitiativeBonus(event.target.valueAsNumber)
