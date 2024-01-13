@@ -4,29 +4,17 @@
   width: auto;
 }
 
+.bio-card {
+  padding: 10px;
+  margin: 10px;
+}
+
 .edit-mode-container{
   padding:5px;
 }
 
 .top-bar-buttons{
   padding:5px;
-}
-
-.prof-card {
-  padding: 5px;
-}
-
-.hit-dice-card {
-  padding: 5px;
-}
-
-.center-label {
-  margin: 0 auto;
-}
-
-.combat-stat-options{
-  padding:2px;
-  font-size: 1em;
 }
 
 .ability-box {
@@ -36,21 +24,6 @@
 
 .ability-input {
   font-size: 1.75rem;
-}
-
-.square-btn-small {
-  width: 50px;
-  height: 50px;
-}
-
-.bio-bar-header{
-  font-weight: bold;
-  font-size: 2em;
-}
-
-.bio-bar-text{
-  font-weight: bold;
-  font-size: 1.1em;
 }
 
 input[type="number"]::-webkit-outer-spin-button,

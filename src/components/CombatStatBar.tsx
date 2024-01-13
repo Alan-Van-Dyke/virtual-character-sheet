@@ -67,13 +67,13 @@ const CombatStatBar = ({
       <Container className="ability-box">
         <Row>
           <Col className="ability-box">
-            <Card className="prof-card">
+            <Card>
               <h5>
                 <b>Armor Class</b>
               </h5>
               {editModeEnabled ? (
                 <Container>
-                  <Row className="combat-stat-options">
+                  <Row>
                     <Col>
                       <label>Base AC</label>
                       <input
@@ -93,7 +93,7 @@ const CombatStatBar = ({
                       ></input>
                     </Col>
                   </Row>
-                  <Row className="combat-stat-options">
+                  <Row>
                     <label>AC Bonus</label>
                   </Row>
                   <Row>
@@ -138,7 +138,7 @@ const CombatStatBar = ({
             </Card>
           </Col>
           <Col className="ability-box">
-            <Card className="prof-card">
+            <Card>
               <h5>
                 <b>Speed</b>
               </h5>
@@ -156,7 +156,7 @@ const CombatStatBar = ({
             </Card>
           </Col>
           <Col className="ability-box">
-            <Card className="prof-card">
+            <Card>
               <h5>
                 <b>Initiative</b>
               </h5>

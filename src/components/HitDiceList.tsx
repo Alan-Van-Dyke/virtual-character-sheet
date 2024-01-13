@@ -45,7 +45,7 @@ const HitDiceList = ({
   editModeEnabled,
 }: HitDiceListProps) => {
   return (
-    <Card className="hit-dice-card">
+    <Card>
         <CardTitle className="text-center">Hit Dice</CardTitle>
       {editModeEnabled ? (
         <Container>

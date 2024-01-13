@@ -29,7 +29,7 @@ const BioBar = ({
 }: BioBarProps) => {
   return (
     <div>
-      <div className="card container character-sheet-card">
+      <div className="card container bio-card">
         {editModeEnabled ? (
           <>
             <div className="row">
@@ -90,7 +90,7 @@ const BioBar = ({
               </div>
             </div>
           </>
-        ) : (
+        ) : (  
           <>
             <Row>
               <h1><b>{charName || "Your Name Here"}</b></h1>

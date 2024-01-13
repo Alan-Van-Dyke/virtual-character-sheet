@@ -65,7 +65,7 @@ const CharacterSheet = () => {
   };
 
   return (
-    <Card data-bs-theme="dark" id="character-sheet">
+    <Card data-bs-theme="dark" id="character-sheet" className="character-sheet-card">
       <Container>
         <Row id="R0">
           <Col md={2} className="edit-mode-container">
