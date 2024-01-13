@@ -4,7 +4,7 @@ import CharacterSheet from "./components/CharacterSheet";
 function App() {
   return (
     <>
-      <div data-bs-theme="dark">
+      <div >
         <CharacterSheet />
       </div>
     </>

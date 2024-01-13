@@ -1,3 +1,4 @@
+import "./styles/CharacterSheet.css";
 import { useState } from "react";
 import AbilityBar from "./AbilityBar";
 import BioBar from "./BioBar";
@@ -66,32 +67,33 @@ const CharacterSheet = () => {
   };
 
   return (
-    <Card
-      data-bs-theme="dark"
-      id="character-sheet"
-      className="character-sheet-card"
-    >
+    <Card id="character-sheet" className="character-sheet-card character-sheet">
       <Container>
         <Row id="R0">
           <Col md={2} className="edit-mode-container">
-            <div className="form-check form-switch">
+            <div className="form-check form-switch ">
               <input
-                className="form-check-input"
+                className="form-check-input edit-mode-switch"
                 type="checkbox"
-                role="switch"
                 id="editModeToggle"
                 onChange={handleToggleEditMode}
               ></input>
-              <label>Edit Mode</label>
+              <label className="edit-mode-switch-label">Edit Mode</label>
             </div>
           </Col>
           <Col md={{ span: 1, offset: 8 }} className="top-bar-buttons">
-            <button className="btn btn-secondary" onClick={handleShortRest}>
+            <button
+              className="btn character-sheet-buttons"
+              onClick={handleShortRest}
+            >
               Short Rest
             </button>
           </Col>
           <Col md={{ span: 1, offset: 0 }} className="top-bar-buttons">
-            <button className="btn btn-secondary" onClick={handleLongRest}>
+            <button
+              className="btn character-sheet-buttons"
+              onClick={handleLongRest}
+            >
               Long Rest
             </button>
           </Col>
@@ -130,42 +132,50 @@ const CharacterSheet = () => {
         </Row>
         <Row id="R3">
           <Col id="R3C1" sm="2">
-            <Row id="R3C1r1">
-              <Card>
-                <CardBody>
-                  <Form.Group as={Row}>
-                    <Form.Label column sm="7">
-                      Proficiency Bonus
-                    </Form.Label>
-                    <Col sm="5">
-                      <Form.Control
-                        plaintext={!editModeEnabled}
-                        readOnly={!editModeEnabled}
-                        defaultValue={profBonus}
-                        onChange={
-                          (event) => setProfBonus(+event.target.value) // TODO weird unvalidated cast to number. fix this
-                        }
-                      />
-                    </Col>
-                  </Form.Group>
-                  <Form.Group as={Row}>
-                    <Form.Label column sm="7">
-                      Inspiration
-                    </Form.Label>
-                    <Col sm="5">
-                      <Form.Control
-                        plaintext={!editModeEnabled}
-                        readOnly={!editModeEnabled}
-                        defaultValue={inspiration}
-                        onChange={(event) => setInspiration(event.target.value)}
-                      />
-                    </Col>
-                  </Form.Group>
-                </CardBody>
-              </Card>
-            </Row>
+            <Card className="character-sheet-cards">
+              <Row id="R3C1r1">
+                <Form.Group as={Row}>
+                  <Form.Label column sm="7">
+                    Proficiency:
+                  </Form.Label>
+                  <Col sm="5">
+                    <Form.Control
+                      className={
+                        editModeEnabled
+                          ? "edit-mode-inputs"
+                          : "character-sheet-plaintext"
+                      }
+                      plaintext={!editModeEnabled}
+                      readOnly={!editModeEnabled}
+                      defaultValue={profBonus}
+                      onChange={
+                        (event) => setProfBonus(+event.target.value) // TODO weird unvalidated cast to number. fix this
+                      }
+                    />
+                  </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                  <Form.Label column sm="7">
+                    Inspiration:
+                  </Form.Label>
+                  <Col sm="5">
+                    <Form.Control
+                      plaintext={!editModeEnabled}
+                      readOnly={!editModeEnabled}
+                      defaultValue={inspiration}
+                      className={
+                        editModeEnabled
+                          ? "edit-mode-inputs"
+                          : "character-sheet-plaintext"
+                      }
+                      onChange={(event) => setInspiration(event.target.value)}
+                    />
+                  </Col>
+                </Form.Group>
+              </Row>
+            </Card>
           </Col>
-          <Col id="R3C2">
+          <Col id="R3C2" sm="4">
             <SavingThrowBar />
             <Row id="R3C2r3"></Row>
           </Col>
@@ -214,134 +224,6 @@ const CharacterSheet = () => {
       </Container>
     </Card>
   );
-  // return (
-  // <>
-  //   <div className="card character-sheet-card">
-  //     <div className="container">
-  //       <div className="row">
-  //         <div className="col-auto">
-  //           <div className="form-check form-switch">
-  //             <input
-  //               className="form-check-input"
-  //               type="checkbox"
-  //               role="switch"
-  //               id="editModeToggle"
-  //               onChange={handleToggleEditMode}
-  //             ></input>
-  //             <label>Edit Mode</label>
-  //           </div>
-  //         </div>
-  // <div className="col-auto ms-auto">
-  //   <button className="btn btn-secondary" onClick={handleShortRest}>
-  //     Short Rest
-  //   </button>
-  // </div>
-  // <div className="col-auto">
-  //   <button className="btn btn-secondary" onClick={handleLongRest}>
-  //     Long Rest
-  //   </button>
-  // </div>
-  //       </div>
-  //     </div>
-  //     <BioBar
-  //       editModeEnabled={editModeEnabled}
-  //       setCharName={setCharName}
-  //       setCharRace={setCharRace}
-  //       setCharClass={setCharClass}
-  //       setCharBackground={setCharBackground}
-  //       setCharLevel={setCharLevel}
-  //       charName={charName}
-  //       charRace={charRace}
-  //       charClass={charClass}
-  //       charBackground={charBackground}
-  //       charLevel={charLevel}
-  //     />
-  //     <AbilityBar
-  //       editModeEnabled={editModeEnabled}
-  //       setStrength={setStrength}
-  //       setDexterity={setDexterity}
-  //       setConstitution={setConstitution}
-  //       setIntelligence={setIntelligence}
-  //       setWisdom={setWisdom}
-  //       setCharisma={setCharisma}
-  //       strength={strength}
-  //       dexterity={dexterity}
-  //       constitution={constitution}
-  //       intelligence={intelligence}
-  //       wisdom={wisdom}
-  //       charisma={charisma}
-  //     />
-
-  //     <div className="container">
-  //       <div className="row">
-  //         <div className="col-6">
-  //           <div className="container card prof-card">
-  //             <div className="row">
-  //               <div className="col-3">
-  //                 <label className="center-label">Proficiency Bonus: </label>
-  //               </div>
-  //               <div className="col">
-  //                 <input
-  //                   type="text"
-  //                   className={formControlEditModeToggle()}
-  //                   placeholder="Proficiency Bonus"
-  //                   readOnly={!editModeEnabled}
-  //                   onChange={(event) => setProfBonus(event.target.value)}
-  //                   defaultValue={profBonus}
-  //                 ></input>
-  //               </div>
-  //             </div>
-  //             <div className="row">
-  //               <div className="col-3">
-  //                 <label>Inspiration: </label>
-  //               </div>
-  //               <div className="col">
-  //                 <input
-  //                   type="text"
-  //                   className={formControlEditModeToggle()}
-  //                   placeholder="Proficiency Bonus"
-  //                   readOnly={!editModeEnabled}
-  //                   onChange={(event) => setInspiration(event.target.value)}
-  //                   defaultValue={inspiration}
-  //                 ></input>
-  //               </div>
-  //             </div>
-
-  //           </div>
-  //         </div>
-  //         <div className="col-6">
-  //           <CombatStatBar
-  //             baseAC={baseAC}
-  //             acBonus={acBonus}
-  //             shieldBonus={shieldBonus}
-  //             speed={speed}
-  //             initiativeBonus={initiativeBonus}
-  //             dexterity={dexterity}
-  //             setBaseAC={setBaseAC}
-  //             setACBonus={setACBonus}
-  //             setShieldBonus={setShieldBonus}
-  //             setSpeed={setSpeed}
-  //             setInitiativeBonus={setInitiativeBonus}
-  //             editModeEnabled={editModeEnabled}
-  //           />
-  //         </div>
-  //       </div>
-  //       <div className="row">
-  //       <div className="col">{/* holder for skills card */}</div>
-  //               <div className="col">
-  //                 <HitDiceList
-  //                   currentHitDice={currentHitDice}
-  //                   maxHitDice={maxHitDice}
-  //                   setCurrentHitDice={setCurrentHitDice}
-  //                   setMaxHitDice={setMaxHitDice}
-  //                   editModeEnabled={editModeEnabled}
-  //                 />
-  //               </div>
-  //             </div>
-  //     </div>
-  //   </div>
-  // </>
-  // );
 };
 
 export default CharacterSheet;

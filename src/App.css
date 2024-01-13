@@ -1,29 +1,5 @@
-.character-sheet-card {
-  margin: 20px;
-  padding: 20px;
-  width: auto;
-}
-
-.bio-card {
-  padding: 10px;
-  margin: 10px;
-}
-
 .edit-mode-container{
   padding:5px;
-}
-
-.top-bar-buttons{
-  padding:5px;
-}
-
-.ability-box {
-  text-align: center;
-  margin: 10px;
-}
-
-.ability-input {
-  font-size: 1.75rem;
 }
 
 input[type="number"]::-webkit-outer-spin-button,

@@ -1,0 +1,17 @@
+.ability-bar {
+    width:auto;
+}
+
+.ability-card {
+    padding:5px;
+    text-align: center;
+    border:transparent;
+    background-color: var(--card-bg);
+    color: white;
+}
+
+.ability-score {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+}
