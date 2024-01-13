@@ -66,7 +66,6 @@ const CombatStatBar = ({
     <Card>
       <Container className="ability-box">
         <Row>
-          <Col className="ability-box">
             <Card>
               <h5>
                 <b>Armor Class</b>
@@ -136,8 +135,6 @@ const CombatStatBar = ({
                 </h3>
               )}
             </Card>
-          </Col>
-          <Col className="ability-box">
             <Card>
               <h5>
                 <b>Speed</b>
@@ -154,8 +151,6 @@ const CombatStatBar = ({
                 <h3 className="text-center">{speed}</h3>
               )}
             </Card>
-          </Col>
-          <Col className="ability-box">
             <Card>
               <h5>
                 <b>Initiative</b>
@@ -200,7 +195,6 @@ const CombatStatBar = ({
                 </h3>
               )}
             </Card>
-          </Col>
         </Row>
        
       </Container>

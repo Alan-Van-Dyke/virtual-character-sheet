@@ -7,6 +7,7 @@ import { Row, Card, Container, Col, CardBody, Form } from "react-bootstrap";
 import SavingThrowBar from "./SavingThrowBar";
 import SkillsBar from "./SkillsBar";
 import HealthBar from "./HealthBar";
+import DeathSaveBar from "./DeathSaveBar";
 
 interface CharacterSheetProps {}
 
@@ -27,7 +28,7 @@ const CharacterSheet = () => {
   const [charisma, setCharisma] = useState(10);
 
   const [profBonus, setProfBonus] = useState(2);
-  const [inspiration, setInspiration] = useState(0);
+  const [inspiration, setInspiration] = useState("No");
 
   const [currentHitDice, setCurrentHitDice] = useState({
     d6: 0,
@@ -65,7 +66,11 @@ const CharacterSheet = () => {
   };
 
   return (
-    <Card data-bs-theme="dark" id="character-sheet" className="character-sheet-card">
+    <Card
+      data-bs-theme="dark"
+      id="character-sheet"
+      className="character-sheet-card"
+    >
       <Container>
         <Row id="R0">
           <Col md={2} className="edit-mode-container">
@@ -124,116 +129,87 @@ const CharacterSheet = () => {
           />
         </Row>
         <Row id="R3">
-          <Col id="R3C1">
+          <Col id="R3C1" sm="2">
             <Row id="R3C1r1">
-              <Col id="R3C1r1c1" xs={4}>
-                <Card>
-                  <CardBody>
-                    <h5 className="text-center">
-                      <b>Proficiency</b>
-                    </h5>
-                    <input
-                      type="number"
-                      className={
-                        (editModeEnabled
-                          ? "form-control"
-                          : "form-control-plaintext") +
-                        " text-center ability-input"
-                      }
-                      readOnly={!editModeEnabled}
-                      onChange={(event) =>
-                        setProfBonus(event.target.valueAsNumber)
-                      }
-                      value={profBonus}
-                    ></input>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col id="R3C1r1c2" xs={4}>
-                <Card>
-                  <CardBody>
-                    <h5 className="text-center">
-                      <b>Inspiration</b>
-                    </h5>
-                    <input
-                      type="number"
-                      className={
-                        (editModeEnabled
-                          ? "form-control"
-                          : "form-control-plaintext") +
-                        " text-center ability-input"
-                      }
-                      readOnly={!editModeEnabled}
-                      onChange={(event) =>
-                        setInspiration(event.target.valueAsNumber)
-                      }
-                      value={inspiration}
-                    ></input>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col id="R3C1r1c3" xs={4}>
-                <Card>
-                  <CardBody className="text-center">
-                    <h5 className="text-center">
-                      <b>Death Saves</b>
-                    </h5>
-                    <label>Fails</label>
-                    <br></br>
-                    <Form.Check inline></Form.Check>
-                    <Form.Check inline></Form.Check>
-                    <Form.Check inline></Form.Check>
-                    <br></br>
-                    <label>Successes</label>
-                    <br></br>
-                    <Form.Check inline></Form.Check>
-                    <Form.Check inline></Form.Check>
-                    <Form.Check inline></Form.Check>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col id="R3C1r1c2"></Col>
-            </Row>
-            <Row id="R3C1r2">
-              <SavingThrowBar />
-            </Row>
-            <Row id="R3C1r3">
-              <SkillsBar />
+              <Card>
+                <CardBody>
+                  <Form.Group as={Row}>
+                    <Form.Label column sm="7">
+                      Proficiency Bonus
+                    </Form.Label>
+                    <Col sm="5">
+                      <Form.Control
+                        plaintext={!editModeEnabled}
+                        readOnly={!editModeEnabled}
+                        defaultValue={profBonus}
+                        onChange={
+                          (event) => setProfBonus(+event.target.value) // TODO weird unvalidated cast to number. fix this
+                        }
+                      />
+                    </Col>
+                  </Form.Group>
+                  <Form.Group as={Row}>
+                    <Form.Label column sm="7">
+                      Inspiration
+                    </Form.Label>
+                    <Col sm="5">
+                      <Form.Control
+                        plaintext={!editModeEnabled}
+                        readOnly={!editModeEnabled}
+                        defaultValue={inspiration}
+                        onChange={(event) => setInspiration(event.target.value)}
+                      />
+                    </Col>
+                  </Form.Group>
+                </CardBody>
+              </Card>
             </Row>
           </Col>
           <Col id="R3C2">
-            <Row id="R3C2r1">
-              <CombatStatBar
-                baseAC={baseAC}
-                acBonus={acBonus}
-                shieldBonus={shieldBonus}
-                speed={speed}
-                initiativeBonus={initiativeBonus}
-                dexterity={dexterity}
-                setBaseAC={setBaseAC}
-                setACBonus={setACBonus}
-                setShieldBonus={setShieldBonus}
-                setSpeed={setSpeed}
-                setInitiativeBonus={setInitiativeBonus}
-                editModeEnabled={editModeEnabled}
-              />
-            </Row>
-            <Row id="R3C2r2">
-              <HealthBar />
-            </Row>
-            <Row id="R3C2r3">
-              <HitDiceList
-                currentHitDice={currentHitDice}
-                maxHitDice={maxHitDice}
-                setCurrentHitDice={setCurrentHitDice}
-                setMaxHitDice={setMaxHitDice}
-                editModeEnabled={editModeEnabled}
-              />
-            </Row>
+            <SavingThrowBar />
+            <Row id="R3C2r3"></Row>
+          </Col>
+          <Col id="R3C3">
+            <SkillsBar />
           </Col>
         </Row>
         <Row id="R4">
-          <Card id="REMOVE ME">put the rest of the shit down here</Card>
+          <Col id="R4C1" sm={4}>
+            <CombatStatBar
+              baseAC={baseAC}
+              acBonus={acBonus}
+              shieldBonus={shieldBonus}
+              speed={speed}
+              initiativeBonus={initiativeBonus}
+              dexterity={dexterity}
+              setBaseAC={setBaseAC}
+              setACBonus={setACBonus}
+              setShieldBonus={setShieldBonus}
+              setSpeed={setSpeed}
+              setInitiativeBonus={setInitiativeBonus}
+              editModeEnabled={editModeEnabled}
+            />
+          </Col>
+          <Col id="R4C2">
+            <Row id="R4C2r1">
+              <HealthBar></HealthBar>
+            </Row>
+            <Row id="R4C2r2">
+              <Col id="R4C2r2c1">
+                <DeathSaveBar />
+              </Col>
+              <Col id="R4C2r2c2">
+                <HitDiceList
+                  currentHitDice={currentHitDice}
+                  maxHitDice={maxHitDice}
+                  setCurrentHitDice={setCurrentHitDice}
+                  setMaxHitDice={setMaxHitDice}
+                  editModeEnabled={editModeEnabled}
+                />
+              </Col>
+            </Row>
+          </Col>
+          <Card id="REMOVE ME">put the rest down here</Card>
         </Row>
       </Container>
     </Card>
