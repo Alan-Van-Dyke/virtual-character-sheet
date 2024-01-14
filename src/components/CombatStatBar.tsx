@@ -63,142 +63,134 @@ const CombatStatBar = ({
   }
 
   return (
-    <Card>
-      <Container className="ability-box">
-        <Row>
-            <Card>
-              <h5>
-                <b>Armor Class</b>
-              </h5>
-              {editModeEnabled ? (
-                <Container>
-                  <Row>
-                    <Col>
-                      <label>Base AC</label>
-                      <input
-                        type="number"
-                        className={
-                          (editModeEnabled
-                            ? "form-control"
-                            : "form-control-plaintext") +
-                          " text-center ability-input"
-                        }
-                        onChange={(event) => {
-                          !Number.isNaN(event.target.valueAsNumber)
-                            ? setBaseAC(event.target.valueAsNumber)
-                            : console.log("nan");
-                        }}
-                        defaultValue={baseAC}
-                      ></input>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <label>AC Bonus</label>
-                  </Row>
-                  <Row>
-                    <Form className="text-start" id="ac-option-form">
-                      <Form.Select onChange={handleACBonusChange}>
-                        <option value="light" selected={armorType === "light"}>
-                          Light / None
-                        </option>
-                        <option
-                          value="medium"
-                          selected={armorType === "medium"}
-                        >
-                          Medium
-                        </option>
-                        <option value="heavy" selected={armorType === "heavy"}>
-                          Heavy
-                        </option>
-                      </Form.Select>
-                      <Form.Check
-                        className="text-start"
-                        id="ac-option-form"
-                        label="Shield ?"
-                        checked={hasShield}
-                        onChange={(event) => {
-                          if (event.target.checked) {
-                            setHasShield(true);
-                            setShieldBonus(2);
-                          } else {
-                            setHasShield(false);
-                            setShieldBonus(0);
-                          }
-                        }}
-                      />
-                    </Form>
-                  </Row>
-                </Container>
-              ) : (
-                <h3 className="text-center">
-                  {baseAC + acBonus + shieldBonus}
-                </h3>
-              )}
-            </Card>
-            <Card>
-              <h5>
-                <b>Speed</b>
-              </h5>
-              {editModeEnabled ? (
-                <input
-                  type="number"
-                  className="form-control text-center ability-input"
-                  readOnly={!editModeEnabled}
-                  onChange={(event) => setSpeed(event.target.valueAsNumber)}
-                  defaultValue={speed}
-                ></input>
-              ) : (
-                <h3 className="text-center">{speed}</h3>
-              )}
-            </Card>
-            <Card>
-              <h5>
-                <b>Initiative</b>
-              </h5>
-              {editModeEnabled ? (
-                <Container>
-                  <Row>
-                    <label>Dexterity Mod</label>
-                  </Row>
-                  <Row>
-                    <label>
-                      {(dexterity > 9 ? "+" : "") +
-                        Math.floor((dexterity - 10) / 2)}
-                    </label>
-                  </Row>
-                  <Row>
-                    <Col className="text-center">Other Bonus</Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <input
-                        type="number"
-                        className={
-                          (editModeEnabled
-                            ? "form-control"
-                            : "form-control-plaintext") +
-                          " text-center ability-input"
-                        }
-                        onChange={(event) => {
-                          !Number.isNaN(event.target.valueAsNumber)
-                            ? setInitiativeBonus(event.target.valueAsNumber)
-                            : console.log("nan");
-                        }}
-                        defaultValue={initiativeBonus}
-                      ></input>
-                    </Col>
-                  </Row>
-                </Container>
-              ) : (
-                <h3 className="text-center">
-                  {Math.floor((dexterity - 10) / 2) + initiativeBonus}
-                </h3>
-              )}
-            </Card>
-        </Row>
-       
-      </Container>
-    </Card>
+    <Container className="ability-box">
+      <Row>
+        <Card className="character-sheet-cards text-center">
+          <h5>
+            <b>Armor Class</b>
+          </h5>
+          {editModeEnabled ? (
+            <Container>
+              <Row>
+                <Col>
+                  <label>Base Armor Class</label>
+
+                  <Form.Control
+                    type="number"
+                    className="text-center edit-mode-inputs"
+                    onChange={(event) => {
+                      if (!isNaN(parseInt(event.target.value))) {
+                        setBaseAC(parseInt(event.target.value));
+                      }
+                    }}
+                    defaultValue={baseAC}
+                  ></Form.Control>
+                </Col>
+              </Row>
+              <Row>
+                <label>Armor Class Bonus</label>
+              </Row>
+              <Row>
+                <Form id="ac-option-form">
+                  <Form.Select
+                    onChange={handleACBonusChange}
+                    className="edit-mode-inputs"
+                  >
+                    <option value="light" selected={armorType === "light"}>
+                      Light / None
+                    </option>
+                    <option value="medium" selected={armorType === "medium"}>
+                      Medium
+                    </option>
+                    <option value="heavy" selected={armorType === "heavy"}>
+                      Heavy
+                    </option>
+                  </Form.Select>
+                  <Form.Check
+                    className="text-start"
+                    type="checkbox"
+                    id="ac-option-form"
+                    label="Shield ?"
+                    checked={hasShield}
+                    onChange={(event) => {
+                      if (event.target.checked) {
+                        setHasShield(true);
+                        setShieldBonus(2);
+                      } else {
+                        setHasShield(false);
+                        setShieldBonus(0);
+                      }
+                    }}
+                  />
+                </Form>
+              </Row>
+            </Container>
+          ) : (
+            <h3 className="text-center">{baseAC + acBonus + shieldBonus}</h3>
+          )}
+        </Card>
+        <Card className="character-sheet-cards text-center">
+          <h5>
+            <b>Speed</b>
+          </h5>
+          {editModeEnabled ? (
+            <Form.Control
+              type="number"
+              className="text-center edit-mode-inputs"
+              readOnly={!editModeEnabled}
+              onChange={(event) => {
+                if (!isNaN(parseInt(event.target.value))) {
+                  setSpeed(parseInt(event.target.value));
+                }
+              }}
+              defaultValue={speed}
+            ></Form.Control>
+          ) : (
+            <h3 className="text-center">{speed}</h3>
+          )}
+        </Card>
+        <Card className="character-sheet-cards text-center">
+          <h5>
+            <b>Initiative</b>
+          </h5>
+          {editModeEnabled ? (
+            <Container>
+              <Row>
+                <label>Dexterity Mod</label>
+              </Row>
+              <Row>
+                <label>
+                  {(dexterity > 9 ? "+" : "") +
+                    Math.floor((dexterity - 10) / 2)}
+                </label>
+              </Row>
+              <Row>
+                <Col className="text-center">Other Bonus</Col>
+              </Row>
+              <Row>
+                <Col>
+
+                  <Form.Control
+                    type="number"
+                    className="text-center edit-mode-inputs"
+                    onChange={(event) => {
+                      if (!isNaN(parseInt(event.target.value))) {
+                        setInitiativeBonus(parseInt(event.target.value));
+                      }
+                    }}
+                    defaultValue={initiativeBonus}
+                  ></Form.Control>
+                </Col>
+              </Row>
+            </Container>
+          ) : (
+            <h3 className="text-center">
+              {Math.floor((dexterity - 10) / 2) + initiativeBonus}
+            </h3>
+          )}
+        </Card>
+      </Row>
+    </Container>
   );
 };
 

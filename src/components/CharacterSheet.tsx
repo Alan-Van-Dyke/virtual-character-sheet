@@ -184,7 +184,7 @@ const CharacterSheet = () => {
           </Col>
         </Row>
         <Row id="R4">
-          <Col id="R4C1" sm={4}>
+          <Col id="R4C1" sm={2}>
             <CombatStatBar
               baseAC={baseAC}
               acBonus={acBonus}
@@ -200,7 +200,7 @@ const CharacterSheet = () => {
               editModeEnabled={editModeEnabled}
             />
           </Col>
-          <Col id="R4C2">
+          <Col id="R4C2" sm={10}>
             <Row id="R4C2r1">
               <HealthBar></HealthBar>
             </Row>

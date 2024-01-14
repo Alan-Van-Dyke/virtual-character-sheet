@@ -1,3 +1,5 @@
+import "./styles/HitDiceBar.css";
+
 import {
   Container,
   ListGroup,
@@ -45,8 +47,8 @@ const HitDiceList = ({
   editModeEnabled,
 }: HitDiceListProps) => {
   return (
-    <Card>
-        <CardTitle className="text-center">Hit Dice</CardTitle>
+    <Card className="character-sheet-cards">
+      <CardTitle className="text-center">Hit Dice</CardTitle>
       {editModeEnabled ? (
         <Container>
           <Row>
@@ -54,7 +56,7 @@ const HitDiceList = ({
               <p>Current d6:</p>
               <input
                 type="number"
-                className="form-control"
+                className="form-control edit-mode-inputs"
                 defaultValue={currentHitDice.d6}
                 onChange={(event) =>
                   setCurrentHitDice({
@@ -68,7 +70,7 @@ const HitDiceList = ({
               <p>Current d8:</p>
               <input
                 type="number"
-                className="form-control"
+                className="form-control edit-mode-inputs"
                 defaultValue={currentHitDice.d8}
                 onChange={(event) =>
                   setCurrentHitDice({
@@ -82,21 +84,23 @@ const HitDiceList = ({
               <p>Current d10:</p>
               <input
                 type="number"
-                className="form-control"
+                className="form-control edit-mode-inputs"
                 defaultValue={currentHitDice.d10}
-                onChange={(event) =>
-                  setCurrentHitDice({
-                    ...currentHitDice,
-                    d10: event.target.valueAsNumber,
-                  })
-                }
+                onChange={(event) => {
+                  if (!isNaN(parseInt(event.target.value))) {
+                    setCurrentHitDice({
+                      ...currentHitDice,
+                      d10: parseInt(event.target.value),
+                    });
+                  }
+                }}
               ></input>
             </Col>
             <Col xs={3}>
               <p>Current d12:</p>
               <input
                 type="number"
-                className="form-control"
+                className="form-control edit-mode-inputs"
                 defaultValue={currentHitDice.d12}
                 onChange={(event) =>
                   setCurrentHitDice({
@@ -112,7 +116,7 @@ const HitDiceList = ({
               <p>Max d6:</p>
               <input
                 type="number"
-                className="form-control"
+                className="form-control edit-mode-inputs"
                 defaultValue={maxHitDice.d6}
                 onChange={(event) =>
                   setMaxHitDice({
@@ -126,7 +130,7 @@ const HitDiceList = ({
               <p>Max d8:</p>
               <input
                 type="number"
-                className="form-control"
+                className="form-control edit-mode-inputs"
                 defaultValue={maxHitDice.d8}
                 onChange={(event) =>
                   setMaxHitDice({
@@ -140,7 +144,7 @@ const HitDiceList = ({
               <p>Max d10:</p>
               <input
                 type="number"
-                className="form-control"
+                className="form-control edit-mode-inputs"
                 defaultValue={maxHitDice.d10}
                 onChange={(event) =>
                   setMaxHitDice({
@@ -154,7 +158,7 @@ const HitDiceList = ({
               <p>Max d12:</p>
               <input
                 type="number"
-                className="form-control"
+                className="form-control edit-mode-inputs"
                 defaultValue={maxHitDice.d12}
                 onChange={(event) =>
                   setMaxHitDice({
@@ -169,7 +173,7 @@ const HitDiceList = ({
       ) : (
         <ListGroup className="list-group-flush">
           {maxHitDice.d6 > 0 ? (
-            <ListGroupItem>
+            <ListGroupItem className="character-sheet-list-items">
               <div className="row">
                 <div className="col-auto">d6</div>
                 <div className="col-auto ms-auto">
@@ -180,7 +184,7 @@ const HitDiceList = ({
           ) : null}
 
           {maxHitDice.d8 > 0 ? (
-            <ListGroupItem>
+            <ListGroupItem className="character-sheet-list-items">
               <div className="row">
                 <div className="col-auto">d8</div>
                 <div className="col-auto ms-auto">
@@ -191,7 +195,7 @@ const HitDiceList = ({
           ) : null}
 
           {maxHitDice.d10 > 0 ? (
-            <ListGroupItem>
+            <ListGroupItem className="character-sheet-list-items">
               <div className="row">
                 <div className="col-auto">d10</div>
                 <div className="col-auto ms-auto">
@@ -202,7 +206,7 @@ const HitDiceList = ({
           ) : null}
 
           {maxHitDice.d12 > 0 ? (
-            <ListGroupItem>
+            <ListGroupItem className="character-sheet-list-items">
               <div className="row">
                 <div className="col-auto">d12</div>
                 <div className="col-auto ms-auto">

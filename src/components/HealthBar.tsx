@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap"
+import { Card, Container } from "react-bootstrap"
 
 interface HealthBarProps {
 
@@ -6,7 +6,9 @@ interface HealthBarProps {
 
 const HealthBar = () => {
   return (
-    <Card>Put health info here</Card>
+    <Container>
+      <Card className="character-sheet-cards">Put health info here</Card>
+    </Container>
   )
 }
 

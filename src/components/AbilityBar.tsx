@@ -1,5 +1,5 @@
-import { Card, Col, Container, Form, Row } from "react-bootstrap";
 import "./styles/AbilityBar.css";
+import { Card, Col, Container, Form, Row } from "react-bootstrap";
 
 interface AbilityBarProps {
   setStrength: (val: number) => void;
