@@ -34,144 +34,164 @@ const AbilityBar = ({
 }: AbilityBarProps) => {
   return (
     <Container>
-        <Row>
-          <Col xs={2}>
-            <Card className="ability-card">
-              <h5>
-                <b>Strength</b>
-              </h5>
+      <Row>
+        <Col xs={2}>
+          <Card className="ability-card">
+            <h5>
+              <b>Strength</b>
+            </h5>
+            {editModeEnabled ? (
               <Form.Control
                 type="number"
-                className={
-                  editModeEnabled
-                    ? "edit-mode-inputs text-center"
-                    : "ability-score"
-                }
+                className="edit-mode-inputs text-center"
                 readOnly={!editModeEnabled}
                 plaintext={!editModeEnabled}
-                onChange={(event) => setStrength(+event.target.value)}
+                onChange={(event) => {
+                  if (!isNaN(parseInt(event.target.value))) {
+                    setStrength(parseInt(event.target.value));
+                  }
+                }}
                 defaultValue={strength}
               ></Form.Control>
-              <h5>
-                {(strength > 9 ? "+" : "") + Math.floor((strength - 10) / 2)}
-              </h5>
-            </Card>
-          </Col>
-          <Col xs={2}>
-            <Card className="ability-card">
-              <h5>
-                <b>Dexterity</b>
-              </h5>
+            ) : (
+              <h3 className="ability-score">{strength}</h3>
+            )}
+            <h5>
+              {(strength > 9 ? "+" : "") + Math.floor((strength - 10) / 2)}
+            </h5>
+          </Card>
+        </Col>
+        <Col xs={2}>
+          <Card className="ability-card">
+            <h5>
+              <b>Dexterity</b>
+            </h5>
+            {editModeEnabled ? (
               <Form.Control
                 type="number"
-                className={
-                  editModeEnabled
-                    ? "edit-mode-inputs text-center"
-                    : "ability-score"
-                }
+                className="edit-mode-inputs text-center"
                 readOnly={!editModeEnabled}
                 plaintext={!editModeEnabled}
-                onChange={(event) => setDexterity(+event.target.value)}
+                onChange={(event) => {
+                  if (!isNaN(parseInt(event.target.value))) {
+                    setDexterity(parseInt(event.target.value));
+                  }
+                }}
                 defaultValue={dexterity}
               ></Form.Control>
-              <h5>
-                {(dexterity > 9 ? "+" : "") + Math.floor((dexterity - 10) / 2)}
-              </h5>
-            </Card>
-          </Col>
-          <Col xs={2}>
-            <Card className="ability-card">
-              <h5>
-                <b>Constitution</b>
-              </h5>
+            ) : (
+              <h3 className="ability-score">{dexterity}</h3>
+            )}
+            <h5>
+              {(dexterity > 9 ? "+" : "") + Math.floor((dexterity - 10) / 2)}
+            </h5>
+          </Card>
+        </Col>
+        <Col xs={2}>
+          <Card className="ability-card">
+            <h5>
+              <b>Constitution</b>
+            </h5>
+            {editModeEnabled ? (
               <Form.Control
                 type="number"
-                className={
-                  editModeEnabled
-                    ? "edit-mode-inputs text-center"
-                    : "ability-score"
-                }
+                className="edit-mode-inputs text-center"
                 readOnly={!editModeEnabled}
                 plaintext={!editModeEnabled}
-                onChange={(event) => setConstitution(+event.target.value)}
+                onChange={(event) => {
+                  if (!isNaN(parseInt(event.target.value))) {
+                    setConstitution(parseInt(event.target.value));
+                  }
+                }}
                 defaultValue={constitution}
               ></Form.Control>
-              <h5>
-                {(constitution > 9 ? "+" : "") +
-                  Math.floor((constitution - 10) / 2)}
-              </h5>
-            </Card>
-          </Col>
-          <Col xs={2}>
-            <Card className="ability-card">
-              <h5>
-                <b>Intelligence</b>
-              </h5>
+            ) : (
+              <h3 className="ability-score">{constitution}</h3>
+            )}
+            <h5>
+              {(constitution > 9 ? "+" : "") +
+                Math.floor((constitution - 10) / 2)}
+            </h5>
+          </Card>
+        </Col>
+        <Col xs={2}>
+          <Card className="ability-card">
+            <h5>
+              <b>Intelligence</b>
+            </h5>
+            {editModeEnabled ? (
               <Form.Control
                 type="number"
-                className={
-                  editModeEnabled
-                    ? "edit-mode-inputs text-center"
-                    : "ability-score"
-                }
+                className="edit-mode-inputs text-center"
                 readOnly={!editModeEnabled}
                 plaintext={!editModeEnabled}
-                onChange={(event) => setIntelligence(+event.target.value)}
+                onChange={(event) => {
+                  if (!isNaN(parseInt(event.target.value))) {
+                    setIntelligence(parseInt(event.target.value));
+                  }
+                }}
                 defaultValue={intelligence}
               ></Form.Control>
-              <h5>
-                {(intelligence > 9 ? "+" : "") +
-                  Math.floor((intelligence - 10) / 2)}
-              </h5>
-            </Card>
-          </Col>
-          <Col xs={2}>
-            <Card className="ability-card">
-              <h5>
-                <b>Wisdom</b>
-              </h5>
+            ) : (
+              <h3 className="ability-score">{intelligence}</h3>
+            )}
+            <h5>
+              {(intelligence > 9 ? "+" : "") +
+                Math.floor((intelligence - 10) / 2)}
+            </h5>
+          </Card>
+        </Col>
+        <Col xs={2}>
+          <Card className="ability-card">
+            <h5>
+              <b>Wisdom</b>
+            </h5>
+            {editModeEnabled ? (
               <Form.Control
                 type="number"
-                className={
-                  editModeEnabled
-                    ? "edit-mode-inputs text-center"
-                    : "ability-score"
-                }
+                className="edit-mode-inputs text-center"
                 readOnly={!editModeEnabled}
                 plaintext={!editModeEnabled}
-                onChange={(event) => setWisdom(+event.target.value)}
+                onChange={(event) => {
+                  if (!isNaN(parseInt(event.target.value))) {
+                    setWisdom(parseInt(event.target.value));
+                  }
+                }}
                 defaultValue={wisdom}
               ></Form.Control>
-              <h5>
-                {(wisdom > 9 ? "+" : "") +
-                  Math.floor((wisdom - 10) / 2)}
-              </h5>
-            </Card>
-          </Col>
-          <Col xs={2}>
-            <Card className="ability-card">
-              <h5>
-                <b>Charisma</b>
-              </h5>
+            ) : (
+              <h3 className="ability-score">{wisdom}</h3>
+            )}
+            <h5>{(wisdom > 9 ? "+" : "") + Math.floor((wisdom - 10) / 2)}</h5>
+          </Card>
+        </Col>
+        <Col xs={2}>
+          <Card className="ability-card">
+            <h5>
+              <b>Charisma</b>
+            </h5>
+            {editModeEnabled ? (
               <Form.Control
                 type="number"
-                className={
-                  editModeEnabled
-                    ? "edit-mode-inputs text-center"
-                    : "ability-score"
-                }
+                className="edit-mode-inputs text-center"
                 readOnly={!editModeEnabled}
                 plaintext={!editModeEnabled}
-                onChange={(event) => setCharisma(+event.target.value)}
+                onChange={(event) => {
+                  if (!isNaN(parseInt(event.target.value))) {
+                    setCharisma(parseInt(event.target.value));
+                  }
+                }}
                 defaultValue={charisma}
               ></Form.Control>
-              <h5>
-                {(charisma > 9 ? "+" : "") +
-                  Math.floor((charisma - 10) / 2)}
-              </h5>
-            </Card>
-          </Col>
-        </Row>
+            ) : (
+              <h3 className="ability-score">{charisma}</h3>
+            )}
+            <h5>
+              {(charisma > 9 ? "+" : "") + Math.floor((charisma - 10) / 2)}
+            </h5>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 };

@@ -176,7 +176,7 @@ const CharacterSheet = () => {
             </Card>
           </Col>
           <Col id="R3C2" sm="4">
-            <SavingThrowBar />
+            <SavingThrowBar editModeEnabled={editModeEnabled}/>
             <Row id="R3C2r3"></Row>
           </Col>
           <Col id="R3C3">
