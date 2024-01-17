@@ -1,16 +1,53 @@
 .ability-bar {
-    width:auto;
+  margin-bottom: 3px;
 }
 
 .ability-card {
-    padding:5px;
-    text-align: center;
-    border:transparent;
-    background-color: var(--card-bg);
-    color: white;
+  padding: 3px;
+  text-align: center;
+  border: transparent;
+  background-color: var(--card-bg);
+  color: white;
 }
 
 .ability-score {
-    color: white;
-    text-align: center;
+  color: white;
+  text-align: center;
+}
+
+.proficiency-stack {
+  color: white;
+}
+
+.check-label {
+  text-align: left;
+  font-size: 0.7em;
+}
+
+.check-score {
+  justify-content: flex-end;
+  align-items: center;
+  text-align: right;
+  font-size: 0.75em;
+}
+
+.check-divider {
+  margin: 2px;
+}
+
+.skill-prof-check-box {
+  margin-right: 1px;
+}
+
+.skill-col-left {
+  padding-right: 3px;
+}
+
+.skill-col-right {
+  padding-left: 3px;
+}
+
+.skill-col-inner {
+  padding-left: 3px;
+  padding-right: 3px;
 }

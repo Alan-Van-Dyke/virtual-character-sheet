@@ -4,7 +4,7 @@ import CharacterSheet from "./components/CharacterSheet";
 function App() {
   return (
     <>
-      <div style={{background: "black"}}>
+      <div>
         <CharacterSheet />
       </div>
     </>

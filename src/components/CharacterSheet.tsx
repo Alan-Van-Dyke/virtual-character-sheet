@@ -29,7 +29,7 @@ const CharacterSheet = () => {
   const [charisma, setCharisma] = useState(10);
 
   const [profBonus, setProfBonus] = useState(2);
-  const [inspiration, setInspiration] = useState("No");
+  const [inspiration, setInspiration] = useState("None");
 
   const [currentHitDice, setCurrentHitDice] = useState({
     d6: 0,
@@ -50,13 +50,80 @@ const CharacterSheet = () => {
   const [shieldBonus, setShieldBonus] = useState(0);
 
   const [speed, setSpeed] = useState(30);
+  const [swimSpeed, setSwimSpeed] = useState(0);
+  const [flySpeed, setFlySpeed] = useState(0);
   const [initiativeBonus, setInitiativeBonus] = useState(
     Math.floor((dexterity - 10) / 2)
   );
 
+  const [savingThrowProficiencies, setSavingThrowProficiencies] = useState({
+    strength: false,
+    dexterity: false,
+    constitution: false,
+    intelligence: false,
+    wisdom: false,
+    charisma: false,
+  });
+
+  const [skillProficiencies, setSkillProficiencies] = useState({
+    acrobatics: false,
+    animalHandling: false,
+    arcana: false,
+    athletics: false,
+    deception: false,
+    history: false,
+    insight: false,
+    intimidation: false,
+    investigation: false,
+    medicine: false,
+    nature: false,
+    perception: false,
+    performance: false,
+    persuasion: false,
+    religion: false,
+    sleightOfHand: false,
+    stealth: false,
+    survival: false,
+  });
+
+  const [skillExpertise, setSkillExpertise] = useState({
+    acrobatics: false,
+    animalHandling: false,
+    arcana: false,
+    athletics: false,
+    deception: false,
+    history: false,
+    insight: false,
+    intimidation: false,
+    investigation: false,
+    medicine: false,
+    nature: false,
+    perception: false,
+    performance: false,
+    persuasion: false,
+    religion: false,
+    sleightOfHand: false,
+    stealth: false,
+    survival: false,
+  });
+
+  const [useExpertise, setUseExpertise] = useState(false)
+
   const handleToggleEditMode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditModeEnabled(event.target.checked);
   };
+
+  // Rest schedule
+
+  // 1. recognize list of things to do
+  // 2. do each list item
+  //      Append a log to a list of "things done"
+  //      Append any optional things
+  // 3. Render popup
+  // 4. Show list of things done
+  // 5. Show list of optional things with "yes do" or "no don't" buttons
+  // 6. Handle each button choice
+  // 7. user closes popup. All unanswered choices marked as "no don't"
 
   const handleShortRest = (event: React.MouseEvent) => {
     console.log("SHORT REST");
@@ -105,11 +172,16 @@ const CharacterSheet = () => {
             charLevel={charLevel}
             charBackground={charBackground}
             charRace={charRace}
+            profBonus={profBonus}
+            inspiration={inspiration}
             setCharName={setCharName}
             setCharClass={setCharClass}
             setCharLevel={setCharLevel}
             setCharBackground={setCharBackground}
             setCharRace={setCharRace}
+            setProfBonus={setProfBonus}
+            setInspiration={setInspiration}
+            setUseExpertise={setUseExpertise}
             editModeEnabled={editModeEnabled}
           ></BioBar>
         </Row>
@@ -122,67 +194,23 @@ const CharacterSheet = () => {
             setIntelligence={setIntelligence}
             setWisdom={setWisdom}
             setCharisma={setCharisma}
+            setSavingThrowProficiencies={setSavingThrowProficiencies}
+            setSkillProficiencies={setSkillProficiencies}
+            setSkillExpertise={setSkillExpertise}
+            profBonus={profBonus}
             strength={strength}
             dexterity={dexterity}
             constitution={constitution}
             intelligence={intelligence}
             wisdom={wisdom}
             charisma={charisma}
+            savingThrowProficiencies={savingThrowProficiencies}
+            skillProficiencies={skillProficiencies}
+            skillExpertise={skillExpertise}
+            useExpertise={useExpertise}
           />
         </Row>
-        <Row id="R3">
-          <Col id="R3C1" sm="2">
-            <Card className="character-sheet-cards">
-              <Row id="R3C1r1">
-                <Form.Group as={Row}>
-                  <Form.Label column sm="7">
-                    Proficiency:
-                  </Form.Label>
-                  <Col sm="5">
-                    <Form.Control
-                      className={
-                        editModeEnabled
-                          ? "edit-mode-inputs"
-                          : "character-sheet-plaintext"
-                      }
-                      plaintext={!editModeEnabled}
-                      readOnly={!editModeEnabled}
-                      defaultValue={profBonus}
-                      onChange={
-                        (event) => setProfBonus(+event.target.value) // TODO weird unvalidated cast to number. fix this
-                      }
-                    />
-                  </Col>
-                </Form.Group>
-                <Form.Group as={Row}>
-                  <Form.Label column sm="7">
-                    Inspiration:
-                  </Form.Label>
-                  <Col sm="5">
-                    <Form.Control
-                      plaintext={!editModeEnabled}
-                      readOnly={!editModeEnabled}
-                      defaultValue={inspiration}
-                      className={
-                        editModeEnabled
-                          ? "edit-mode-inputs"
-                          : "character-sheet-plaintext"
-                      }
-                      onChange={(event) => setInspiration(event.target.value)}
-                    />
-                  </Col>
-                </Form.Group>
-              </Row>
-            </Card>
-          </Col>
-          <Col id="R3C2" sm="4">
-            <SavingThrowBar editModeEnabled={editModeEnabled}/>
-            <Row id="R3C2r3"></Row>
-          </Col>
-          <Col id="R3C3">
-            <SkillsBar />
-          </Col>
-        </Row>
+        <Row id="R3"></Row>
         <Row id="R4">
           <Col id="R4C1" sm={2}>
             <CombatStatBar
