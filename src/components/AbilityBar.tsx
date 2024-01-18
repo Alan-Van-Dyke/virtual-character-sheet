@@ -16,46 +16,14 @@ interface AbilityBarProps {
     wisdom: boolean;
     charisma: boolean;
   }) => void;
-  setSkillProficiencies: (val: {
-    acrobatics: boolean;
-    animalHandling: boolean;
-    arcana: boolean;
-    athletics: boolean;
-    deception: boolean;
-    history: boolean;
-    insight: boolean;
-    intimidation: boolean;
-    investigation: boolean;
-    medicine: boolean;
-    nature: boolean;
-    perception: boolean;
-    performance: boolean;
-    persuasion: boolean;
-    religion: boolean;
-    sleightOfHand: boolean;
-    stealth: boolean;
-    survival: boolean;
-  }) => void;
-  setSkillExpertise: (val: {
-    acrobatics: boolean;
-    animalHandling: boolean;
-    arcana: boolean;
-    athletics: boolean;
-    deception: boolean;
-    history: boolean;
-    insight: boolean;
-    intimidation: boolean;
-    investigation: boolean;
-    medicine: boolean;
-    nature: boolean;
-    perception: boolean;
-    performance: boolean;
-    persuasion: boolean;
-    religion: boolean;
-    sleightOfHand: boolean;
-    stealth: boolean;
-    survival: boolean;
-  }) => void;
+  setSkills: (
+    val: {
+      name: string;
+      ability: string;
+      proficiency: boolean;
+      expertise: boolean;
+    }[]
+  ) => void;
   profBonus: number;
   strength: number;
   dexterity: number;
@@ -71,47 +39,12 @@ interface AbilityBarProps {
     wisdom: boolean;
     charisma: boolean;
   };
-  skillProficiencies: {
-    acrobatics: boolean;
-    animalHandling: boolean;
-    arcana: boolean;
-    athletics: boolean;
-    deception: boolean;
-    history: boolean;
-    insight: boolean;
-    intimidation: boolean;
-    investigation: boolean;
-    medicine: boolean;
-    nature: boolean;
-    perception: boolean;
-    performance: boolean;
-    persuasion: boolean;
-    religion: boolean;
-    sleightOfHand: boolean;
-    stealth: boolean;
-    survival: boolean;
-  };
-  skillExpertise: {
-    acrobatics: boolean;
-    animalHandling: boolean;
-    arcana: boolean;
-    athletics: boolean;
-    deception: boolean;
-    history: boolean;
-    insight: boolean;
-    intimidation: boolean;
-    investigation: boolean;
-    medicine: boolean;
-    nature: boolean;
-    perception: boolean;
-    performance: boolean;
-    persuasion: boolean;
-    religion: boolean;
-    sleightOfHand: boolean;
-    stealth: boolean;
-    survival: boolean;
-  };
-  useExpertise: boolean;
+  skills: {
+    name: string;
+    ability: string;
+    proficiency: boolean;
+    expertise: boolean;
+  }[];
   editModeEnabled: boolean;
 }
 
@@ -124,8 +57,7 @@ const AbilityBar = ({
   setWisdom,
   setCharisma,
   setSavingThrowProficiencies,
-  setSkillProficiencies,
-  setSkillExpertise,
+  setSkills,
   profBonus,
   strength,
   dexterity,
@@ -133,13 +65,26 @@ const AbilityBar = ({
   intelligence,
   wisdom,
   charisma,
+  skills,
   savingThrowProficiencies,
-  skillProficiencies,
-  skillExpertise,
-  useExpertise,
 }: AbilityBarProps) => {
   const calculateModifier = (score: number) => {
     return Math.floor((score - 10) / 2);
+  };
+
+  const generateModifierDisplay = (
+    score: number,
+    proficiency: boolean,
+    expertise: boolean
+  ) => {
+    const bonus =
+      calculateModifier(score) +
+      (proficiency ? profBonus : 0) +
+      (expertise ? profBonus : 0);
+
+    const prefix = bonus > 0 ? "+" : "";
+
+    return prefix + bonus;
   };
 
   return (
@@ -299,99 +244,128 @@ const AbilityBar = ({
           <Card className="ability-card h-100">
             <Container className="proficiency-stack">
               <Row>
-                <Col md="auto" className="check-label">
+                <Col md={7} className="check-label">
                   <span>Strength Save:</span>
                 </Col>
-                <Col className="check-score">
+                <Col md={5} className="check-score">
                   {editModeEnabled ? (
-                    <Form.Check
+                    <Form.Select
+                      className="prof-select-box edit-mode-inputs"
+                      size="sm"
                       onChange={(event) => {
-                        if (event.target.checked) {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            strength: true,
-                          });
-                        } else {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            strength: false,
-                          });
+                        switch (event.target.value) {
+                          case "None":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              strength: false,
+                            });
+                            break;
+                          case "Proficiency":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              strength: true,
+                            });
+                            break;
                         }
                       }}
-                      checked={savingThrowProficiencies.strength}
-                    ></Form.Check>
+                    >
+                      <option
+                        selected={!savingThrowProficiencies.strength}
+                        value="None"
+                      >
+                        None
+                      </option>
+                      <option
+                        selected={savingThrowProficiencies.strength}
+                        value="Proficiency"
+                      >
+                        Proficiency
+                      </option>
+                    </Form.Select>
                   ) : (
                     <b>
-                      {calculateModifier(strength) +
-                        (savingThrowProficiencies.strength ? profBonus : 0)}
+                      {generateModifierDisplay(
+                        strength,
+                        savingThrowProficiencies.strength,
+                        false
+                      )}
                     </b>
                   )}
                 </Col>
               </Row>
               <hr className="check-divider"></hr>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Athletics Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <>
-                      <Form.Check
-                        onChange={(event) => {
-                          if (event.target.checked) {
-                            setSkillProficiencies({
-                              ...skillProficiencies,
-                              athletics: true,
-                            });
-                          } else {
-                            setSkillProficiencies({
-                              ...skillProficiencies,
-                              athletics: false,
-                            });
-                            setSkillExpertise({
-                              ...skillExpertise,
-                              athletics: false,
-                            });
-                          }
-                        }}
-                        checked={skillProficiencies.athletics}
-                        className="skill-prof-check-box"
-                        inline
-                      ></Form.Check>
-                      {useExpertise ? (
-                        <Form.Check
-                          inline
-                          disabled={!skillProficiencies.athletics}
-                          checked={
-                            skillProficiencies.athletics &&
-                            skillExpertise.athletics
-                          }
-                          onChange={(event) => {
-                            if (event.target.checked) {
-                              setSkillExpertise({
-                                ...skillExpertise,
-                                athletics: true,
-                              });
-                            } else {
-                              setSkillExpertise({
-                                ...skillExpertise,
-                                athletics: false,
-                              });
-                            }
-                          }}
-                          className="skill-prof-check-box"
-                        ></Form.Check>
-                      ) : null}
-                    </>
-                  ) : (
-                    <b>
-                      {calculateModifier(strength) +
-                        (skillProficiencies.athletics ? profBonus : 0) +
-                        (skillExpertise.athletics ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
+              {skills
+                .map((skill, idx) => ({ ...skill, originalIdx: idx }))
+                .filter((skill) => skill.ability === "strength")
+                .map((skill) => (
+                  <Row>
+                    <Col md={7} className="check-label">
+                      <span>{skill.name}:</span>
+                    </Col>
+                    <Col md={5} className="check-score">
+                      {editModeEnabled ? (
+                        <>
+                          <Form.Select
+                            className="prof-select-box edit-mode-inputs"
+                            size="sm"
+                            onChange={(event) => {
+                              const newSkills = [...skills];
+
+                              switch (event.target.value) {
+                                case "None":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    false;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Proficiency":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Expertise":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise = true;
+                                  break;
+                              }
+
+                              setSkills(newSkills);
+                            }}
+                          >
+                            <option
+                              selected={!skill.proficiency && !skill.expertise}
+                              value="None"
+                            >
+                              None
+                            </option>
+                            <option
+                              selected={skill.proficiency && !skill.expertise}
+                              value="Proficiency"
+                            >
+                              Proficiency
+                            </option>
+                            <option
+                              selected={skill.proficiency && skill.expertise}
+                              value="Expertise"
+                            >
+                              Expertise
+                            </option>
+                          </Form.Select>
+                        </>
+                      ) : (
+                        <b>
+                          {generateModifierDisplay(
+                            strength,
+                            skill.proficiency,
+                            skill.expertise
+                          )}
+                        </b>
+                      )}
+                    </Col>
+                  </Row>
+                ))}
             </Container>
           </Card>
         </Col>
@@ -399,126 +373,128 @@ const AbilityBar = ({
           <Card className="ability-card h-100">
             <Container className="proficiency-stack">
               <Row>
-                <Col md="auto" className="check-label">
+                <Col md={7} className="check-label">
                   <span>Dexterity Save:</span>
                 </Col>
-                <Col className="check-score">
+                <Col md={5} className="check-score">
                   {editModeEnabled ? (
-                    <Form.Check
+                    <Form.Select
+                      className="prof-select-box edit-mode-inputs"
+                      size="sm"
                       onChange={(event) => {
-                        if (event.target.checked) {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            dexterity: true,
-                          });
-                        } else {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            dexterity: false,
-                          });
+                        switch (event.target.value) {
+                          case "None":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              dexterity: false,
+                            });
+                            break;
+                          case "Proficiency":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              dexterity: true,
+                            });
+                            break;
                         }
                       }}
-                      checked={savingThrowProficiencies.dexterity}
-                    ></Form.Check>
+                    >
+                      <option
+                        selected={!savingThrowProficiencies.dexterity}
+                        value="None"
+                      >
+                        None
+                      </option>
+                      <option
+                        selected={savingThrowProficiencies.dexterity}
+                        value="Proficiency"
+                      >
+                        Proficiency
+                      </option>
+                    </Form.Select>
                   ) : (
                     <b>
-                      {calculateModifier(dexterity) +
-                        (savingThrowProficiencies.dexterity ? profBonus : 0)}
+                      {generateModifierDisplay(
+                        dexterity,
+                        savingThrowProficiencies.dexterity,
+                        false
+                      )}
                     </b>
                   )}
                 </Col>
               </Row>
               <hr className="check-divider"></hr>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Acrobatics Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            acrobatics: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            acrobatics: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.acrobatics}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(dexterity) +
-                        (skillProficiencies.acrobatics ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Sleight of Hand Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            sleightOfHand: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            sleightOfHand: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.sleightOfHand}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(dexterity) +
-                        (skillProficiencies.sleightOfHand ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Stealth Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            stealth: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            stealth: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.stealth}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(dexterity) +
-                        (skillProficiencies.stealth ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
+              {skills
+                .map((skill, idx) => ({ ...skill, originalIdx: idx }))
+                .filter((skill) => skill.ability === "dexterity")
+                .map((skill) => (
+                  <Row>
+                    <Col md={7} className="check-label">
+                      <span>{skill.name}:</span>
+                    </Col>
+                    <Col md={5} className="check-score">
+                      {editModeEnabled ? (
+                        <>
+                          <Form.Select
+                            className="prof-select-box edit-mode-inputs"
+                            size="sm"
+                            onChange={(event) => {
+                              const newSkills = [...skills];
+
+                              switch (event.target.value) {
+                                case "None":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    false;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Proficiency":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Expertise":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise = true;
+                                  break;
+                              }
+
+                              setSkills(newSkills);
+                            }}
+                          >
+                            <option
+                              selected={!skill.proficiency && !skill.expertise}
+                              value="None"
+                            >
+                              None
+                            </option>
+                            <option
+                              selected={skill.proficiency && !skill.expertise}
+                              value="Proficiency"
+                            >
+                              Proficiency
+                            </option>
+                            <option
+                              selected={skill.proficiency && skill.expertise}
+                              value="Expertise"
+                            >
+                              Expertise
+                            </option>
+                          </Form.Select>
+                        </>
+                      ) : (
+                        <b>
+                          {generateModifierDisplay(
+                            dexterity,
+                            skill.proficiency,
+                            skill.expertise
+                          )}
+                        </b>
+                      )}
+                    </Col>
+                  </Row>
+                ))}
             </Container>
           </Card>
         </Col>
@@ -526,36 +502,128 @@ const AbilityBar = ({
           <Card className="ability-card h-100">
             <Container className="proficiency-stack">
               <Row>
-                <Col md="auto" className="check-label">
+                <Col md={7} className="check-label">
                   <span>Constitution Save:</span>
                 </Col>
-                <Col className="check-score">
+                <Col md={5} className="check-score">
                   {editModeEnabled ? (
-                    <Form.Check
+                    <Form.Select
+                      className="prof-select-box edit-mode-inputs"
+                      size="sm"
                       onChange={(event) => {
-                        if (event.target.checked) {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            constitution: true,
-                          });
-                        } else {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            constitution: false,
-                          });
+                        switch (event.target.value) {
+                          case "None":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              constitution: false,
+                            });
+                            break;
+                          case "Proficiency":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              constitution: true,
+                            });
+                            break;
                         }
                       }}
-                      checked={savingThrowProficiencies.constitution}
-                    ></Form.Check>
+                    >
+                      <option
+                        selected={!savingThrowProficiencies.constitution}
+                        value="None"
+                      >
+                        None
+                      </option>
+                      <option
+                        selected={savingThrowProficiencies.constitution}
+                        value="Proficiency"
+                      >
+                        Proficiency
+                      </option>
+                    </Form.Select>
                   ) : (
                     <b>
-                      {calculateModifier(constitution) +
-                        (savingThrowProficiencies.constitution ? profBonus : 0)}
+                      {generateModifierDisplay(
+                        constitution,
+                        savingThrowProficiencies.constitution,
+                        false
+                      )}
                     </b>
                   )}
                 </Col>
               </Row>
               <hr className="check-divider"></hr>
+              {skills
+                .map((skill, idx) => ({ ...skill, originalIdx: idx }))
+                .filter((skill) => skill.ability === "constitution")
+                .map((skill) => (
+                  <Row>
+                    <Col md={7} className="check-label">
+                      <span>{skill.name}:</span>
+                    </Col>
+                    <Col md={5} className="check-score">
+                      {editModeEnabled ? (
+                        <>
+                          <Form.Select
+                            className="prof-select-box edit-mode-inputs"
+                            size="sm"
+                            onChange={(event) => {
+                              const newSkills = [...skills];
+
+                              switch (event.target.value) {
+                                case "None":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    false;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Proficiency":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Expertise":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise = true;
+                                  break;
+                              }
+
+                              setSkills(newSkills);
+                            }}
+                          >
+                            <option
+                              selected={!skill.proficiency && !skill.expertise}
+                              value="None"
+                            >
+                              None
+                            </option>
+                            <option
+                              selected={skill.proficiency && !skill.expertise}
+                              value="Proficiency"
+                            >
+                              Proficiency
+                            </option>
+                            <option
+                              selected={skill.proficiency && skill.expertise}
+                              value="Expertise"
+                            >
+                              Expertise
+                            </option>
+                          </Form.Select>
+                        </>
+                      ) : (
+                        <b>
+                          {generateModifierDisplay(
+                            constitution,
+                            skill.proficiency,
+                            skill.expertise
+                          )}
+                        </b>
+                      )}
+                    </Col>
+                  </Row>
+                ))}
             </Container>
           </Card>
         </Col>
@@ -563,186 +631,128 @@ const AbilityBar = ({
           <Card className="ability-card h-100">
             <Container className="proficiency-stack">
               <Row>
-                <Col md="auto" className="check-label">
+                <Col md={7} className="check-label">
                   <span>Intelligence Save:</span>
                 </Col>
-                <Col className="check-score">
+                <Col md={5} className="check-score">
                   {editModeEnabled ? (
-                    <Form.Check
+                    <Form.Select
+                      className="prof-select-box edit-mode-inputs"
+                      size="sm"
                       onChange={(event) => {
-                        if (event.target.checked) {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            intelligence: true,
-                          });
-                        } else {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            intelligence: false,
-                          });
+                        switch (event.target.value) {
+                          case "None":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              intelligence: false,
+                            });
+                            break;
+                          case "Proficiency":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              intelligence: true,
+                            });
+                            break;
                         }
                       }}
-                      checked={savingThrowProficiencies.intelligence}
-                    ></Form.Check>
+                    >
+                      <option
+                        selected={!savingThrowProficiencies.intelligence}
+                        value="None"
+                      >
+                        None
+                      </option>
+                      <option
+                        selected={savingThrowProficiencies.intelligence}
+                        value="Proficiency"
+                      >
+                        Proficiency
+                      </option>
+                    </Form.Select>
                   ) : (
                     <b>
-                      {calculateModifier(intelligence) +
-                        (savingThrowProficiencies.intelligence ? profBonus : 0)}
+                      {generateModifierDisplay(
+                        intelligence,
+                        savingThrowProficiencies.intelligence,
+                        false
+                      )}
                     </b>
                   )}
                 </Col>
               </Row>
               <hr className="check-divider"></hr>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Arcana Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            arcana: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            arcana: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.arcana}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(intelligence) +
-                        (skillProficiencies.arcana ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>History Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            history: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            history: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.history}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(intelligence) +
-                        (skillProficiencies.history ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Investigation Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            investigation: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            investigation: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.investigation}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(intelligence) +
-                        (skillProficiencies.investigation ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Nature Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            nature: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            nature: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.nature}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(intelligence) +
-                        (skillProficiencies.nature ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Religion Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            religion: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            religion: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.religion}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(intelligence) +
-                        (skillProficiencies.religion ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
+              {skills
+                .map((skill, idx) => ({ ...skill, originalIdx: idx }))
+                .filter((skill) => skill.ability === "intelligence")
+                .map((skill) => (
+                  <Row>
+                    <Col md={7} className="check-label">
+                      <span>{skill.name}:</span>
+                    </Col>
+                    <Col md={5} className="check-score">
+                      {editModeEnabled ? (
+                        <>
+                          <Form.Select
+                            className="prof-select-box edit-mode-inputs"
+                            size="sm"
+                            onChange={(event) => {
+                              const newSkills = [...skills];
+
+                              switch (event.target.value) {
+                                case "None":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    false;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Proficiency":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Expertise":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise = true;
+                                  break;
+                              }
+
+                              setSkills(newSkills);
+                            }}
+                          >
+                            <option
+                              selected={!skill.proficiency && !skill.expertise}
+                              value="None"
+                            >
+                              None
+                            </option>
+                            <option
+                              selected={skill.proficiency && !skill.expertise}
+                              value="Proficiency"
+                            >
+                              Proficiency
+                            </option>
+                            <option
+                              selected={skill.proficiency && skill.expertise}
+                              value="Expertise"
+                            >
+                              Expertise
+                            </option>
+                          </Form.Select>
+                        </>
+                      ) : (
+                        <b>
+                          {generateModifierDisplay(
+                            intelligence,
+                            skill.proficiency,
+                            skill.expertise
+                          )}
+                        </b>
+                      )}
+                    </Col>
+                  </Row>
+                ))}
             </Container>
           </Card>
         </Col>
@@ -750,186 +760,128 @@ const AbilityBar = ({
           <Card className="ability-card h-100">
             <Container className="proficiency-stack">
               <Row>
-                <Col md="auto" className="check-label">
+                <Col md={7} className="check-label">
                   <span>Wisdom Save:</span>
                 </Col>
-                <Col className="check-score">
+                <Col md={5} className="check-score">
                   {editModeEnabled ? (
-                    <Form.Check
+                    <Form.Select
+                      className="prof-select-box edit-mode-inputs"
+                      size="sm"
                       onChange={(event) => {
-                        if (event.target.checked) {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            wisdom: true,
-                          });
-                        } else {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            wisdom: false,
-                          });
+                        switch (event.target.value) {
+                          case "None":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              wisdom: false,
+                            });
+                            break;
+                          case "Proficiency":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              wisdom: true,
+                            });
+                            break;
                         }
                       }}
-                      checked={savingThrowProficiencies.wisdom}
-                    ></Form.Check>
+                    >
+                      <option
+                        selected={!savingThrowProficiencies.wisdom}
+                        value="None"
+                      >
+                        None
+                      </option>
+                      <option
+                        selected={savingThrowProficiencies.wisdom}
+                        value="Proficiency"
+                      >
+                        Proficiency
+                      </option>
+                    </Form.Select>
                   ) : (
                     <b>
-                      {calculateModifier(wisdom) +
-                        (savingThrowProficiencies.wisdom ? profBonus : 0)}
+                      {generateModifierDisplay(
+                        wisdom,
+                        savingThrowProficiencies.wisdom,
+                        false
+                      )}
                     </b>
                   )}
                 </Col>
               </Row>
               <hr className="check-divider"></hr>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Animal Handling Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            animalHandling: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            animalHandling: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.animalHandling}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(wisdom) +
-                        (skillProficiencies.animalHandling ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Insight Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            insight: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            insight: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.insight}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(wisdom) +
-                        (skillProficiencies.insight ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Medicine Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            medicine: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            medicine: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.medicine}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(wisdom) +
-                        (skillProficiencies.medicine ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Perception Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            perception: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            perception: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.perception}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(wisdom) +
-                        (skillProficiencies.perception ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Survival Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            survival: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            survival: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.survival}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(wisdom) +
-                        (skillProficiencies.survival ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
+              {skills
+                .map((skill, idx) => ({ ...skill, originalIdx: idx }))
+                .filter((skill) => skill.ability === "wisdom")
+                .map((skill) => (
+                  <Row>
+                    <Col md={7} className="check-label">
+                      <span>{skill.name}:</span>
+                    </Col>
+                    <Col md={5} className="check-score">
+                      {editModeEnabled ? (
+                        <>
+                          <Form.Select
+                            className="prof-select-box edit-mode-inputs"
+                            size="sm"
+                            onChange={(event) => {
+                              const newSkills = [...skills];
+
+                              switch (event.target.value) {
+                                case "None":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    false;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Proficiency":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Expertise":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise = true;
+                                  break;
+                              }
+
+                              setSkills(newSkills);
+                            }}
+                          >
+                            <option
+                              selected={!skill.proficiency && !skill.expertise}
+                              value="None"
+                            >
+                              None
+                            </option>
+                            <option
+                              selected={skill.proficiency && !skill.expertise}
+                              value="Proficiency"
+                            >
+                              Proficiency
+                            </option>
+                            <option
+                              selected={skill.proficiency && skill.expertise}
+                              value="Expertise"
+                            >
+                              Expertise
+                            </option>
+                          </Form.Select>
+                        </>
+                      ) : (
+                        <b>
+                          {generateModifierDisplay(
+                            wisdom,
+                            skill.proficiency,
+                            skill.expertise
+                          )}
+                        </b>
+                      )}
+                    </Col>
+                  </Row>
+                ))}
             </Container>
           </Card>
         </Col>
@@ -937,156 +889,128 @@ const AbilityBar = ({
           <Card className="ability-card h-100">
             <Container className="proficiency-stack">
               <Row>
-                <Col md="auto" className="check-label">
+                <Col md={7} className="check-label">
                   <span>Charisma Save:</span>
                 </Col>
-                <Col className="check-score">
+                <Col md={5} className="check-score">
                   {editModeEnabled ? (
-                    <Form.Check
+                    <Form.Select
+                      className="prof-select-box edit-mode-inputs"
+                      size="sm"
                       onChange={(event) => {
-                        if (event.target.checked) {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            charisma: true,
-                          });
-                        } else {
-                          setSavingThrowProficiencies({
-                            ...savingThrowProficiencies,
-                            charisma: false,
-                          });
+                        switch (event.target.value) {
+                          case "None":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              charisma: false,
+                            });
+                            break;
+                          case "Proficiency":
+                            setSavingThrowProficiencies({
+                              ...savingThrowProficiencies,
+                              charisma: true,
+                            });
+                            break;
                         }
                       }}
-                      checked={savingThrowProficiencies.charisma}
-                    ></Form.Check>
+                    >
+                      <option
+                        selected={!savingThrowProficiencies.charisma}
+                        value="None"
+                      >
+                        None
+                      </option>
+                      <option
+                        selected={savingThrowProficiencies.charisma}
+                        value="Proficiency"
+                      >
+                        Proficiency
+                      </option>
+                    </Form.Select>
                   ) : (
                     <b>
-                      {calculateModifier(charisma) +
-                        (savingThrowProficiencies.charisma ? profBonus : 0)}
+                      {generateModifierDisplay(
+                        charisma,
+                        savingThrowProficiencies.charisma,
+                        false
+                      )}
                     </b>
                   )}
                 </Col>
               </Row>
               <hr className="check-divider"></hr>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Deception Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            deception: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            deception: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.deception}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(charisma) +
-                        (skillProficiencies.deception ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Intimidation Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            intimidation: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            intimidation: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.intimidation}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(charisma) +
-                        (skillProficiencies.intimidation ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Performance Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            performance: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            performance: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.performance}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(charisma) +
-                        (skillProficiencies.performance ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
-              <Row>
-                <Col md="auto" className="check-label">
-                  <span>Persuasion Check:</span>
-                </Col>
-                <Col className="check-score">
-                  {editModeEnabled ? (
-                    <Form.Check
-                      onChange={(event) => {
-                        if (event.target.checked) {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            persuasion: true,
-                          });
-                        } else {
-                          setSkillProficiencies({
-                            ...skillProficiencies,
-                            persuasion: false,
-                          });
-                        }
-                      }}
-                      checked={skillProficiencies.persuasion}
-                    ></Form.Check>
-                  ) : (
-                    <b>
-                      {calculateModifier(charisma) +
-                        (skillProficiencies.persuasion ? profBonus : 0)}
-                    </b>
-                  )}
-                </Col>
-              </Row>
+              {skills
+                .map((skill, idx) => ({ ...skill, originalIdx: idx }))
+                .filter((skill) => skill.ability === "charisma")
+                .map((skill) => (
+                  <Row>
+                    <Col md={7} className="check-label">
+                      <span>{skill.name}:</span>
+                    </Col>
+                    <Col md={5} className="check-score">
+                      {editModeEnabled ? (
+                        <>
+                          <Form.Select
+                            className="prof-select-box edit-mode-inputs"
+                            size="sm"
+                            onChange={(event) => {
+                              const newSkills = [...skills];
+
+                              switch (event.target.value) {
+                                case "None":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    false;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Proficiency":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise =
+                                    false;
+                                  break;
+                                case "Expertise":
+                                  newSkills[skill.originalIdx].proficiency =
+                                    true;
+                                  newSkills[skill.originalIdx].expertise = true;
+                                  break;
+                              }
+
+                              setSkills(newSkills);
+                            }}
+                          >
+                            <option
+                              selected={!skill.proficiency && !skill.expertise}
+                              value="None"
+                            >
+                              None
+                            </option>
+                            <option
+                              selected={skill.proficiency && !skill.expertise}
+                              value="Proficiency"
+                            >
+                              Proficiency
+                            </option>
+                            <option
+                              selected={skill.proficiency && skill.expertise}
+                              value="Expertise"
+                            >
+                              Expertise
+                            </option>
+                          </Form.Select>
+                        </>
+                      ) : (
+                        <b>
+                          {generateModifierDisplay(
+                            charisma,
+                            skill.proficiency,
+                            skill.expertise
+                          )}
+                        </b>
+                      )}
+                    </Col>
+                  </Row>
+                ))}
             </Container>
           </Card>
         </Col>

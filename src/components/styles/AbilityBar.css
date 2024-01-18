@@ -37,6 +37,7 @@
 
 .skill-prof-check-box {
   margin-right: 1px;
+  font-size: 0.75em;
 }
 
 .skill-col-left {
@@ -50,4 +51,20 @@
 .skill-col-inner {
   padding-left: 3px;
   padding-right: 3px;
+}
+
+.prof-select-box {
+  font-size: 0.8em;
+  border: 1px solid var(--light-bg);
+  border-radius: 0.25rem;
+  margin: 1px;
+  padding: 0.05rem 0.05rem;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: 
+    url('data:image/svg+xml;utf8,<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="%23ffffff"><path d="M1024 256l-512 512-512-512z"/></svg>')
+    no-repeat;
+  background-position: right 0.1rem center;
+  background-size: 8px;
 }

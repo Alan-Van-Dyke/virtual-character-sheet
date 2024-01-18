@@ -16,7 +16,6 @@ interface BioBarProps {
   setCharBackground: (val: string) => void;
   setProfBonus: (val: number) => void;
   setInspiration: (val: string) => void;
-  setUseExpertise: (val: boolean) => void;
   editModeEnabled: boolean;
 }
 
@@ -35,17 +34,8 @@ const BioBar = ({
   setCharBackground,
   setProfBonus,
   setInspiration,
-  setUseExpertise,
   editModeEnabled,
 }: BioBarProps) => {
-  const handleExpertiseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if(event.target.value==="No") {
-      setUseExpertise(false)
-    }
-    if(event.target.value==="Yes") {
-      setUseExpertise(true)
-    }
-  };
 
   return (
     <Container>
@@ -141,20 +131,6 @@ const BioBar = ({
                             setInspiration(event.target.value)
                           }
                         />
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row}>
-                      <Form.Label column sm="7">
-                        Use Expertise?
-                      </Form.Label>
-                      <Col sm="5">
-                        <Form.Select
-                          className="edit-mode-inputs"
-                          onChange={handleExpertiseChange}
-                        >
-                          <option value="No">No</option>
-                          <option value="Yes">Yes</option>
-                        </Form.Select>
                       </Col>
                     </Form.Group>
                   </Row>

@@ -65,49 +65,116 @@ const CharacterSheet = () => {
     charisma: false,
   });
 
-  const [skillProficiencies, setSkillProficiencies] = useState({
-    acrobatics: false,
-    animalHandling: false,
-    arcana: false,
-    athletics: false,
-    deception: false,
-    history: false,
-    insight: false,
-    intimidation: false,
-    investigation: false,
-    medicine: false,
-    nature: false,
-    perception: false,
-    performance: false,
-    persuasion: false,
-    religion: false,
-    sleightOfHand: false,
-    stealth: false,
-    survival: false,
-  });
-
-  const [skillExpertise, setSkillExpertise] = useState({
-    acrobatics: false,
-    animalHandling: false,
-    arcana: false,
-    athletics: false,
-    deception: false,
-    history: false,
-    insight: false,
-    intimidation: false,
-    investigation: false,
-    medicine: false,
-    nature: false,
-    perception: false,
-    performance: false,
-    persuasion: false,
-    religion: false,
-    sleightOfHand: false,
-    stealth: false,
-    survival: false,
-  });
-
-  const [useExpertise, setUseExpertise] = useState(false)
+  const [skills, setSkills] = useState([
+    {
+      name: "Acrobatics",
+      ability: "dexterity",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Animal Handling",
+      ability: "wisdom",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Arcana",
+      ability: "intelligence",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Athletics",
+      ability: "strength",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Deception",
+      ability: "charisma",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "History",
+      ability: "intelligence",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Insight",
+      ability: "wisdom",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Intimidation",
+      ability: "charisma",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Investigation",
+      ability: "intelligence",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Medicine",
+      ability: "wisdom",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Nature",
+      ability: "intelligence",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Perception",
+      ability: "wisdom",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Performance",
+      ability: "charisma",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Persuasion",
+      ability: "charisma",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Religion",
+      ability: "intelligence",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Sleight of Hand",
+      ability: "dexterity",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Stealth",
+      ability: "dexterity",
+      proficiency: false,
+      expertise: false,
+    },
+    {
+      name: "Survival",
+      ability: "wisdom",
+      proficiency: false,
+      expertise: false,
+    },
+  ]);
 
   const handleToggleEditMode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditModeEnabled(event.target.checked);
@@ -181,7 +248,6 @@ const CharacterSheet = () => {
             setCharRace={setCharRace}
             setProfBonus={setProfBonus}
             setInspiration={setInspiration}
-            setUseExpertise={setUseExpertise}
             editModeEnabled={editModeEnabled}
           ></BioBar>
         </Row>
@@ -195,8 +261,7 @@ const CharacterSheet = () => {
             setWisdom={setWisdom}
             setCharisma={setCharisma}
             setSavingThrowProficiencies={setSavingThrowProficiencies}
-            setSkillProficiencies={setSkillProficiencies}
-            setSkillExpertise={setSkillExpertise}
+            setSkills={setSkills}
             profBonus={profBonus}
             strength={strength}
             dexterity={dexterity}
@@ -204,10 +269,8 @@ const CharacterSheet = () => {
             intelligence={intelligence}
             wisdom={wisdom}
             charisma={charisma}
+            skills={skills}
             savingThrowProficiencies={savingThrowProficiencies}
-            skillProficiencies={skillProficiencies}
-            skillExpertise={skillExpertise}
-            useExpertise={useExpertise}
           />
         </Row>
         <Row id="R3"></Row>
