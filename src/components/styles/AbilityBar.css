@@ -68,3 +68,11 @@
   background-position: right 0.1rem center;
   background-size: 8px;
 }
+
+.proficiency-text {
+  color:dodgerblue;
+}
+
+.expertise-text {
+  color:goldenrod;
+}

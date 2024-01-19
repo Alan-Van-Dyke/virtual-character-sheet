@@ -245,7 +245,7 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span>Strength Save:</span>
+                  <span className={savingThrowProficiencies.strength ? "proficiency-text" : ""}>Strength Save:</span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -300,7 +300,7 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span>{skill.name}:</span>
+                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -374,7 +374,7 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span>Dexterity Save:</span>
+                  <span className={savingThrowProficiencies.dexterity ? "proficiency-text" : ""}>Dexterity Save:</span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -429,7 +429,7 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span>{skill.name}:</span>
+                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -503,7 +503,7 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span>Constitution Save:</span>
+                  <span className={savingThrowProficiencies.constitution ? "proficiency-text" : ""}>Constitution Save:</span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -558,7 +558,7 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span>{skill.name}:</span>
+                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -632,7 +632,7 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span>Intelligence Save:</span>
+                  <span className={savingThrowProficiencies.intelligence ? "proficiency-text" : ""}>Intelligence Save:</span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -687,7 +687,7 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span>{skill.name}:</span>
+                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -761,7 +761,7 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span>Wisdom Save:</span>
+                  <span className={savingThrowProficiencies.wisdom ? "proficiency-text" : ""}>Wisdom Save:</span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -816,7 +816,7 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span>{skill.name}:</span>
+                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -890,7 +890,7 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span>Charisma Save:</span>
+                  <span className={savingThrowProficiencies.charisma ? "proficiency-text" : ""}>Charisma Save:</span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -945,7 +945,7 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span>{skill.name}:</span>
+                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
