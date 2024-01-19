@@ -5,8 +5,6 @@ import BioBar from "./BioBar";
 import HitDiceList from "./HitDiceList";
 import CombatStatBar from "./CombatStatBar";
 import { Row, Card, Container, Col, CardBody, Form } from "react-bootstrap";
-import SavingThrowBar from "./SavingThrowBar";
-import SkillsBar from "./SkillsBar";
 import HealthBar from "./HealthBar";
 import DeathSaveBar from "./DeathSaveBar";
 
@@ -176,6 +174,9 @@ const CharacterSheet = () => {
     },
   ]);
 
+  const [passivePerceptionBonus, setPassivePerceptionBonus] = useState(0)
+  const [passiveInsightBonus, setPassiveInsightBonus] = useState(0)
+
   const handleToggleEditMode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditModeEnabled(event.target.checked);
   };
@@ -262,6 +263,8 @@ const CharacterSheet = () => {
             setCharisma={setCharisma}
             setSavingThrowProficiencies={setSavingThrowProficiencies}
             setSkills={setSkills}
+            setPassiveInsightBonus={setPassiveInsightBonus}
+            setPassivePerceptionBonus={setPassivePerceptionBonus}
             profBonus={profBonus}
             strength={strength}
             dexterity={dexterity}
@@ -270,10 +273,12 @@ const CharacterSheet = () => {
             wisdom={wisdom}
             charisma={charisma}
             skills={skills}
+            passiveInsightBonus={passiveInsightBonus}
+            passivePerceptionBonus={passivePerceptionBonus}
             savingThrowProficiencies={savingThrowProficiencies}
           />
         </Row>
-        <Row id="R3"></Row>
+        <Row id="R3" className="legend-row"></Row>
         <Row id="R4">
           <Col id="R4C1" sm={2}>
             <CombatStatBar

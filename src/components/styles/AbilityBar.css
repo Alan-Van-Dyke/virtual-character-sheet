@@ -53,6 +53,11 @@
   padding-right: 3px;
 }
 
+.skill-row {
+  padding-bottom: 1px;
+  margin-bottom: 1px;
+}
+
 .prof-select-box {
   font-size: 0.8em;
   border: 1px solid var(--light-bg);
@@ -67,6 +72,24 @@
     no-repeat;
   background-position: right 0.1rem center;
   background-size: 8px;
+}
+
+.passive-text-box {
+  font-size: 0.8em;
+  border: 1px solid var(--light-bg);
+  border-radius: 0.25rem;
+  margin: 1px;
+  padding: 0.05rem 0.05rem;
+}
+
+.passive-label {
+  text-align: right;
+  font-size: 0.7em;
+}
+
+.passive-value {
+  text-align: left;
+  font-size: 0.8em;
 }
 
 .proficiency-text {

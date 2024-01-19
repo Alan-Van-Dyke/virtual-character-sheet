@@ -24,6 +24,8 @@ interface AbilityBarProps {
       expertise: boolean;
     }[]
   ) => void;
+  setPassivePerceptionBonus: (val: number) => void;
+  setPassiveInsightBonus: (val: number) => void;
   profBonus: number;
   strength: number;
   dexterity: number;
@@ -45,6 +47,8 @@ interface AbilityBarProps {
     proficiency: boolean;
     expertise: boolean;
   }[];
+  passivePerceptionBonus: number;
+  passiveInsightBonus: number;
   editModeEnabled: boolean;
 }
 
@@ -58,6 +62,8 @@ const AbilityBar = ({
   setCharisma,
   setSavingThrowProficiencies,
   setSkills,
+  setPassiveInsightBonus,
+  setPassivePerceptionBonus,
   profBonus,
   strength,
   dexterity,
@@ -66,6 +72,8 @@ const AbilityBar = ({
   wisdom,
   charisma,
   skills,
+  passiveInsightBonus,
+  passivePerceptionBonus,
   savingThrowProficiencies,
 }: AbilityBarProps) => {
   const calculateModifier = (score: number) => {
@@ -239,13 +247,21 @@ const AbilityBar = ({
           </Card>
         </Col>
       </Row>
-      <Row>
+      <Row className="ability-bar">
         <Col xs={2} className="skill-col-left">
           <Card className="ability-card h-100">
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span className={savingThrowProficiencies.strength ? "proficiency-text" : ""}>Strength Save:</span>
+                  <span
+                    className={
+                      savingThrowProficiencies.strength
+                        ? "proficiency-text"
+                        : ""
+                    }
+                  >
+                    Strength Save:
+                  </span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -300,7 +316,17 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
+                      <span
+                        className={
+                          skill.expertise
+                            ? "expertise-text"
+                            : skill.proficiency
+                            ? "proficiency-text"
+                            : ""
+                        }
+                      >
+                        {skill.name}:
+                      </span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -374,7 +400,15 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span className={savingThrowProficiencies.dexterity ? "proficiency-text" : ""}>Dexterity Save:</span>
+                  <span
+                    className={
+                      savingThrowProficiencies.dexterity
+                        ? "proficiency-text"
+                        : ""
+                    }
+                  >
+                    Dexterity Save:
+                  </span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -429,7 +463,17 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
+                      <span
+                        className={
+                          skill.expertise
+                            ? "expertise-text"
+                            : skill.proficiency
+                            ? "proficiency-text"
+                            : ""
+                        }
+                      >
+                        {skill.name}:
+                      </span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -503,7 +547,15 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span className={savingThrowProficiencies.constitution ? "proficiency-text" : ""}>Constitution Save:</span>
+                  <span
+                    className={
+                      savingThrowProficiencies.constitution
+                        ? "proficiency-text"
+                        : ""
+                    }
+                  >
+                    Constitution Save:
+                  </span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -558,7 +610,17 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
+                      <span
+                        className={
+                          skill.expertise
+                            ? "expertise-text"
+                            : skill.proficiency
+                            ? "proficiency-text"
+                            : ""
+                        }
+                      >
+                        {skill.name}:
+                      </span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -632,7 +694,15 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span className={savingThrowProficiencies.intelligence ? "proficiency-text" : ""}>Intelligence Save:</span>
+                  <span
+                    className={
+                      savingThrowProficiencies.intelligence
+                        ? "proficiency-text"
+                        : ""
+                    }
+                  >
+                    Intelligence Save:
+                  </span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -687,7 +757,17 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
+                      <span
+                        className={
+                          skill.expertise
+                            ? "expertise-text"
+                            : skill.proficiency
+                            ? "proficiency-text"
+                            : ""
+                        }
+                      >
+                        {skill.name}:
+                      </span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -761,7 +841,13 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span className={savingThrowProficiencies.wisdom ? "proficiency-text" : ""}>Wisdom Save:</span>
+                  <span
+                    className={
+                      savingThrowProficiencies.wisdom ? "proficiency-text" : ""
+                    }
+                  >
+                    Wisdom Save:
+                  </span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -816,7 +902,17 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
+                      <span
+                        className={
+                          skill.expertise
+                            ? "expertise-text"
+                            : skill.proficiency
+                            ? "proficiency-text"
+                            : ""
+                        }
+                      >
+                        {skill.name}:
+                      </span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -890,7 +986,15 @@ const AbilityBar = ({
             <Container className="proficiency-stack">
               <Row>
                 <Col md={7} className="check-label">
-                  <span className={savingThrowProficiencies.charisma ? "proficiency-text" : ""}>Charisma Save:</span>
+                  <span
+                    className={
+                      savingThrowProficiencies.charisma
+                        ? "proficiency-text"
+                        : ""
+                    }
+                  >
+                    Charisma Save:
+                  </span>
                 </Col>
                 <Col md={5} className="check-score">
                   {editModeEnabled ? (
@@ -945,7 +1049,17 @@ const AbilityBar = ({
                 .map((skill) => (
                   <Row>
                     <Col md={7} className="check-label">
-                      <span className={skill.expertise ? "expertise-text" : skill.proficiency ? "proficiency-text" : ""}>{skill.name}:</span>
+                      <span
+                        className={
+                          skill.expertise
+                            ? "expertise-text"
+                            : skill.proficiency
+                            ? "proficiency-text"
+                            : ""
+                        }
+                      >
+                        {skill.name}:
+                      </span>
                     </Col>
                     <Col md={5} className="check-score">
                       {editModeEnabled ? (
@@ -1011,6 +1125,160 @@ const AbilityBar = ({
                     </Col>
                   </Row>
                 ))}
+            </Container>
+          </Card>
+        </Col>
+      </Row>
+      <Row className="ability-bar">
+        <Col md={4} className="skill-col-left">
+          <Card className="ability-card">
+            <Row>
+              <Col className="passive-label">
+                <span>Passive Perception:</span>
+              </Col>
+              <Col className="passive-value">
+                {editModeEnabled ? (
+                  <div>
+                    <Row>
+                      <Col>
+                        <b>Base</b>
+                      </Col>
+                      <Col>
+                        <b>Bonus</b>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <b>
+                          {10 +
+                            calculateModifier(wisdom) +
+                            (skills.filter(
+                              (skill) => skill.name === "Perception"
+                            )[0].proficiency
+                              ? profBonus
+                              : 0) +
+                            (skills.filter(
+                              (skill) => skill.name === "Perception"
+                            )[0].expertise
+                              ? profBonus
+                              : 0)}
+                        </b>
+                      </Col>
+                      <Col>
+                        <Form.Control
+                          className="passive-text-box edit-mode-inputs"
+                          defaultValue={passivePerceptionBonus}
+                          onChange={(event) => {
+                            if (!isNaN(parseInt(event.target.value))) {
+                              setPassivePerceptionBonus(
+                                parseInt(event.target.value)
+                              );
+                            }
+                          }}
+                        ></Form.Control>
+                      </Col>
+                    </Row>
+                  </div>
+                ) : (
+                  <b>
+                    {10 +
+                      calculateModifier(wisdom) +
+                      (skills.filter((skill) => skill.name === "Perception")[0]
+                        .proficiency
+                        ? profBonus
+                        : 0) +
+                      (skills.filter((skill) => skill.name === "Perception")[0]
+                        .expertise
+                        ? profBonus
+                        : 0) +
+                      passivePerceptionBonus}
+                  </b>
+                )}
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+        <Col md={4} className="skill-col-inner">
+          <Card className="ability-card">
+            <Row>
+              <Col className="passive-label">
+                <span>Passive Insight:</span>
+              </Col>
+              <Col className="passive-value">
+                {editModeEnabled ? (
+                  <div>
+                    <Row>
+                      <Col>
+                        <b>Base</b>
+                      </Col>
+                      <Col>
+                        <b>Bonus</b>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <b>
+                          {10 +
+                            calculateModifier(wisdom) +
+                            (skills.filter(
+                              (skill) => skill.name === "Insight"
+                            )[0].proficiency
+                              ? profBonus
+                              : 0) +
+                            (skills.filter(
+                              (skill) => skill.name === "Insight"
+                            )[0].expertise
+                              ? profBonus
+                              : 0)}
+                        </b>
+                      </Col>
+                      <Col>
+                        <Form.Control
+                          className="passive-text-box edit-mode-inputs"
+                          defaultValue={passiveInsightBonus}
+                          onChange={(event) => {
+                            if (!isNaN(parseInt(event.target.value))) {
+                              setPassiveInsightBonus(
+                                parseInt(event.target.value)
+                              );
+                            }
+                          }}
+                        ></Form.Control>
+                      </Col>
+                    </Row>
+                  </div>
+                ) : (
+                  <b>
+                    {10 +
+                      calculateModifier(wisdom) +
+                      (skills.filter((skill) => skill.name === "Insight")[0]
+                        .proficiency
+                        ? profBonus
+                        : 0) +
+                      (skills.filter((skill) => skill.name === "Insight")[0]
+                        .expertise
+                        ? profBonus
+                        : 0) +
+                      passiveInsightBonus}
+                  </b>
+                )}
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+        <Col md={4} className="skill-col-right">
+          <Card className="ability-card">
+            <Container>
+              <Row className="legend-text">
+                <Col>
+                  <span className="proficiency-text">Proficiency</span>
+                </Col>
+                <Col>
+                  <span className="expertise-text align-items-center">
+                    Expertise
+                  </span>
+                </Col>
+              </Row>
             </Container>
           </Card>
         </Col>
