@@ -1,14 +1,12 @@
-import "./styles/CharacterSheet.css";
+import "../style/CharacterSheet.css";
 import { useState } from "react";
 import AbilityBar from "./AbilityBar";
 import BioBar from "./BioBar";
 import HitDiceList from "./HitDiceList";
 import CombatStatBar from "./CombatStatBar";
-import { Row, Card, Container, Col, CardBody, Form } from "react-bootstrap";
+import { Row, Card, Container, Col } from "react-bootstrap";
 import HealthBar from "./HealthBar";
 import DeathSaveBar from "./DeathSaveBar";
-
-interface CharacterSheetProps {}
 
 const CharacterSheet = () => {
   const [editModeEnabled, setEditModeEnabled] = useState(false);
@@ -48,8 +46,8 @@ const CharacterSheet = () => {
   const [shieldBonus, setShieldBonus] = useState(0);
 
   const [speed, setSpeed] = useState(30);
-  const [swimSpeed, setSwimSpeed] = useState(0);
-  const [flySpeed, setFlySpeed] = useState(0);
+  // const [swimSpeed, setSwimSpeed] = useState(0);
+  // const [flySpeed, setFlySpeed] = useState(0);
   const [initiativeBonus, setInitiativeBonus] = useState(
     Math.floor((dexterity - 10) / 2)
   );
@@ -174,8 +172,8 @@ const CharacterSheet = () => {
     },
   ]);
 
-  const [passivePerceptionBonus, setPassivePerceptionBonus] = useState(0)
-  const [passiveInsightBonus, setPassiveInsightBonus] = useState(0)
+  const [passivePerceptionBonus, setPassivePerceptionBonus] = useState(0);
+  const [passiveInsightBonus, setPassiveInsightBonus] = useState(0);
 
   const handleToggleEditMode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditModeEnabled(event.target.checked);
@@ -194,11 +192,11 @@ const CharacterSheet = () => {
   // 7. user closes popup. All unanswered choices marked as "no don't"
 
   const handleShortRest = (event: React.MouseEvent) => {
-    console.log("SHORT REST");
+    console.log("SHORT REST" + event);
   };
 
   const handleLongRest = (event: React.MouseEvent) => {
-    console.log("LONG REST");
+    console.log("LONG REST" + event);
   };
 
   return (

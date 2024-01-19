@@ -1,4 +1,4 @@
-import "./styles/HitDiceBar.css";
+import "../style/HitDiceBar.css";
 
 import {
   Container,

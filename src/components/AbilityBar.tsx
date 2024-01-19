@@ -1,4 +1,4 @@
-import "./styles/AbilityBar.css";
+import "../style/AbilityBar.css";
 import { Card, Col, Container, Form, Row } from "react-bootstrap";
 
 interface AbilityBarProps {

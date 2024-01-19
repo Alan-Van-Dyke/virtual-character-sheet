@@ -84,7 +84,7 @@
 
 .passive-label {
   text-align: right;
-  font-size: 0.7em;
+  font-size: 0.8em;
 }
 
 .passive-value {
@@ -93,9 +93,9 @@
 }
 
 .proficiency-text {
-  color:dodgerblue;
+  color:lightskyblue;
 }
 
 .expertise-text {
-  color:goldenrod;
+  color:khaki;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Container, Row, Col, Tooltip, Form } from "react-bootstrap";
+import { Card, Container, Row, Col, Form } from "react-bootstrap";
 
 interface CombatStatBarProps {
   baseAC: number;

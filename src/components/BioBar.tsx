@@ -1,4 +1,4 @@
-import "./styles/BioBar.css";
+import "../style/BioBar.css";
 import { Col, Row, Card, Container, Form } from "react-bootstrap";
 
 interface BioBarProps {
