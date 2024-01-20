@@ -46,8 +46,8 @@ const CharacterSheet = () => {
   const [shieldBonus, setShieldBonus] = useState(0);
 
   const [speed, setSpeed] = useState(30);
-  // const [swimSpeed, setSwimSpeed] = useState(0);
-  // const [flySpeed, setFlySpeed] = useState(0);
+  const [swimSpeed, setSwimSpeed] = useState(0);
+  const [flySpeed, setFlySpeed] = useState(0);
   const [initiativeBonus, setInitiativeBonus] = useState(
     Math.floor((dexterity - 10) / 2)
   );
@@ -175,6 +175,13 @@ const CharacterSheet = () => {
   const [passivePerceptionBonus, setPassivePerceptionBonus] = useState(0);
   const [passiveInsightBonus, setPassiveInsightBonus] = useState(0);
 
+  const [spellcastingAbility, setSpellcastingAbility] =
+    useState("Intelligence");
+
+  const [spellAttackBonus, setSpellAttackBonus] = useState(profBonus);
+  const [spellAttackOtherBonus, setSpellAttackOtherBonus] = useState(0);
+  const [spellSaveDCBonus, setSpellSaveDCBonus] = useState(0);
+
   const handleToggleEditMode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditModeEnabled(event.target.checked);
   };
@@ -278,23 +285,39 @@ const CharacterSheet = () => {
         </Row>
         <Row id="R3" className="legend-row"></Row>
         <Row id="R4">
-          <Col id="R4C1" sm={2}>
+          <Col id="R4C1" md={6}>
             <CombatStatBar
               baseAC={baseAC}
               acBonus={acBonus}
               shieldBonus={shieldBonus}
               speed={speed}
+              swimSpeed={swimSpeed}
+              flySpeed={flySpeed}
               initiativeBonus={initiativeBonus}
+              spellAttackOtherBonus={spellAttackOtherBonus}
+              spellSaveDCBonus={spellSaveDCBonus}
+              spellcastingAbility={spellcastingAbility}
+              profBonus={profBonus}
+              strength={strength}
               dexterity={dexterity}
+              constitution={constitution}
+              intelligence={intelligence}
+              wisdom={wisdom}
+              charisma={charisma}
               setBaseAC={setBaseAC}
               setACBonus={setACBonus}
               setShieldBonus={setShieldBonus}
               setSpeed={setSpeed}
+              setSwimSpeed={setSwimSpeed}
+              setFlySpeed={setFlySpeed}
               setInitiativeBonus={setInitiativeBonus}
+              setSpellAttackOtherBonus={setSpellAttackOtherBonus}
+              setSpellSaveDCBonus={setSpellSaveDCBonus}
+              setSpellcastingAbility={setSpellcastingAbility}
               editModeEnabled={editModeEnabled}
             />
           </Col>
-          <Col id="R4C2" sm={10}>
+          <Col id="R4C2" md={6}>
             <Row id="R4C2r1">
               <HealthBar></HealthBar>
             </Row>

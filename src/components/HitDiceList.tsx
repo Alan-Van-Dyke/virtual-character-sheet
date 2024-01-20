@@ -53,7 +53,7 @@ const HitDiceList = ({
         <Container>
           <Row>
             <Col xs={3}>
-              <p>Current d6:</p>
+              <p>d6:</p>
               <input
                 type="number"
                 className="form-control edit-mode-inputs"
@@ -67,7 +67,7 @@ const HitDiceList = ({
               ></input>
             </Col>
             <Col xs={3}>
-              <p>Current d8:</p>
+              <p>d8:</p>
               <input
                 type="number"
                 className="form-control edit-mode-inputs"
@@ -81,7 +81,7 @@ const HitDiceList = ({
               ></input>
             </Col>
             <Col xs={3}>
-              <p>Current d10:</p>
+              <p>d10:</p>
               <input
                 type="number"
                 className="form-control edit-mode-inputs"
@@ -97,7 +97,7 @@ const HitDiceList = ({
               ></input>
             </Col>
             <Col xs={3}>
-              <p>Current d12:</p>
+              <p>d12:</p>
               <input
                 type="number"
                 className="form-control edit-mode-inputs"
