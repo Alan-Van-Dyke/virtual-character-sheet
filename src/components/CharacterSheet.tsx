@@ -283,8 +283,7 @@ const CharacterSheet = () => {
             savingThrowProficiencies={savingThrowProficiencies}
           />
         </Row>
-        <Row id="R3" className="legend-row"></Row>
-        <Row id="R4">
+        <Row id="R4" className="character-sheet-row">
           <Col id="R4C1" md={6}>
             <CombatStatBar
               baseAC={baseAC}
@@ -336,7 +335,9 @@ const CharacterSheet = () => {
               </Col>
             </Row>
           </Col>
-          <Card id="REMOVE ME">put the rest down here</Card>
+        </Row>
+        <Row>
+          <Card className="character-sheet-cards">Put the rest here</Card>
         </Row>
       </Container>
     </Card>

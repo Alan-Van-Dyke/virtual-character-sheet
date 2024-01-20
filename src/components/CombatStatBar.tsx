@@ -465,10 +465,17 @@ const CombatStatBar = ({
                       defaultValue={spellAttackOtherBonus}
                     ></Form.Control>
                   </Col>
+                  ``
                 </Row>
               </Container>
             ) : (
               <h3 className="text-center">
+                {calculateBaseSpellSaveDC(spellcastingAbility) -
+                  8 +
+                  spellAttackOtherBonus >=
+                0
+                  ? "+"
+                  : null } {/* Dumb way to append +*/} 
                 {calculateBaseSpellSaveDC(spellcastingAbility) -
                   8 +
                   spellAttackOtherBonus}
