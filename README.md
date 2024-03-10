@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# Virtual Character Sheet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Design
 
-## Available Scripts
+This is a generic character sheet to be used for table top RPG games. I designed it with a few goals in mind:
 
-In the project directory, you can run:
+- Keep all of the functionality of a pen and paper character sheet
+- Track resources and replenish them on short/long rests appropriately
+- Store all of the player's abilities, features, and any additional notes
 
-### `npm start`
+This does **_not_** pull from any official sources. All classes, abilities, features, etc. must be provided by the user. I plan to add options to tie actions/resources to be refreshed on rests, or have them automatically impact ability scores or other values, but these relationships are going to be entirely user created.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This was also an excuse to learn React, so the code style/structure isn't going to be very consistent - as I learn, I may do things differently without going back and refactoring what I've done.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+### Edit Mode
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Using the 'Edit Mode' toggle at the top of the screen enables edit mode on all components. Several sections will turn into text fields, buttons, or dropdown menus for the user to customize their character. All values are applied immediately, and calculated values (like AC and Initiative) are calculated behind the scenes. Once edit mode is disabled, the normal character sheet is populated with user input as well as any calculated values.
 
-### `npm run build`
+### Character Info
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The top panel holds character info, such as name, class, and background. This does not impact the rest of the sheet at all - the 5 text fields could be used for any custom purpose, and they are not intensely validated
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Ability Scores
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The ability bar allows the user to input their ability scores, and automatically calculates the ability modifiers. These ability scores affect several other values, as defined in the rules I'm using for development.
 
-### `npm run eject`
+_\*Note: This was designed with my group's rule set in mind. This might not be an exact fit to any official games or homebrew rules._
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Misc. Bonuses and Hit Dice
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+I threw these together because the hit dice count and proficiency bonuses are both tied to level. The Proficiency bonus and Inspiration fields must be manually set. The hit dice list can be edited in edit mode, setting the current and maximum count for each hit dice (d6-d12). These dice are then rendered as a list outside of edit mode, and consumed when taking a long rest. ( **NOT YET IMPLEMENTED** )
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Combat stats
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Armor class, Speed, and Initiative are grouped together. Armor class is configurable in edit mode: you set your base AC, armor type, and whether or not you're using a shield. This calculates all AC bonuses, adds them to your base, and displays your armor class outside of edit mode. Speed is set by the user. Initiative takes your dexterity modifier and adds any custom bonus you provide.
 
-## Learn More
+Max hitpoints, current hitpoints, and temporary hitpoints are initially added manually. This program does not guide the user through level-ups (though it might in the distant future) so max hitpoints are always manually set. The program will adjust your current hitpoints after certain situations, such as after consuming hit dice on a short rest, or healing to full on a long rest.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### **More features planned, currently WIP**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Sheet save/import system
+  - At some point I'll need to persist a character sheet, still considering options while I add functionality
+- Skills/saving throws with proficiencies
+- Rest popups
+  - Upon resting, create a popup to show relevant information such as refreshed abilities
+  - Options such as consuming hit dice
+  - User-set reminders
+- Inventory section
+  - Items with name/description
+  - Currency tracking
+  - Consumable items with customized stat/attribute changes
+  - Inventory weight tracking (maybe)
+- Resource tracking
+  - Spell/ability charges
+  - "Per-rest" features with customized refresh conditions
 
-### Code Splitting
+### Long term additions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Sheet management
+  - UI for creating, editing, and deleting sheets
+- Combat mode
+  - Enter a mode that tracks actions, status conditions, etc. in turn-based gameplay
 
-### Analyzing the Bundle Size
+### **_Really_** long term additions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Transition to web tool with full-time hosting
+- Logins to be shared with friends
+- Game Master mode
