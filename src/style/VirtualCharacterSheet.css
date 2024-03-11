@@ -41,5 +41,11 @@ a,
 }
 
 .vcs-title {
-    color: var(--primary-color)
+  color: var(--primary-color);
+}
+
+.vert-line {
+  height: 100%;
+  width: 1px;
+  background-color: var(--background-lighter);
 }

@@ -76,7 +76,12 @@ textarea:focus {
   outline: none;
 }
 
+input[type="text"]:focus{
+  outline:none;
+}
+
 .character-sheet-tab {
+  display: flex;
   background-color: var(--background-light);
   height: 100%;
 }

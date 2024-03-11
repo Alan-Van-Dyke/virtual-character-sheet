@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import ToggleSlider from "./ToggleSlider";
 import SheetTabs from "./SheetTabs";
 import Character from "../model/Character";
+import NotesTab from "./NotesTab";
 import {
   faUser,
   faWandSparkles,
@@ -16,7 +17,12 @@ const CharacterSheet = () => {
     const savedCharacter = localStorage.getItem("playerCharacter");
     return savedCharacter !== null
       ? JSON.parse(savedCharacter)
-      : new Character("", "", "", "", "", "", "");
+      : new Character("", "", "", "", "", "", "", [
+          { title: "", content: "" },
+          { title: "", content: "" },
+          { title: "", content: "" },
+          { title: "", content: "" },
+        ]); //TODO find a better way to do this
   });
 
   useEffect(() => {
@@ -48,7 +54,16 @@ const CharacterSheet = () => {
       label: "Notes",
       icon: <FontAwesomeIcon icon={faPencil} />,
       id: 3,
-      content: <div>Notes</div>,
+      content: (
+        <NotesTab
+          charNotes={playerCharacter.characterNotes}
+          setCharNotes={(newNotes: { title: string; content: string }[]) => {
+            var newChar = { ...playerCharacter };
+            newChar.characterNotes = newNotes;
+            setPlayerCharacter(newChar);
+          }}
+        ></NotesTab>
+      ),
     },
   ];
 
