@@ -1,6 +1,11 @@
 .tabs-container {
   display: flex;
-  width: 100%;
+  width: fit-content;
+}
+
+.tabs-container h1,h4 {
+  margin: 0;
+  padding: 0;
 }
 
 .sheet-tab {

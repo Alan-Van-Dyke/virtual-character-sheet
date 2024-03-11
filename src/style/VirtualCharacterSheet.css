@@ -19,6 +19,13 @@ body,
   gap: 10px;
 }
 
+.header-text h1,
+h4,
+hr {
+  margin: 0;
+  padding: 0;
+}
+
 .header-icons {
   display: flex;
   gap: 10px;
@@ -26,12 +33,6 @@ body,
 
 .header-icons .svg-inline--fa {
   font-size: 2rem;
-}
-
-h1,
-h4,
-hr {
-  margin: 0;
 }
 
 a,

@@ -23,18 +23,14 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.character-sheet-controls {
-  justify-content: space-between;
-  align-items: center;
-}
-
-.edit-mode-container {
+.top-bar-container {
   display: flex;
-  align-items: baseline;
+  justify-content:space-between;
 }
 
 .rest-btn-container {
   display: flex;
+  width: max-content;
 }
 
 .rest-btn {
@@ -76,12 +72,17 @@ textarea:focus {
   outline: none;
 }
 
-input[type="text"]:focus{
-  outline:none;
+input[type="text"]:focus {
+  outline: none;
 }
 
 .character-sheet-tab {
   display: flex;
   background-color: var(--background-light);
   height: 100%;
+  border: 1px solid var(--background-dark);
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
