@@ -28,7 +28,7 @@ const CharacterTab = ({
         <>
           <div className="character-picture-container">This will be an image</div>
           <div className="character-info-container">
-            <h1 className="name-title">{playerCharacter.name || "Your name here"}</h1>
+            <h1 className="name-title">{playerCharacter.name || "Character Name"}</h1>
 
             <div className="character-info-body">
               <div className="character-info-col-a">
