@@ -6,8 +6,7 @@ class Character {
     background: string;
     alignment: string;
     marginNotes: string;
-    characterNotes: {title:string, content:string}[]
-
+    characterNotes: {title:string, content:string}[];
     constructor(name: string, charClass: string, level: string, race: string, background: string, alignment: string, marginNotes: string, characterNotes: {title:string, content:string}[]){
         this.name = name;
         this.charClass = charClass;

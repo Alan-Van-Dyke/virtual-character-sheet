@@ -23,7 +23,7 @@ const CharacterSheet = () => {
           { title: "", content: "" },
           { title: "", content: "" },
           { title: "", content: "" },
-        ]); //TODO find a better way to do this
+        ]);
   });
 
   useEffect(() => {
@@ -111,4 +111,3 @@ const CharacterSheet = () => {
 };
 
 export default CharacterSheet;
-
