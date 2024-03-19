@@ -1,0 +1,32 @@
+.tabs-container {
+  display: flex;
+  width: fit-content;
+}
+
+.tabs-container h1,h4 {
+  margin: 0;
+  padding: 0;
+}
+
+.sheet-tab {
+  color: white;
+  border: 1px solid var(--background-dark);
+  border-bottom: none;
+  background-color: var(--background-light);
+  width: 250px;
+  height: 75px;
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0s;
+}
+
+.sheet-tab-selected {
+  background-color: var(--background-lighter);
+}
+
+.sheet-tab:active {
+  background-color: var(--background-light);
+}

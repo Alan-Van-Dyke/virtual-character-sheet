@@ -1,0 +1,52 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.header-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 50px 10px 100px;
+}
+
+.header-text {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.header-text h1,
+h4,
+hr {
+  margin: 0;
+  padding: 0;
+}
+
+.header-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.header-icons .svg-inline--fa {
+  font-size: 2rem;
+}
+
+a,
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.vcs-title {
+  color: var(--primary-color);
+}
+
+.vert-line {
+  height: 100%;
+  width: 1px;
+  background-color: var(--background-lighter);
+}

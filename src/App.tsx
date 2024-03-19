@@ -1,14 +1,8 @@
-import CharacterSheet from "./components/CharacterSheet";
-
+import "./App.css";
+import VirtualCharacterSheet from "./components/VirtualCharacterSheet";
 
 function App() {
-  return (
-    <>
-      <div>
-        <CharacterSheet />
-      </div>
-    </>
-  );
+  return <VirtualCharacterSheet />;
 }
 
 export default App;

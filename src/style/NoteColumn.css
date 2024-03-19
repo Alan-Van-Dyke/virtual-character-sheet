@@ -1,0 +1,29 @@
+.notes-col {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  margin: 5px;
+  background-color: var(--background-light);
+  border:none;
+  color: var(--text-color);
+}
+
+.notes-title {
+  background-color: var(--background-light);
+  height: 30px;
+  resize: none;
+  border:none;
+  color: var(--text-color);
+  text-align: center;
+  font-weight:bold;
+}
+
+.notes-content {
+  background-color: var(--background-light);
+  height: 100%;
+  border-left: 2px solid var(--background-lighter);
+  border-right: 2px solid var(--background-lighter);
+  border-top:none;
+  border-bottom:2px solid var(--background-lighter);
+  color: var(--text-color);
+}

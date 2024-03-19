@@ -1,88 +1,89 @@
-:root {
-  --dark-bg: rgb(21, 21, 21);
-  --card-bg: rgb(52, 52, 52);
-  --light-bg: rgb(104, 104, 104);
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-input[type="number"] {
-    -moz-appearance: textfield;
-}
-
-.text-center {
-  text-align: center;
-}
-
 .character-sheet {
-  background-color: var(--dark-bg);
-  margin: 10px;
+  display: flex;
+  margin: 5px 10px 5px 100px;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.character-sheet-main {
+  flex-grow: 1;
+  max-width:calc(100% - 300px);
+  margin-right: 5px;
+}
+.character-sheet-margin {
+  flex-basis: 300px;
+  flex-shrink: 0;
+}
+
+.character-sheet-card {
+  display: flex;
   padding: 10px;
-  width: auto;
-}
-
-.character-sheet-cards {
-  background-color: var(--card-bg);
-  color: white;
-  padding: 5px 5px;
-  margin: 10px 0px;
-  border: none;
-}
-.edit-mode-inputs {
-  background-color: var(--light-bg);
   border: 1px solid black;
-  color: white;
+  border-radius: 10px;
+  background-color: var(--background-lighter);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.edit-mode-inputs:focus {
-  background-color: var(--light-bg);
-  color: white;
+.top-bar-container {
+  display: flex;
+  justify-content:space-between;
 }
 
-.edit-mode-inputs::placeholder {
-  color: white;
+.rest-btn-container {
+  display: flex;
+  width: max-content;
 }
 
-.edit-mode-switch {
-  background-color: var(--dark-bg);
-  /* TODO Not sure why this is needed. Revisit */
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='4' fill='lightgray'/%3e%3c/svg%3e") !important;
-  border-color: var(--light-bg);
+.rest-btn {
+  margin-right: 10px;
+  height: 45px;
+  background-color: var(--primary-color);
+  border: 1px solid var(--background-light);
+  border-radius: 5px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.edit-mode-switch:checked {
-  background-color: var(--light-bg);
-  border-color: var(--light-bg);
+.rest-btn:active {
+  background-color: var(--dark-primary);
 }
 
-.edit-mode-switch-label {
-  color: white;
+.rest-btn:last-child {
+  margin-right: 0px;
 }
 
-.character-sheet-buttons {
-  background-color: rgb(52, 52, 52);
-  color: white;
+.character-sheet-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 5px 0px 50px 0px;
 }
 
-.character-sheet-plaintext {
-  color: white;
+.margin-notes {
+  background-color: var(--background-dark);
+  color: var(--text-color);
+  border: none;
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
 }
 
-.character-sheet-list-items {
-  background-color: var(--card-bg);
-  color: white;
-  border-color: var(--light-bg);
+textarea:focus {
+  outline: none;
 }
 
-.legend-text {
-  text-align: center;
-  font-size: 0.75em;
+input[type="text"]:focus {
+  outline: none;
 }
 
-.character-sheet-row {
-  margin-bottom: 5px;
+.character-sheet-tab {
+  display: flex;
+  background-color: var(--background-light);
+  height: 100%;
+  border: 1px solid var(--background-dark);
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
-
