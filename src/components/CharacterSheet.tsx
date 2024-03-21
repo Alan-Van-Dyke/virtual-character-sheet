@@ -18,16 +18,67 @@ const CharacterSheet = () => {
     const savedCharacter = sessionStorage.getItem("playerCharacter");
     return savedCharacter !== null
       ? JSON.parse(savedCharacter)
-      : new Character("", "", "", "", "", "", "", [
-          { title: "", content: "" },
-          { title: "", content: "" },
-          { title: "", content: "" },
-          { title: "", content: "" },
-        ]);
+      : new Character(
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          [
+            { title: "", content: "" },
+            { title: "", content: "" },
+            { title: "", content: "" },
+            { title: "", content: "" },
+          ],
+          2,
+          {
+            strength: 10,
+            dexterity: 10,
+            constitution: 10,
+            intelligence: 10,
+            wisdom: 10,
+            charisma: 10,
+          },
+          {
+            acrobatics: 0,
+            animalHandling: 0,
+            arcana: 0,
+            athletics: 0,
+            deception: 0,
+            history: 0,
+            insight: 0,
+            intimidation: 0,
+            investigation: 0,
+            medicine: 0,
+            nature: 0,
+            perception: 0,
+            performance: 0,
+            persuasion: 0,
+            religion: 0,
+            sleightOfHand: 0,
+            stealth: 0,
+            survival: 0,
+          },
+          {
+            strength: 0,
+            dexterity: 0,
+            constitution: 0,
+            intelligence: 0,
+            wisdom: 0,
+            charisma: 0,
+          }
+        );
   });
 
   useEffect(() => {
     sessionStorage.setItem("playerCharacter", JSON.stringify(playerCharacter));
+  }, [playerCharacter]);
+
+  useEffect(() => {
+    document.title = playerCharacter.name
+      ? playerCharacter.name + " - Character Sheet"
+      : "Virtual Character Sheet";
   }, [playerCharacter]);
 
   const tabs = [

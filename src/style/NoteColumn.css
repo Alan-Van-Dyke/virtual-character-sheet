@@ -26,4 +26,5 @@
   border-top:none;
   border-bottom:2px solid var(--background-lighter);
   color: var(--text-color);
+  resize: none;
 }
