@@ -13,61 +13,64 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CharacterTab from "./CharacterTab";
 
+export function calculateModifier(stat: number) {
+  return Math.floor((stat - 10) / 2);
+}
 const CharacterSheet = () => {
   const [playerCharacter, setPlayerCharacter] = useState(() => {
     const savedCharacter = sessionStorage.getItem("playerCharacter");
     return savedCharacter !== null
       ? JSON.parse(savedCharacter)
       : new Character(
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
+          "Not Gork",
+          "Warlock (Genie)",
+          "3",
+          "Half-Elf",
+          "Ruined",
+          "Some margin notes",
           [
-            { title: "", content: "" },
-            { title: "", content: "" },
-            { title: "", content: "" },
-            { title: "", content: "" },
+            { title: "Backstory", content: "cool dude" },
+            { title: "Session notes", content: "1- started\n2- died. unlucky" },
+            { title: "Places and People", content: "idk nobody takes notes" },
+            { title: "Quests", content: "revive party" },
           ],
           2,
-          {
-            strength: 10,
-            dexterity: 10,
-            constitution: 10,
-            intelligence: 10,
-            wisdom: 10,
-            charisma: 10,
-          },
-          {
-            acrobatics: 0,
-            animalHandling: 0,
-            arcana: 0,
-            athletics: 0,
-            deception: 0,
-            history: 0,
-            insight: 0,
-            intimidation: 0,
-            investigation: 0,
-            medicine: 0,
-            nature: 0,
-            perception: 0,
-            performance: 0,
-            persuasion: 0,
-            religion: 0,
-            sleightOfHand: 0,
-            stealth: 0,
-            survival: 0,
-          },
-          {
-            strength: 0,
-            dexterity: 0,
-            constitution: 0,
-            intelligence: 0,
-            wisdom: 0,
-            charisma: 0,
-          }
+          new Map<string, number>([
+            ["Strength", 6],
+            ["Dexterity", 16],
+            ["Constitution", 14],
+            ["Intelligence", 10],
+            ["Wisdom", 12],
+            ["Charisma", 18],
+          ]),
+          new Map<string, { attribute: string; value: number }>([
+            ["Acrobatics", { attribute: "Dexterity", value: 0 }],
+            ["Animal Handling", { attribute: "Wisdom", value: 0 }],
+            ["Arcana", { attribute: "Intelligence", value: 1 }],
+            ["Athletics", { attribute: "Strength", value: 0 }],
+            ["Deception", { attribute: "Charisma", value: 2 }],
+            ["History", { attribute: "Intelligence", value: 0 }],
+            ["Insight", { attribute: "Wisdom", value: 0 }],
+            ["Intimidation", { attribute: "Charisma", value: 0 }],
+            ["Investigation", { attribute: "Intelligence", value: 1 }],
+            ["Medicine", { attribute: "Wisdom", value: 0 }],
+            ["Nature", { attribute: "Intelligence", value: 0 }],
+            ["Perception", { attribute: "Wisdom", value: 1 }],
+            ["Performance", { attribute: "Charisma", value: 0 }],
+            ["Persuasion", { attribute: "Charisma", value: 1 }],
+            ["Religion", { attribute: "Intelligence", value: 1 }],
+            ["Sleight of Hand", { attribute: "Dexterity", value: 0 }],
+            ["Stealth", { attribute: "Dexterity", value: 1 }],
+            ["Survival", { attribute: "Wisdom", value: 1 }],
+          ]),
+          new Map<string, number>([
+            ["Strength", 0],
+            ["Dexterity", 0],
+            ["Constitution", 0],
+            ["Intelligence", 0],
+            ["Wisdom", 1],
+            ["Charisma", 1],
+          ])
         );
   });
 

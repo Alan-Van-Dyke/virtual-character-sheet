@@ -21,8 +21,8 @@
   background-color: red;
   flex-shrink: 0;
   cursor: pointer;
-  
-  text-align:center;
+
+  text-align: center;
 }
 
 .character-info-container {
@@ -45,8 +45,6 @@
 
 .character-info-body {
   display: flex;
-  
-
 }
 
 .character-info-body h2 {
@@ -62,6 +60,11 @@
   width: 50%;
 }
 
+.character-info-row-a {
+  display: flex;
+  width: 100%;
+}
+
 .name-title {
   font-size: 4em;
   width: 100%;
@@ -72,17 +75,19 @@
 }
 
 .character-info-attribute-box {
-    margin: 10px;
-    margin-left: 0px;
+  margin: 10px;
+  margin-left: 0px;
+  width: 100%;
 }
 
-.character-info-attribute-box h2, p {
-    margin: 0;
+.character-info-attribute-box h2,
+p {
+  margin: 0;
 }
 
 .character-info-attribute-baseline {
-    width: calc(100% - 50px);
-    margin: 0px;
+  width: calc(100% - 50px);
+  margin: 0px;
 }
 
 .edit-mode-toggle-container {

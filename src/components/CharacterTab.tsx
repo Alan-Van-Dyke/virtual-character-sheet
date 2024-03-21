@@ -53,12 +53,24 @@ const CharacterTab = ({
                   </div>
                 </div>
                 <div className="character-info-col-a">
-                  <div className="character-info-attribute-box">
-                    <h2>{playerCharacter.level || "Character Level"}</h2>
-                    <hr className="character-info-attribute-baseline"></hr>
-                    <p className="character-info-attribute-label">
-                      <i>Level</i>
-                    </p>
+                  <div className="character-info-row-a">
+                    <div className="character-info-attribute-box">
+                      <h2>{playerCharacter.level || "Character Level"}</h2>
+                      <hr className="character-info-attribute-baseline"></hr>
+                      <p className="character-info-attribute-label">
+                        <i>Level</i>
+                      </p>
+                    </div>
+                    <div className="character-info-attribute-box">
+                      <h2>
+                        {"+" + playerCharacter.proficiencyBonus ||
+                          "Proficiency Bonus"}
+                      </h2>
+                      <hr className="character-info-attribute-baseline"></hr>
+                      <p className="character-info-attribute-label">
+                        <i>Proficiency Bonus</i>
+                      </p>
+                    </div>
                   </div>
                   <div className="character-info-attribute-box">
                     <h2>

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;1,300&display=swap");
+
 :root {
   --primary-color: #00b3d3;
   --dark-primary: #006f83;
@@ -12,4 +14,5 @@
 body {
   background-color: var(--background-dark);
   color: var(--text-color);
+  font-family: "Noto Serif", sans-serif;
 }

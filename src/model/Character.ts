@@ -10,44 +10,11 @@ class Character {
 
   proficiencyBonus: number;
 
-  statArray: {
-    strength: number;
-    dexterity: number;
-    constitution: number;
-    intelligence: number;
-    wisdom: number;
-    charisma: number;
-  };
+  statArray: Map<string, number>;
 
-  skillProficiencies: {
-    acrobatics: 0 | 1 | 2;
-    animalHandling: 0 | 1 | 2;
-    arcana: 0 | 1 | 2;
-    athletics: 0 | 1 | 2;
-    deception: 0 | 1 | 2;
-    history: 0 | 1 | 2;
-    insight: 0 | 1 | 2;
-    intimidation: 0 | 1 | 2;
-    investigation: 0 | 1 | 2;
-    medicine: 0 | 1 | 2;
-    nature: 0 | 1 | 2;
-    perception: 0 | 1 | 2;
-    performance: 0 | 1 | 2;
-    persuasion: 0 | 1 | 2;
-    religion: 0 | 1 | 2;
-    sleightOfHand: 0 | 1 | 2;
-    stealth: 0 | 1 | 2;
-    survival: 0 | 1 | 2;
-  };
+  skillProficiencies: Map<string, {attribute: string, value: number}>
 
-  savingThrowProficiencies: {
-    strength: 0 | 1;
-    dexterity: 0 | 1;
-    constitution: 0 | 1;
-    intelligence: 0 | 1;
-    wisdom: 0 | 1;
-    charisma: 0 | 1;
-  };
+  savingThrowProficiencies: Map<string, number>;
 
   constructor(
     name: string,
@@ -58,42 +25,9 @@ class Character {
     marginNotes: string,
     characterNotes: { title: string; content: string }[],
     proficiencyBonus: number,
-    statArray: {
-      strength: number;
-      dexterity: number;
-      constitution: number;
-      intelligence: number;
-      wisdom: number;
-      charisma: number;
-    },
-    skillProficiencies: {
-      acrobatics: 0 | 1 | 2;
-      animalHandling: 0 | 1 | 2;
-      arcana: 0 | 1 | 2;
-      athletics: 0 | 1 | 2;
-      deception: 0 | 1 | 2;
-      history: 0 | 1 | 2;
-      insight: 0 | 1 | 2;
-      intimidation: 0 | 1 | 2;
-      investigation: 0 | 1 | 2;
-      medicine: 0 | 1 | 2;
-      nature: 0 | 1 | 2;
-      perception: 0 | 1 | 2;
-      performance: 0 | 1 | 2;
-      persuasion: 0 | 1 | 2;
-      religion: 0 | 1 | 2;
-      sleightOfHand: 0 | 1 | 2;
-      stealth: 0 | 1 | 2;
-      survival: 0 | 1 | 2;
-    },
-    savingThrowProficiencies: {
-      strength: 0 | 1;
-      dexterity: 0 | 1;
-      constitution: 0 | 1;
-      intelligence: 0 | 1;
-      wisdom: 0 | 1;
-      charisma: 0 | 1;
-    }
+    statArray: Map<string, number>,
+    skillProficiencies: Map<string, {attribute: string, value: number}>,
+    savingThrowProficiencies: Map<string, number>
   ) {
     this.name = name;
     this.charClass = charClass;
