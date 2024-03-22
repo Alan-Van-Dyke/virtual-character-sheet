@@ -58,7 +58,7 @@ const CharacterSheet = () => {
             ["Perception", { attribute: "Wisdom", value: 1 }],
             ["Performance", { attribute: "Charisma", value: 0 }],
             ["Persuasion", { attribute: "Charisma", value: 1 }],
-            ["Religion", { attribute: "Intelligence", value: 1 }],
+            ["Religion", { attribute: "Intelligence", value: 0 }],
             ["Sleight of Hand", { attribute: "Dexterity", value: 0 }],
             ["Stealth", { attribute: "Dexterity", value: 1 }],
             ["Survival", { attribute: "Wisdom", value: 1 }],

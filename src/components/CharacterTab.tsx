@@ -90,6 +90,7 @@ const CharacterTab = ({
             playerCharacter={playerCharacter}
             setPlayerCharacter={setPlayerCharacter}
           ></StatBar>
+          <hr className="sheet-divider"></hr>
         </>
       ) : (
         //Edit Mode Enabled
