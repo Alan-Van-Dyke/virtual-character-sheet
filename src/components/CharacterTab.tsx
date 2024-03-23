@@ -2,6 +2,7 @@ import Character from "../model/Character";
 import "../style/CharacterTab.css";
 import StatBar from "./StatBar";
 import ToggleSlider from "./ToggleSlider";
+import DeathSave from "./DeathSave";
 import { useEffect, useState } from "react";
 
 interface CharacterTabProps {
@@ -53,6 +54,15 @@ const CharacterTab = ({
                   </div>
                 </div>
                 <div className="character-info-col-a">
+                  <div className="character-info-attribute-box">
+                    <h2>
+                      {playerCharacter.background || "Character Background"}
+                    </h2>
+                    <hr className="character-info-attribute-baseline"></hr>
+                    <p className="character-info-attribute-label">
+                      <i>Background</i>
+                    </p>
+                  </div>
                   <div className="character-info-row-a">
                     <div className="character-info-attribute-box">
                       <h2>{playerCharacter.level || "Character Level"}</h2>
@@ -72,25 +82,19 @@ const CharacterTab = ({
                       </p>
                     </div>
                   </div>
-                  <div className="character-info-attribute-box">
-                    <h2>
-                      {playerCharacter.background || "Character Background"}
-                    </h2>
-                    <hr className="character-info-attribute-baseline"></hr>
-                    <p className="character-info-attribute-label">
-                      <i>Background</i>
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <hr className="sheet-divider"></hr>
+          
           <StatBar
             playerCharacter={playerCharacter}
             setPlayerCharacter={setPlayerCharacter}
           ></StatBar>
-          <hr className="sheet-divider"></hr>
+          <div className="combat-stat-bar">
+            <DeathSave></DeathSave>
+            <p>stuff</p>
+          </div>
         </>
       ) : (
         //Edit Mode Enabled

@@ -35,6 +35,7 @@ const CharacterSheet = () => {
             { title: "Quests", content: "revive party" },
           ],
           2,
+          "Adv.",
           new Map<string, number>([
             ["Strength", 6],
             ["Dexterity", 16],

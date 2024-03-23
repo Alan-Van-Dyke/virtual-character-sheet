@@ -9,6 +9,7 @@ class Character {
   characterNotes: { title: string; content: string }[];
 
   proficiencyBonus: number;
+  inspiration: string;
 
   statArray: Map<string, number>;
 
@@ -25,6 +26,7 @@ class Character {
     marginNotes: string,
     characterNotes: { title: string; content: string }[],
     proficiencyBonus: number,
+    inspiration: string,
     statArray: Map<string, number>,
     skillProficiencies: Map<string, {attribute: string, value: number}>,
     savingThrowProficiencies: Map<string, number>
@@ -37,6 +39,7 @@ class Character {
     this.marginNotes = marginNotes;
     this.characterNotes = characterNotes;
     this.proficiencyBonus = proficiencyBonus;
+    this.inspiration = inspiration;
     this.statArray = statArray;
     this.skillProficiencies = skillProficiencies;
     this.savingThrowProficiencies = savingThrowProficiencies;

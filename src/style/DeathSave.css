@@ -1,0 +1,52 @@
+.death-save-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--background-lighter);
+  border-radius: 5px;
+  width: calc(100% / 6 - 20px);
+  margin: 0px 5px 5px 30px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.death-save-card hr {
+  width: 80%;
+  margin: 10px 0px;
+  opacity: 50%;
+}
+
+.death-save-card h4 {
+  margin-top: 10px;
+}
+
+.death-save-card button {
+  margin: 5px 0px;
+}
+
+.death-save-btn-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  font-size: 2em;
+}
+
+.death-save-input {
+  display: none;
+}
+
+.death-save-inactive {
+  cursor: pointer;
+  color: var(--background-lighter);
+}
+
+.death-save-success {
+  cursor: pointer;
+  color: green;
+}
+
+.death-save-fail {
+  cursor: pointer;
+  color: red;
+}
