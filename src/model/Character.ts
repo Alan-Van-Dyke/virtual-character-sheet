@@ -13,9 +13,12 @@ class Character {
 
   statArray: Map<string, number>;
 
-  skillProficiencies: Map<string, {attribute: string, value: number}>
+  skillProficiencies: Map<string, { attribute: string; value: number }>;
 
   savingThrowProficiencies: Map<string, number>;
+
+  deathSaveSuccesses: boolean[];
+  deathSaveFailures: boolean[];
 
   constructor(
     name: string,
@@ -28,8 +31,10 @@ class Character {
     proficiencyBonus: number,
     inspiration: string,
     statArray: Map<string, number>,
-    skillProficiencies: Map<string, {attribute: string, value: number}>,
-    savingThrowProficiencies: Map<string, number>
+    skillProficiencies: Map<string, { attribute: string; value: number }>,
+    savingThrowProficiencies: Map<string, number>,
+    deathSaveSuccesses: boolean[],
+    deathSaveFailures: boolean[]
   ) {
     this.name = name;
     this.charClass = charClass;
@@ -43,6 +48,8 @@ class Character {
     this.statArray = statArray;
     this.skillProficiencies = skillProficiencies;
     this.savingThrowProficiencies = savingThrowProficiencies;
+    this.deathSaveSuccesses = deathSaveSuccesses;
+    this.deathSaveFailures = deathSaveFailures;
   }
 }
 

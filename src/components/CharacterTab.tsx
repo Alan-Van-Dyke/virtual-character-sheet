@@ -86,13 +86,16 @@ const CharacterTab = ({
               </div>
             </div>
           </div>
-          
+
           <StatBar
             playerCharacter={playerCharacter}
             setPlayerCharacter={setPlayerCharacter}
           ></StatBar>
           <div className="combat-stat-bar">
-            <DeathSave></DeathSave>
+            <DeathSave
+              playerCharacter={playerCharacter}
+              setPlayerCharacter={setPlayerCharacter}
+            ></DeathSave>
             <p>stuff</p>
           </div>
         </>

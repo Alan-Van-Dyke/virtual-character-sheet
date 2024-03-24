@@ -17,7 +17,7 @@ export function calculateModifier(stat: number) {
   return Math.floor((stat - 10) / 2);
 }
 const CharacterSheet = () => {
-  const [playerCharacter, setPlayerCharacter] = useState(() => {
+  const [playerCharacter, setPlayerCharacter] = useState<Character>(() => {
     const savedCharacter = sessionStorage.getItem("playerCharacter");
     return savedCharacter !== null
       ? JSON.parse(savedCharacter)
@@ -71,7 +71,9 @@ const CharacterSheet = () => {
             ["Intelligence", 0],
             ["Wisdom", 1],
             ["Charisma", 1],
-          ])
+          ]),
+          [false, false, false],
+          [false, false, false]
         );
   });
 

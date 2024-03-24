@@ -1,11 +1,18 @@
 import "../style/DeathSave.css";
 import {
   faSkullCrossbones,
-  faHeart,
+  faHeartPulse,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-const DeathSave = () => {
+import Character from "../model/Character";
+
+interface DeathSaveProps {
+  playerCharacter: Character;
+  setPlayerCharacter: (newCharacter: Character) => void;
+}
+
+const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
   const [failedSaves, setFailedSaves] = useState([false, false, false]);
   const [successfulSaves, setSuccessfulSaves] = useState([false, false, false]);
 
@@ -37,7 +44,7 @@ const DeathSave = () => {
             }}
           ></input>
           <FontAwesomeIcon
-            icon={faHeart}
+            icon={faHeartPulse}
             className={
               successfulSaves[0] ? "death-save-success" : "death-save-inactive"
             }
@@ -53,7 +60,7 @@ const DeathSave = () => {
             }}
           ></input>
           <FontAwesomeIcon
-            icon={faHeart}
+            icon={faHeartPulse}
             className={
               successfulSaves[1] ? "death-save-success" : "death-save-inactive"
             }
@@ -69,7 +76,7 @@ const DeathSave = () => {
             }}
           ></input>
           <FontAwesomeIcon
-            icon={faHeart}
+            icon={faHeartPulse}
             className={
               successfulSaves[2] ? "death-save-success" : "death-save-inactive"
             }
