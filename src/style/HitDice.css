@@ -1,8 +1,55 @@
 .hit-dice-container {
   display: flex;
+  flex-direction: column;
   border: 1px solid var(--background-lighter);
   border-radius: 5px;
   width: calc((100% / 6) - 10px);
   margin: 0px 5px;
+  align-items: center;
   box-sizing: border-box;
+}
+
+.hit-dice-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  margin: 5px;
+}
+
+.hit-dice-container h4 {
+  margin: 10px 0px;
+}
+
+.hit-dice-divider {
+  width: 80%;
+  margin-bottom: 10px;
+  opacity: 50%;
+}
+
+.hit-die-value-group {
+  display: flex;
+}
+
+.hit-die-btn {
+  margin-left: 2px;
+  border: none;
+  background-color: var(--background-light);
+  cursor: pointer;
+}
+
+.btn-up {
+  color: var(--primary-color);
+}
+
+.btn-down {
+  color: var(--alert-color);
+}
+
+.hit-die-list-item {
+  display: flex;
+  width: calc(100% - 20px);
+  justify-content: space-between;
+  margin: 0px 10px 10px 10px;
+  border-bottom: 1px dashed var(--background-lighter);
 }

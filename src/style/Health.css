@@ -1,8 +1,69 @@
 .health-container {
   display: flex;
+  flex-direction: column;
   border: 1px solid var(--background-lighter);
   border-radius: 5px;
-  width: calc((100% / 3) - 10px);
   margin: 0px 5px;
+  align-items: center;
   box-sizing: border-box;
+  width: calc((100% / 3) - 10px);
+}
+
+.health-container h1 {
+  margin: 0px;
+  font-size: 3em;
+}
+
+.health-container hr {
+  width: 80%;
+  color: var(--background-lighter);
+}
+
+.health-container h4 {
+  margin: 5px 0px 0px 0px;
+}
+
+.hitpoints-top-bar {
+  display: flex;
+  width: 100%;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.max-hitpoints-bar {
+  display: flex;
+  align-items: start;
+}
+.max-hitpoints-label {
+  margin: 5px;
+}
+.max-hitpoints-value {
+  margin: 5px 0px;
+  width: 50px;
+  text-align: center;
+  border-bottom: 1px solid var(--background-lighter);
+}
+
+.health-btn-container {
+  margin: 5px;
+}
+
+.health-btn {
+  margin-left: 5px;
+  border: none;
+  background: none;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.btn-heal {
+  color: var(--primary-color);
+}
+
+.btn-damage {
+  color: var(--alert-color);
+}
+
+.btn-temp {
+  color: var(--prof-color);
 }

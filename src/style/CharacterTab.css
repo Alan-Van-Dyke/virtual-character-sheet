@@ -17,11 +17,11 @@
   height: 256px;
   width: 256px;
   margin: 25px;
+  border: 1px solid black;
   border-radius: 25px;
-  background-color: rgb(0, 102, 255);
+  background-color: var(--background-light);
   flex-shrink: 0;
   cursor: pointer;
-
   text-align: center;
 }
 
