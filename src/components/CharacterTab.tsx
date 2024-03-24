@@ -1,20 +1,19 @@
-import Character from "../model/Character";
 import "../style/CharacterTab.css";
 import StatBar from "./StatBar";
 import ToggleSlider from "./ToggleSlider";
 import DeathSave from "./DeathSave";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import HitDice from "./HitDice";
+import Health from "./Health";
+import CombatStats from "./CombatStats";
 
-interface CharacterTabProps {
-  playerCharacter: Character;
-  setPlayerCharacter: (playerCharacter: Character) => void;
-}
+import { useCharacterContext } from "../context/CharacterContext";
 
-const CharacterTab = ({
-  playerCharacter,
-  setPlayerCharacter,
-}: CharacterTabProps) => {
+
+
+const CharacterTab = () => {
   const [editModeEnabled, setEditModeEnabled] = useState(false);
+  const { state, dispatch } = useCharacterContext();
 
   function toggleEditMode(event: React.ChangeEvent<HTMLInputElement>) {
     setEditModeEnabled(event.target.checked);
@@ -33,20 +32,18 @@ const CharacterTab = ({
               This will be an image
             </div>
             <div className="character-info-container">
-              <h1 className="name-title">
-                {playerCharacter.name || "Character Name"}
-              </h1>
+              <h1 className="name-title">{state.name || "Character Name"}</h1>
               <div className="character-info-body">
                 <div className="character-info-col-a">
                   <div className="character-info-attribute-box">
-                    <h2>{playerCharacter.charClass || "Character Class"}</h2>
+                    <h2>{state.charClass || "Character Class"}</h2>
                     <hr className="character-info-attribute-baseline"></hr>
                     <p className="character-info-attribute-label">
                       <i>Class</i>
                     </p>
                   </div>
                   <div className="character-info-attribute-box">
-                    <h2>{playerCharacter.race || "Character Race"}</h2>
+                    <h2>{state.race || "Character Race"}</h2>
                     <hr className="character-info-attribute-baseline"></hr>
                     <p className="character-info-attribute-label">
                       <i>Race</i>
@@ -55,9 +52,7 @@ const CharacterTab = ({
                 </div>
                 <div className="character-info-col-a">
                   <div className="character-info-attribute-box">
-                    <h2>
-                      {playerCharacter.background || "Character Background"}
-                    </h2>
+                    <h2>{state.background || "Character Background"}</h2>
                     <hr className="character-info-attribute-baseline"></hr>
                     <p className="character-info-attribute-label">
                       <i>Background</i>
@@ -65,7 +60,7 @@ const CharacterTab = ({
                   </div>
                   <div className="character-info-row-a">
                     <div className="character-info-attribute-box">
-                      <h2>{playerCharacter.level || "Character Level"}</h2>
+                      <h2>{state.level || "Character Level"}</h2>
                       <hr className="character-info-attribute-baseline"></hr>
                       <p className="character-info-attribute-label">
                         <i>Level</i>
@@ -73,8 +68,7 @@ const CharacterTab = ({
                     </div>
                     <div className="character-info-attribute-box">
                       <h2>
-                        {"+" + playerCharacter.proficiencyBonus ||
-                          "Proficiency Bonus"}
+                        {"+" + state.proficiencyBonus || "Proficiency Bonus"}
                       </h2>
                       <hr className="character-info-attribute-baseline"></hr>
                       <p className="character-info-attribute-label">
@@ -87,16 +81,12 @@ const CharacterTab = ({
             </div>
           </div>
 
-          <StatBar
-            playerCharacter={playerCharacter}
-            setPlayerCharacter={setPlayerCharacter}
-          ></StatBar>
-          <div className="combat-stat-bar">
-            <DeathSave
-              playerCharacter={playerCharacter}
-              setPlayerCharacter={setPlayerCharacter}
-            ></DeathSave>
-            <p>stuff</p>
+          <StatBar></StatBar>
+          <div className="other-stat-bar">
+            <DeathSave></DeathSave>
+            <HitDice></HitDice>
+            <Health></Health>
+            <CombatStats></CombatStats>
           </div>
         </>
       ) : (

@@ -3,11 +3,12 @@
   flex-direction: column;
   border: 1px solid var(--background-lighter);
   border-radius: 5px;
-  width: calc(100% / 6 - 20px);
-  margin: 0px 5px 5px 30px;
+  width: calc(100% / 6 - 10px);
+  margin: 0px 5px;
   text-align: center;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .death-save-card hr {
@@ -29,7 +30,7 @@
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 
 .death-save-input {

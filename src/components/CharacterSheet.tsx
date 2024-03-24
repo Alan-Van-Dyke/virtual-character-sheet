@@ -1,8 +1,6 @@
 import "../style/CharacterSheet.css";
 import { useState, useEffect } from "react";
-import ToggleSlider from "./ToggleSlider";
 import SheetTabs from "./SheetTabs";
-import Character from "../model/Character";
 import NotesTab from "./NotesTab";
 import {
   faUser,
@@ -12,92 +10,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CharacterTab from "./CharacterTab";
+import { useCharacterContext } from "../context/CharacterContext";
 
 export function calculateModifier(stat: number) {
   return Math.floor((stat - 10) / 2);
 }
 const CharacterSheet = () => {
-  const [playerCharacter, setPlayerCharacter] = useState<Character>(() => {
-    const savedCharacter = sessionStorage.getItem("playerCharacter");
-    return savedCharacter !== null
-      ? JSON.parse(savedCharacter)
-      : new Character(
-          "Not Gork",
-          "Warlock (Genie)",
-          "3",
-          "Half-Elf",
-          "Ruined",
-          "Some margin notes",
-          [
-            { title: "Backstory", content: "cool dude" },
-            { title: "Session notes", content: "1- started\n2- died. unlucky" },
-            { title: "Places and People", content: "idk nobody takes notes" },
-            { title: "Quests", content: "revive party" },
-          ],
-          2,
-          "Adv.",
-          new Map<string, number>([
-            ["Strength", 6],
-            ["Dexterity", 16],
-            ["Constitution", 14],
-            ["Intelligence", 10],
-            ["Wisdom", 12],
-            ["Charisma", 18],
-          ]),
-          new Map<string, { attribute: string; value: number }>([
-            ["Acrobatics", { attribute: "Dexterity", value: 0 }],
-            ["Animal Handling", { attribute: "Wisdom", value: 0 }],
-            ["Arcana", { attribute: "Intelligence", value: 1 }],
-            ["Athletics", { attribute: "Strength", value: 0 }],
-            ["Deception", { attribute: "Charisma", value: 2 }],
-            ["History", { attribute: "Intelligence", value: 0 }],
-            ["Insight", { attribute: "Wisdom", value: 0 }],
-            ["Intimidation", { attribute: "Charisma", value: 0 }],
-            ["Investigation", { attribute: "Intelligence", value: 1 }],
-            ["Medicine", { attribute: "Wisdom", value: 0 }],
-            ["Nature", { attribute: "Intelligence", value: 0 }],
-            ["Perception", { attribute: "Wisdom", value: 1 }],
-            ["Performance", { attribute: "Charisma", value: 0 }],
-            ["Persuasion", { attribute: "Charisma", value: 1 }],
-            ["Religion", { attribute: "Intelligence", value: 0 }],
-            ["Sleight of Hand", { attribute: "Dexterity", value: 0 }],
-            ["Stealth", { attribute: "Dexterity", value: 1 }],
-            ["Survival", { attribute: "Wisdom", value: 1 }],
-          ]),
-          new Map<string, number>([
-            ["Strength", 0],
-            ["Dexterity", 0],
-            ["Constitution", 0],
-            ["Intelligence", 0],
-            ["Wisdom", 1],
-            ["Charisma", 1],
-          ]),
-          [false, false, false],
-          [false, false, false]
-        );
-  });
-
-  useEffect(() => {
-    sessionStorage.setItem("playerCharacter", JSON.stringify(playerCharacter));
-  }, [playerCharacter]);
-
-  useEffect(() => {
-    document.title = playerCharacter.name
-      ? playerCharacter.name + " - Character Sheet"
-      : "Virtual Character Sheet";
-  }, [playerCharacter]);
+  const { state, dispatch } = useCharacterContext();
 
   const tabs = [
     {
       label: "Character",
       icon: <FontAwesomeIcon icon={faUser} />,
       key: 0,
-      content: (
-        <CharacterTab
-          playerCharacter={playerCharacter}
-          setPlayerCharacter={setPlayerCharacter}
-        />
-      ),
+      content: <CharacterTab></CharacterTab>,
     },
     {
       label: "Abilities",
@@ -115,27 +41,11 @@ const CharacterSheet = () => {
       label: "Notes",
       icon: <FontAwesomeIcon icon={faPencil} />,
       key: 3,
-      content: (
-        <NotesTab
-          charNotes={playerCharacter.characterNotes}
-          setCharNotes={(newNotes: { title: string; content: string }[]) => {
-            var newChar = { ...playerCharacter };
-            newChar.characterNotes = newNotes;
-            setPlayerCharacter(newChar);
-          }}
-        ></NotesTab>
-      ),
+      content: <NotesTab></NotesTab>,
     },
   ];
 
   const [activeTab, setActiveTab] = useState(tabs[0]);
-
-  function updateMarginNotes(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    var newChar = { ...playerCharacter };
-    newChar.marginNotes = event.target.value != null ? event.target.value : "";
-    setPlayerCharacter(newChar);
-    console.log(event.target.value);
-  }
 
   return (
     <div className="character-sheet">
@@ -159,8 +69,13 @@ const CharacterSheet = () => {
         <textarea
           className="margin-notes"
           placeholder="Add some notes in the margin..."
-          value={playerCharacter.marginNotes}
-          onChange={updateMarginNotes}
+          value={state.marginNotes}
+          onChange={(event) =>
+            dispatch({
+              type: "CHANGE_MARGIN_NOTES",
+              payload: { newMarginNotes: event.target.value },
+            })
+          }
         ></textarea>
       </div>
     </div>

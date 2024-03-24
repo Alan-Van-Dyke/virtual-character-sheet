@@ -1,0 +1,8 @@
+.combat-stat-container {
+  display: flex;
+  border: 1px solid var(--background-lighter);
+  border-radius: 5px;
+  width: calc((100% / 3) - 10px);
+  margin: 0px 5px;
+  box-sizing: border-box;
+}

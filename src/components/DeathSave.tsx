@@ -4,28 +4,40 @@ import {
   faHeartPulse,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import Character from "../model/Character";
+import { useCharacterContext } from "../context/CharacterContext";
 
-interface DeathSaveProps {
-  playerCharacter: Character;
-  setPlayerCharacter: (newCharacter: Character) => void;
-}
+const DeathSave = () => {
 
-const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
-  const [failedSaves, setFailedSaves] = useState([false, false, false]);
-  const [successfulSaves, setSuccessfulSaves] = useState([false, false, false]);
+  const { state, dispatch } = useCharacterContext();
 
   const handleClickSuccess = (saveIdx: number) => {
-    var newSaveArray = [...successfulSaves];
-    newSaveArray[saveIdx] = !successfulSaves[saveIdx];
-    setSuccessfulSaves(newSaveArray);
+    if (saveIdx === state.deathSaveSuccesses + 1) {
+      dispatch({
+        type: "CHANGE_DEATH_SAVE_SUCCESSES",
+        payload: { newDeathSaveSuccesses: saveIdx },
+      });
+    }
+    if (saveIdx === state.deathSaveSuccesses) {
+      dispatch({
+        type: "CHANGE_DEATH_SAVE_SUCCESSES",
+        payload: { newDeathSaveSuccesses: saveIdx - 1 },
+      });
+    }
   };
 
   const handleClickFail = (saveIdx: number) => {
-    var newSaveArray = [...failedSaves];
-    newSaveArray[saveIdx] = !failedSaves[saveIdx];
-    setFailedSaves(newSaveArray);
+    if (saveIdx === state.deathSaveFails + 1) {
+      dispatch({
+        type: "CHANGE_DEATH_SAVE_FAILS",
+        payload: { newDeathSaveFails: saveIdx },
+      });
+    }
+    if (saveIdx === state.deathSaveFails) {
+      dispatch({
+        type: "CHANGE_DEATH_SAVE_FAILS",
+        payload: { newDeathSaveFails: saveIdx - 1 },
+      });
+    }
   };
 
   return (
@@ -38,23 +50,7 @@ const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
           <input
             type="checkbox"
             className="death-save-input"
-            checked={successfulSaves[0]}
-            onChange={() => {
-              handleClickSuccess(0);
-            }}
-          ></input>
-          <FontAwesomeIcon
-            icon={faHeartPulse}
-            className={
-              successfulSaves[0] ? "death-save-success" : "death-save-inactive"
-            }
-          />
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            className="death-save-input"
-            checked={successfulSaves[1]}
+            checked={state.deathSaveSuccesses > 0}
             onChange={() => {
               handleClickSuccess(1);
             }}
@@ -62,7 +58,9 @@ const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
           <FontAwesomeIcon
             icon={faHeartPulse}
             className={
-              successfulSaves[1] ? "death-save-success" : "death-save-inactive"
+              state.deathSaveSuccesses > 0
+                ? "death-save-success"
+                : "death-save-inactive"
             }
           />
         </label>
@@ -70,7 +68,7 @@ const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
           <input
             type="checkbox"
             className="death-save-input"
-            checked={successfulSaves[2]}
+            checked={state.deathSaveSuccesses > 1}
             onChange={() => {
               handleClickSuccess(2);
             }}
@@ -78,7 +76,27 @@ const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
           <FontAwesomeIcon
             icon={faHeartPulse}
             className={
-              successfulSaves[2] ? "death-save-success" : "death-save-inactive"
+              state.deathSaveSuccesses > 1
+                ? "death-save-success"
+                : "death-save-inactive"
+            }
+          />
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            className="death-save-input"
+            checked={state.deathSaveSuccesses > 2}
+            onChange={() => {
+              handleClickSuccess(3);
+            }}
+          ></input>
+          <FontAwesomeIcon
+            icon={faHeartPulse}
+            className={
+              state.deathSaveSuccesses > 2
+                ? "death-save-success"
+                : "death-save-inactive"
             }
           />
         </label>
@@ -90,23 +108,7 @@ const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
           <input
             type="checkbox"
             className="death-save-input"
-            checked={failedSaves[0]}
-            onChange={() => {
-              handleClickFail(0);
-            }}
-          ></input>
-          <FontAwesomeIcon
-            icon={faSkullCrossbones}
-            className={
-              failedSaves[0] ? "death-save-fail" : "death-save-inactive"
-            }
-          />
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            className="death-save-input"
-            checked={failedSaves[1]}
+            checked={state.deathSaveFails > 0}
             onChange={() => {
               handleClickFail(1);
             }}
@@ -114,7 +116,9 @@ const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
           <FontAwesomeIcon
             icon={faSkullCrossbones}
             className={
-              failedSaves[1] ? "death-save-fail" : "death-save-inactive"
+              state.deathSaveFails > 0
+                ? "death-save-fail"
+                : "death-save-inactive"
             }
           />
         </label>
@@ -122,7 +126,7 @@ const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
           <input
             type="checkbox"
             className="death-save-input"
-            checked={failedSaves[2]}
+            checked={state.deathSaveFails > 1}
             onChange={() => {
               handleClickFail(2);
             }}
@@ -130,7 +134,27 @@ const DeathSave = ({ playerCharacter, setPlayerCharacter }: DeathSaveProps) => {
           <FontAwesomeIcon
             icon={faSkullCrossbones}
             className={
-              failedSaves[2] ? "death-save-fail" : "death-save-inactive"
+              state.deathSaveFails > 1
+                ? "death-save-fail"
+                : "death-save-inactive"
+            }
+          />
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            className="death-save-input"
+            checked={state.deathSaveFails > 2}
+            onChange={() => {
+              handleClickFail(3);
+            }}
+          ></input>
+          <FontAwesomeIcon
+            icon={faSkullCrossbones}
+            className={
+              state.deathSaveFails > 2
+                ? "death-save-fail"
+                : "death-save-inactive"
             }
           />
         </label>

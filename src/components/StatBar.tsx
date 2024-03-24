@@ -1,67 +1,54 @@
-import Character from "../model/Character";
 import "../style/StatBar.css";
 import { calculateModifier } from "./CharacterSheet";
+import { useCharacterContext } from "../context/CharacterContext";
 
-interface StatBarProps {
-  playerCharacter: Character;
-  setPlayerCharacter: (newCharacter: Character) => void;
-}
 
-const StatBar = ({ playerCharacter, setPlayerCharacter }: StatBarProps) => {
+
+const StatBar = () => {
+  const { state, dispatch } = useCharacterContext();
+
   return (
     <div className="stat-block-container">
       <div className="skill-container">
-        {Array.from(playerCharacter.statArray).map(([key, value], index) => (
+        {state.stats.map((stat, index) => (
           <div className="stat-card" key={"stat-" + index}>
-            <h3>{key}</h3>
+            <h3>{stat.attribute}</h3>
             <hr></hr>
-            <h2>{value}</h2>
-            <h3>{(value > 9 ? "+" : "") + calculateModifier(value)}</h3>
+            <h2>{stat.value}</h2>
+            <h3>
+              {(stat.value > 9 ? "+" : "") + calculateModifier(stat.value)}
+            </h3>
             <hr></hr>
             <div className="skill-list skill">
-              <div
-                className={
-                  "skill-list-item skill-" +
-                  playerCharacter.savingThrowProficiencies.get(key)
-                }
-              >
-                <p>{key + " Save:"}</p>
+              <div className={"skill-list-item skill-" + stat.saveProficiency}>
+                <p>{stat.attribute + " Save:"}</p>
                 <p className="skill-mod-p">
-                  {calculateModifier(value) +
-                    (playerCharacter.savingThrowProficiencies.get(key) || 0) *
-                      playerCharacter.proficiencyBonus >=
+                  {calculateModifier(stat.value) +
+                    stat.saveProficiency * state.proficiencyBonus >=
                   0
                     ? "+"
                     : ""}
-                  {calculateModifier(value) +
-                    (playerCharacter.savingThrowProficiencies.get(key) || 0) *
-                      playerCharacter.proficiencyBonus}
+                  {calculateModifier(stat.value) +
+                    stat.saveProficiency * state.proficiencyBonus}
                 </p>
               </div>
               <hr></hr>
-              {Array.from(playerCharacter.skillProficiencies)
-                .filter(
-                  ([skillKey, skillValue], skillIndex) =>
-                    skillValue.attribute === key
-                )
-                .map(([skillKey, skillValue], skillIndex) => (
+              {state.skills
+                .filter((skill, index) => skill.attribute === stat.attribute)
+                .map((skill, index) => (
                   <div
-                    className={"skill-list-item skill-" + skillValue.value}
-                    key={skillValue.attribute + "-skill-" + skillIndex}
+                    className={"skill-list-item skill-" + skill.proficiency}
+                    key={skill.attribute + "-skill-" + index}
                   >
-                    <p>{skillKey + ":"}</p>
+                    <p>{skill.name + ":"}</p>
                     <p className="skill-mod-p">
-                      {calculateModifier(value) +
-                        (playerCharacter.skillProficiencies.get(skillKey)
-                          ?.value || 0) *
-                          playerCharacter.proficiencyBonus >=
+                      {calculateModifier(stat.value) +
+                        skill.proficiency * state.proficiencyBonus >=
                       0
                         ? "+"
                         : ""}
-                      {calculateModifier(value) +
-                        (playerCharacter.skillProficiencies.get(skillKey)
-                          ?.value || 0) *
-                          playerCharacter.proficiencyBonus}
+                      {calculateModifier(stat.value) +
+                        skill.proficiency * state.proficiencyBonus}
                     </p>
                   </div>
                 ))}
@@ -75,41 +62,45 @@ const StatBar = ({ playerCharacter, setPlayerCharacter }: StatBarProps) => {
             {"Passive Perception: " +
               (10 +
                 calculateModifier(
-                  playerCharacter.statArray.get("Wisdom") || 10
+                  state.stats.find((stat) => stat.attribute === "Wisdom")
+                    ?.value || 10
                 ) +
-                (playerCharacter.skillProficiencies.get("Perception")?.value ||
-                  0) *
-                  playerCharacter.proficiencyBonus)}
+                (state.skills.find((skill) => skill.name === "Perception")
+                  ?.proficiency || 0) *
+                  state.proficiencyBonus)}
           </p>
           <p>
             {"Passive Investigation: " +
               (10 +
                 calculateModifier(
-                  playerCharacter.statArray.get("Intelligence") || 10
+                  state.stats.find((stat) => stat.attribute === "Intelligence")
+                    ?.value || 10
                 ) +
-                (playerCharacter.skillProficiencies.get("Investigation")
-                  ?.value || 0) *
-                  playerCharacter.proficiencyBonus)}
+                (state.skills.find((skill) => skill.name === "Investigation")
+                  ?.proficiency || 0) *
+                  state.proficiencyBonus)}
           </p>
           <p>
             {"Passive Insight: " +
               (10 +
                 calculateModifier(
-                  playerCharacter.statArray.get("Wisdom") || 10
+                  state.stats.find((stat) => stat.attribute === "Wisdom")
+                    ?.value || 10
                 ) +
-                (playerCharacter.skillProficiencies.get("Insight")?.value ||
-                  0) *
-                  playerCharacter.proficiencyBonus)}
+                (state.skills.find((skill) => skill.name === "Insight")
+                  ?.proficiency || 0) *
+                  state.proficiencyBonus)}
           </p>
           <p>
             {"Passive Stealth: " +
               (10 +
                 calculateModifier(
-                  playerCharacter.statArray.get("Dexterity") || 10
+                  state.stats.find((stat) => stat.attribute === "Dexterity")
+                    ?.value || 10
                 ) +
-                (playerCharacter.skillProficiencies.get("Stealth")?.value ||
-                  0) *
-                  playerCharacter.proficiencyBonus)}
+                (state.skills.find((skill) => skill.name === "Stealth")
+                  ?.proficiency || 0) *
+                  state.proficiencyBonus)}
           </p>
         </div>
         <div className="key-container">
