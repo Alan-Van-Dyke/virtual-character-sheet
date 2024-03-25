@@ -1,8 +1,49 @@
 .combat-stat-container {
   display: flex;
-  border: 1px solid var(--background-lighter);
-  border-radius: 5px;
+  flex-direction: column;
   width: calc((100% / 3) - 10px);
   margin: 0px 5px;
   box-sizing: border-box;
+}
+
+.combat-stat-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--background-lighter);
+  border-radius: 5px;
+  width: 100%;
+  margin: 0px 5px 5px 5px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.combat-stat-card h4 {
+  margin: 10px 0px;
+}
+
+.combat-stat-row {
+  display: flex;
+  width: 100%;
+  height: 50%;
+}
+
+.combat-stat-row hr {
+  height: 80%;
+  color: var(--background-lighter)
+}
+
+.speed-card {
+  display: flex;
+  border: 1px solid var(--background-lighter);
+  border-radius: 5px;
+  width: 100%;
+  margin: 5px 5px 0px 5px;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.speed-card h4 {
+  margin: 10px 0px;
 }
