@@ -9,6 +9,7 @@ import CombatStats from "./CombatStats";
 
 import { useCharacterContext } from "../context/CharacterContext";
 import CharacterImage from "./CharacterImage";
+import CharacterInfo from "./CharacterInfo";
 
 const CharacterTab = () => {
   const [editModeEnabled, setEditModeEnabled] = useState(false);
@@ -24,72 +25,20 @@ const CharacterTab = () => {
         <ToggleSlider handleToggle={toggleEditMode}></ToggleSlider>
         <p>Edit Mode</p>
       </div>
-      {!editModeEnabled ? (
-        <>
-          <div className="character-bio-container">
-            <CharacterImage></CharacterImage>
-            <div className="character-info-container">
-              <h1 className="name-title">{state.name || "Character Name"}</h1>
-              <div className="character-info-body">
-                <div className="character-info-col-a">
-                  <div className="character-info-attribute-box">
-                    <h2>{state.charClass || "Character Class"}</h2>
-                    <hr className="character-info-attribute-baseline"></hr>
-                    <p className="character-info-attribute-label">
-                      <i>Class</i>
-                    </p>
-                  </div>
-                  <div className="character-info-attribute-box">
-                    <h2>{state.race || "Character Race"}</h2>
-                    <hr className="character-info-attribute-baseline"></hr>
-                    <p className="character-info-attribute-label">
-                      <i>Race</i>
-                    </p>
-                  </div>
-                </div>
-                <div className="character-info-col-a">
-                  <div className="character-info-attribute-box">
-                    <h2>{state.background || "Character Background"}</h2>
-                    <hr className="character-info-attribute-baseline"></hr>
-                    <p className="character-info-attribute-label">
-                      <i>Background</i>
-                    </p>
-                  </div>
-                  <div className="character-info-row-a">
-                    <div className="character-info-attribute-box">
-                      <h2>{state.level || "Character Level"}</h2>
-                      <hr className="character-info-attribute-baseline"></hr>
-                      <p className="character-info-attribute-label">
-                        <i>Level</i>
-                      </p>
-                    </div>
-                    <div className="character-info-attribute-box">
-                      <h2>
-                        {"+" + state.proficiencyBonus || "Proficiency Bonus"}
-                      </h2>
-                      <hr className="character-info-attribute-baseline"></hr>
-                      <p className="character-info-attribute-label">
-                        <i>Proficiency Bonus</i>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <StatBar></StatBar>
-          <div className="other-stat-bar">
-            <DeathSave></DeathSave>
-            <HitDice></HitDice>
-            <Health></Health>
-            <CombatStats></CombatStats>
-          </div>
-        </>
-      ) : (
-        //Edit Mode Enabled
-        <div>testing</div>
-      )}
+      <div className="character-bio-container">
+        <CharacterImage></CharacterImage>
+        <CharacterInfo></CharacterInfo>
+      </div>
+
+      <StatBar></StatBar>
+      
+      <div className="other-stat-bar">
+        <DeathSave></DeathSave>
+        <HitDice></HitDice>
+        <Health></Health>
+        <CombatStats></CombatStats>
+      </div>
     </div>
   );
 };
