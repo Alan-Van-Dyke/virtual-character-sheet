@@ -7,6 +7,7 @@
   align-items: center;
   box-sizing: border-box;
   width: calc((100% / 3) - 10px);
+  position: relative;
 }
 
 .health-container h1 {
@@ -66,4 +67,59 @@
 
 .btn-temp {
   color: var(--prof-color);
+}
+
+.popup-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 50%;
+  height: 50%;
+  background-color: var(--background-light);
+  border: 2px solid var(--background-dark);
+  border-radius: 5px;
+  box-shadow: 10px 10px 20px 20px rgba(0, 0, 0, 0.5);
+}
+
+.popup input {
+  background: var(--background-lighter);
+  border: 1px solid var(--background-dark);
+  border-radius: 5px;
+  width: 75%;
+  height: 30px;
+  margin-top: 5px;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.popup-btn-container {
+  display: flex;
+  width: 75%;
+}
+
+.popup-btn-container button {
+  margin: 5px;
+  width: calc(100% - 5px);
+  border: 1px solid var(--background-dark);
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.popup-confirm-btn {
+  background-color: var(--dark-primary);
+}
+
+.popup-cancel-btn {
+  background-color: var(--alert-color);
 }
