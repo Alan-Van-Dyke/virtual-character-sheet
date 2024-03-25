@@ -24,7 +24,7 @@
 }
 
 .sheet-tab-selected {
-  background-color: var(--background-lighter);
+  background-color: #555555;
 }
 
 .sheet-tab:active {

@@ -20,7 +20,7 @@
   padding: 10px;
   border: 1px solid black;
   border-radius: 10px;
-  background-color: var(--background-lighter);
+  background-color: #555555;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   min-height: 100%;
 }
@@ -90,5 +90,3 @@ input[type="text"]:focus {
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-
-

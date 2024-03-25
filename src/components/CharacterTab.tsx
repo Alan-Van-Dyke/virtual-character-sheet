@@ -8,8 +8,7 @@ import Health from "./Health";
 import CombatStats from "./CombatStats";
 
 import { useCharacterContext } from "../context/CharacterContext";
-
-
+import CharacterImage from "./CharacterImage";
 
 const CharacterTab = () => {
   const [editModeEnabled, setEditModeEnabled] = useState(false);
@@ -28,9 +27,7 @@ const CharacterTab = () => {
       {!editModeEnabled ? (
         <>
           <div className="character-bio-container">
-            <div className="character-picture-container">
-              This will be an image
-            </div>
+            <CharacterImage></CharacterImage>
             <div className="character-info-container">
               <h1 className="name-title">{state.name || "Character Name"}</h1>
               <div className="character-info-body">

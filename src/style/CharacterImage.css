@@ -1,0 +1,25 @@
+.character-picture-container {
+  height: 256px;
+  width: 256px;
+  margin: 25px 25px 0px 25px;
+  border: none;
+  border-radius: 25px;
+  background-color: var(--background-light);
+  flex-shrink: 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.character-picture-container img {
+  border-radius: 25px;
+}
+
+.character-picture-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.character-picture-card p {
+  font-size: 0.7em;
+  cursor: pointer;
+}

@@ -1,3 +1,5 @@
+import { defaultImage } from "./defaultImage";
+
 type Attribute =
   | "Strength"
   | "Dexterity"
@@ -38,6 +40,7 @@ export interface CharacterState {
 
   marginNotes: string;
   characterNotes: NoteSection[];
+  characterImage: string;
 
   proficiencyBonus: number;
   inspiration: string;
@@ -80,6 +83,7 @@ export const defaultCharacter: CharacterState = {
     { title: "Places and NPCs", content: "idk wasn't paying attention" },
     { title: "Quests", content: "revive party" },
   ],
+  characterImage: defaultImage,
   proficiencyBonus: 2,
   inspiration: "1d6",
   stats: [
@@ -143,6 +147,7 @@ type CharacterAction =
       type: "CHANGE_NOTE_SECTION";
       payload: { index: number; title: string; content: string };
     }
+  | { type: "CHANGE_CHARACTER_IMAGE"; payload: { newImage: string } }
   | {
       type: "CHANGE_PROFICIENCY_BONUS";
       payload: { newProficiencyBonus: number };
@@ -231,6 +236,8 @@ export function characterReducer(
             : note
         ),
       };
+    case "CHANGE_CHARACTER_IMAGE":
+      return { ...state, characterImage: action.payload.newImage };
     case "CHANGE_PROFICIENCY_BONUS":
       return { ...state, proficiencyBonus: action.payload.newProficiencyBonus };
     case "CHANGE_INSPIRATION":
