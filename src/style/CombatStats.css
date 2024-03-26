@@ -119,8 +119,6 @@
   font-size: 0.7em;
 }
 
-.armor-class-edit-sub-row input[type="checkbox"] {
-}
 
 .ac-input {
   border: 1px solid var(--background-dark);
