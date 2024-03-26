@@ -166,7 +166,7 @@ const CombatStats: React.FC<{ editModeEnabled: boolean }> = ({
               <p>Dexterity modifier: {dexterityMod}</p>
               <p>+</p>
               <div className="initiative-bonus-edit">
-                <p>{"Bonus:"}</p>
+                <p>{"Custom Bonus:"}</p>
                 <input
                   type="text"
                   className="initiative-edit"
