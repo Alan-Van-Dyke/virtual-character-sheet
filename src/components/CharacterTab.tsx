@@ -28,16 +28,16 @@ const CharacterTab = () => {
 
       <div className="character-bio-container">
         <CharacterImage></CharacterImage>
-        <CharacterInfo></CharacterInfo>
+        <CharacterInfo editModeEnabled={editModeEnabled}></CharacterInfo>
       </div>
 
-      <StatBar></StatBar>
-      
+      <StatBar editModeEnabled={editModeEnabled}></StatBar>
+
       <div className="other-stat-bar">
-        <DeathSave></DeathSave>
-        <HitDice></HitDice>
-        <Health></Health>
-        <CombatStats></CombatStats>
+        <DeathSave editModeEnabled={editModeEnabled}></DeathSave>
+        <HitDice editModeEnabled={editModeEnabled}></HitDice>
+        <Health editModeEnabled={editModeEnabled}></Health>
+        <CombatStats editModeEnabled={editModeEnabled}></CombatStats>
       </div>
     </div>
   );

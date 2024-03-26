@@ -33,7 +33,7 @@
 
 .max-hitpoints-bar {
   display: flex;
-  align-items: start;
+  align-items: center;
 }
 .max-hitpoints-label {
   margin: 5px;
@@ -55,6 +55,11 @@
   background: none;
   font-size: 1em;
   cursor: pointer;
+}
+
+.health-btn:disabled {
+  color: var(--background-lighter);
+  cursor: default;
 }
 
 .btn-heal {
@@ -122,4 +127,26 @@
 
 .popup-cancel-btn {
   background-color: var(--alert-color);
+}
+
+.max-hitpoints-input {
+  border: 1px solid var(--background-dark);
+  border-radius: 5px;
+  background-color: var(--background-dark);
+  color: var(--text-color);
+  font-family: inherit;
+  width: 50px;
+  text-align: center;
+}
+
+.hit-points-input {
+  font-size: 3em;
+  border: 1px solid var(--background-dark);
+  border-radius: 10px;
+  background-color: var(--background-dark);
+  color: var(--text-color);
+  font-family: inherit;
+  width: 40%;
+  margin-bottom: 5px;
+  text-align: center;
 }

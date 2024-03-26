@@ -53,3 +53,22 @@
   margin: 0px 10px 10px 10px;
   border-bottom: 1px dashed var(--background-lighter);
 }
+
+.hit-die-edit-group {
+  display: flex;
+  width: 50%;
+}
+
+.hit-die-edit-group p {
+  margin: 0px 5px;
+}
+
+.hit-die-input {
+  border: 1px solid var(--background-dark);
+  border-radius: 5px;
+  background-color: var(--background-dark);
+  color: var(--text-color);
+  font-family: inherit;
+  width: 50%;
+  text-align: center;
+}

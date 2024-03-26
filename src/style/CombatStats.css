@@ -4,15 +4,28 @@
   width: calc((100% / 3) - 10px);
   margin: 0px 5px;
   box-sizing: border-box;
+  flex-grow: 1;
 }
 
-.combat-stat-card {
+.initiative-card {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--background-lighter);
   border-radius: 5px;
   width: 100%;
-  margin: 0px 5px 5px 5px;
+  margin: 0px 0px 5px 5px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.armor-class-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--background-lighter);
+  border-radius: 5px;
+  width: 100%;
+  margin: 0px 5px 5px 0px;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -25,12 +38,15 @@
 .combat-stat-row {
   display: flex;
   width: 100%;
+}
+
+.combat-stat-row-no-edit {
   height: 50%;
 }
 
 .combat-stat-row hr {
   height: 80%;
-  color: var(--background-lighter)
+  color: var(--background-lighter);
 }
 
 .speed-card {
@@ -38,7 +54,7 @@
   border: 1px solid var(--background-lighter);
   border-radius: 5px;
   width: 100%;
-  margin: 5px 5px 0px 5px;
+  margin: 5px 0px 0px 0px;
   align-items: center;
   justify-content: space-evenly;
   text-align: center;
@@ -46,4 +62,77 @@
 
 .speed-card h4 {
   margin: 10px 0px;
+}
+
+.combat-stat-h2-input {
+  font-size: 1.5em;
+  border: 1px solid var(--background-dark);
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-family: inherit;
+  width: 40%;
+  text-align: center;
+}
+
+.initiative-edit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.initiative-edit {
+  border: 1px solid var(--background-dark);
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-family: inherit;
+  width: 15%;
+  text-align: center;
+  margin: 0px 5px;
+}
+
+.initiative-bonus-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.armor-class-edit-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.armor-class-edit-sub-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.armor-class-edit-sub-row p {
+  font-style: italic;
+  font-size: 0.7em;
+}
+
+.armor-class-edit-sub-row input[type="checkbox"] {
+}
+
+.ac-input {
+  border: 1px solid var(--background-dark);
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-family: inherit;
+  width: 20%;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.ac-input:disabled {
+  opacity: 30%;
 }

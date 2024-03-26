@@ -8,7 +8,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-const Health = () => {
+const Health: React.FC<{ editModeEnabled: boolean }> = ({
+  editModeEnabled,
+}) => {
   const { state, dispatch } = useCharacterContext();
 
   const [isAddTempPopupVisible, setIsAddTempPopupVisible] = useState(false);
@@ -89,7 +91,35 @@ const Health = () => {
           <p className="max-hitpoints-label">
             <i>Max Hit Points: </i>
           </p>
-          <p className="max-hitpoints-value">{state.maxHitPoints}</p>
+          {editModeEnabled ? (
+            <input
+              type="text"
+              className="max-hitpoints-input"
+              defaultValue={state.maxHitPoints}
+              onBlur={(event) => {
+                if (
+                  !Number.isNaN(event.target.value) &&
+                  Number(event.target.value) >= 0
+                ) {
+                  dispatch({
+                    type: "CHANGE_MAX_HIT_POINTS",
+                    payload: { newMaxHitPoints: Number(event.target.value) },
+                  });
+
+                  if (Number(event.target.value) < state.currentHitPoints) {
+                    dispatch({
+                      type: "CHANGE_CURRENT_HIT_POINTS",
+                      payload: {
+                        newCurrentHitPoints: Number(event.target.value),
+                      },
+                    });
+                  }
+                }
+              }}
+            ></input>
+          ) : (
+            <p className="max-hitpoints-value">{state.maxHitPoints}</p>
+          )}
         </div>
         <div className="health-btn-container">
           <button
@@ -98,6 +128,7 @@ const Health = () => {
             onClick={(event) => {
               setIsAddTempPopupVisible(true);
             }}
+            disabled={editModeEnabled}
           >
             <FontAwesomeIcon icon={faShieldHeart} />
           </button>
@@ -107,6 +138,7 @@ const Health = () => {
             onClick={(event) => {
               setIsHealPopupVisible(true);
             }}
+            disabled={editModeEnabled}
           >
             <FontAwesomeIcon icon={faPlus} />
           </button>
@@ -116,16 +148,60 @@ const Health = () => {
             onClick={(event) => {
               setIsDamagePopupVisible(true);
             }}
+            disabled={editModeEnabled}
           >
             <FontAwesomeIcon icon={faMinus} />
           </button>
         </div>
       </div>
       <h4>Current Hit Points</h4>
-      <h1>{state.currentHitPoints}</h1>
+      {editModeEnabled ? (
+        <input
+          type="text"
+          className="hit-points-input"
+          defaultValue={state.currentHitPoints}
+          onBlur={(event) => {
+            if (
+              !Number.isNaN(event.target.value) &&
+              Number(event.target.value) >= 0 &&
+              Number(event.target.value) <= state.maxHitPoints
+            ) {
+              dispatch({
+                type: "CHANGE_CURRENT_HIT_POINTS",
+                payload: {
+                  newCurrentHitPoints: Number(event.target.value),
+                },
+              });
+            }
+          }}
+        ></input>
+      ) : (
+        <h1>{state.currentHitPoints}</h1>
+      )}
       <hr></hr>
       <h4>Temporary Hit Points</h4>
-      <h1>{state.tempHitPoints}</h1>
+      {editModeEnabled ? (
+        <input
+          type="text"
+          className="hit-points-input"
+          defaultValue={state.tempHitPoints}
+          onBlur={(event) => {
+            if (
+              !Number.isNaN(event.target.value) &&
+              Number(event.target.value) >= 0
+            ) {
+              dispatch({
+                type: "CHANGE_TEMP_HIT_POINTS",
+                payload: {
+                  newTempHitPoints: Number(event.target.value),
+                },
+              });
+            }
+          }}
+        ></input>
+      ) : (
+        <h1>{state.tempHitPoints}</h1>
+      )}
 
       {isAddTempPopupVisible && (
         <div className="popup-container">

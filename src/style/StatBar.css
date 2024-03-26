@@ -39,6 +39,7 @@ h2 {
 .skill-list-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
@@ -94,4 +95,44 @@ h2 {
   margin-bottom: 5px;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.stat-edit-input {
+  font-size: 1.5em;
+  border: 1px solid var(--background-dark);
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-family: inherit;
+  width: 30%;
+  text-align: center;
+}
+
+.proficiency-dropdown {
+  font-size: 0.8em;
+  height: 60%;
+  padding: 0;
+  margin-right: 5px;
+  background-color: var(--background-dark);
+  border: 1px solid var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-family: inherit;
+  text-align: center;
+}
+
+.passive-stat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.passive-input {
+  border: 1px solid var(--background-dark);
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-family: inherit;
+  width: 8%;
+  text-align: center;
 }

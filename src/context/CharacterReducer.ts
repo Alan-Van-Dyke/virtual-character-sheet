@@ -48,6 +48,11 @@ export interface CharacterState {
   stats: Stat[];
   skills: Skill[];
 
+  passivePerceptionBonusCustom: number;
+  passiveInvestigationBonusCustom: number;
+  passiveInsightBonusCustom: number;
+  passiveStealthBonusCustom: number;
+
   deathSaveSuccesses: 0 | 1 | 2 | 3;
   deathSaveFails: 0 | 1 | 2 | 3;
 
@@ -71,65 +76,69 @@ export interface CharacterState {
 }
 
 export const defaultCharacter: CharacterState = {
-  name: "Not Gork",
-  charClass: "Warlock (Genie)",
-  level: "3",
-  race: "Half-Elf",
-  background: "Ruined",
-  marginNotes: "Remember to not die",
+  name: "",
+  charClass: "",
+  level: "",
+  race: "",
+  background: "",
+  marginNotes: "",
   characterNotes: [
-    { title: "Backstory", content: "cool dude" },
-    { title: "Session notes", content: "s1 - started\ns2 - we died. unlucky" },
-    { title: "Places and NPCs", content: "idk wasn't paying attention" },
-    { title: "Quests", content: "revive party" },
+    { title: "", content: "" },
+    { title: "", content: "" },
+    { title: "", content: "" },
+    { title: "", content: "" },
   ],
   characterImage: defaultImage,
-  proficiencyBonus: 2,
-  inspiration: "1d6",
+  proficiencyBonus: 0,
+  inspiration: "",
   stats: [
-    { attribute: "Strength", value: 6, saveProficiency: 0 },
-    { attribute: "Dexterity", value: 16, saveProficiency: 0 },
-    { attribute: "Constitution", value: 14, saveProficiency: 0 },
+    { attribute: "Strength", value: 10, saveProficiency: 0 },
+    { attribute: "Dexterity", value: 10, saveProficiency: 0 },
+    { attribute: "Constitution", value: 10, saveProficiency: 0 },
     { attribute: "Intelligence", value: 10, saveProficiency: 0 },
-    { attribute: "Wisdom", value: 12, saveProficiency: 1 },
-    { attribute: "Charisma", value: 18, saveProficiency: 1 },
+    { attribute: "Wisdom", value: 10, saveProficiency: 0 },
+    { attribute: "Charisma", value: 10, saveProficiency: 0 },
   ],
   skills: [
     { name: "Acrobatics", attribute: "Dexterity", proficiency: 0 },
     { name: "Animal Handling", attribute: "Wisdom", proficiency: 0 },
-    { name: "Arcana", attribute: "Intelligence", proficiency: 1 },
+    { name: "Arcana", attribute: "Intelligence", proficiency: 0 },
     { name: "Athletics", attribute: "Strength", proficiency: 0 },
-    { name: "Deception", attribute: "Charisma", proficiency: 1 },
+    { name: "Deception", attribute: "Charisma", proficiency: 0 },
     { name: "History", attribute: "Intelligence", proficiency: 0 },
     { name: "Insight", attribute: "Wisdom", proficiency: 0 },
     { name: "Intimidation", attribute: "Charisma", proficiency: 0 },
-    { name: "Investigation", attribute: "Intelligence", proficiency: 1 },
+    { name: "Investigation", attribute: "Intelligence", proficiency: 0 },
     { name: "Medicine", attribute: "Wisdom", proficiency: 0 },
     { name: "Nature", attribute: "Intelligence", proficiency: 0 },
-    { name: "Perception", attribute: "Wisdom", proficiency: 1 },
+    { name: "Perception", attribute: "Wisdom", proficiency: 0 },
     { name: "Performance", attribute: "Charisma", proficiency: 0 },
-    { name: "Persuasion", attribute: "Charisma", proficiency: 1 },
-    { name: "Religion", attribute: "Intelligence", proficiency: 2 },
+    { name: "Persuasion", attribute: "Charisma", proficiency: 0 },
+    { name: "Religion", attribute: "Intelligence", proficiency: 0 },
     { name: "Sleight of Hand", attribute: "Dexterity", proficiency: 0 },
-    { name: "Stealth", attribute: "Dexterity", proficiency: 1 },
-    { name: "Survival", attribute: "Wisdom", proficiency: 1 },
+    { name: "Stealth", attribute: "Dexterity", proficiency: 0 },
+    { name: "Survival", attribute: "Wisdom", proficiency: 0 },
   ],
+  passivePerceptionBonusCustom: 0,
+  passiveInvestigationBonusCustom: 0,
+  passiveInsightBonusCustom: 0,
+  passiveStealthBonusCustom: 0,
   deathSaveSuccesses: 0,
   deathSaveFails: 0,
   hitDice: [
     { type: "d6", current: 0, max: 0 },
-    { type: "d8", current: 3, max: 3 },
+    { type: "d8", current: 0, max: 0 },
     { type: "d10", current: 0, max: 0 },
     { type: "d12", current: 0, max: 0 },
   ],
-  maxHitPoints: 24,
-  currentHitPoints: 20,
-  tempHitPoints: 5,
-  initiativeBonusCustom: 5,
+  maxHitPoints: 10,
+  currentHitPoints: 10,
+  tempHitPoints: 0,
+  initiativeBonusCustom: 0,
   speed: 30,
   flySpeed: 0,
   swimSpeed: 15,
-  baseArmorClass: 13,
+  baseArmorClass: 10,
   applyDexterityBonusLimit: false,
   dexterityBonusLimit: 0,
   shieldBonus: 0,
@@ -162,6 +171,22 @@ type CharacterAction =
       };
     }
   | { type: "CHANGE_SKILL"; payload: { name: string; newValue: 0 | 1 | 2 } }
+  | {
+      type: "CHANGE_PASSIVE_PERCEPTION_BONUS_CUSTOM";
+      payload: { newValue: number };
+    }
+  | {
+      type: "CHANGE_PASSIVE_INVESTIGATION_BONUS_CUSTOM";
+      payload: { newValue: number };
+    }
+  | {
+      type: "CHANGE_PASSIVE_INSIGHT_BONUS_CUSTOM";
+      payload: { newValue: number };
+    }
+  | {
+      type: "CHANGE_PASSIVE_STEALTH_BONUS_CUSTOM";
+      payload: { newValue: number };
+    }
   | {
       type: "CHANGE_DEATH_SAVE_SUCCESSES";
       payload: { newDeathSaveSuccesses: 0 | 1 | 2 | 3 };
@@ -263,6 +288,26 @@ export function characterReducer(
             ? { ...skill, proficiency: action.payload.newValue }
             : skill
         ),
+      };
+    case "CHANGE_PASSIVE_PERCEPTION_BONUS_CUSTOM":
+      return {
+        ...state,
+        passivePerceptionBonusCustom: action.payload.newValue,
+      };
+    case "CHANGE_PASSIVE_INVESTIGATION_BONUS_CUSTOM":
+      return {
+        ...state,
+        passiveInvestigationBonusCustom: action.payload.newValue,
+      };
+    case "CHANGE_PASSIVE_INSIGHT_BONUS_CUSTOM":
+      return {
+        ...state,
+        passiveInsightBonusCustom: action.payload.newValue,
+      };
+    case "CHANGE_PASSIVE_STEALTH_BONUS_CUSTOM":
+      return {
+        ...state,
+        passiveStealthBonusCustom: action.payload.newValue,
       };
     case "CHANGE_DEATH_SAVE_SUCCESSES":
       return {

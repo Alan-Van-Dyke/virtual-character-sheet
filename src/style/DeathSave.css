@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  position: relative;
 }
 
 .death-save-card hr {
@@ -51,4 +52,24 @@
 .death-save-fail {
   cursor: pointer;
   color: red;
+}
+
+.death-save-reset-container {
+  position: absolute;
+  right: 2px;
+  top: 10px;
+}
+
+.death-save-reset-btn {
+  margin-left: 5px;
+  border: none;
+  background: none;
+  font-size: 1em;
+  cursor: pointer;
+  color: var(--prof-color);
+}
+
+.death-save-reset-btn:disabled {
+  color: var(--background-lighter);
+  cursor: default;
 }

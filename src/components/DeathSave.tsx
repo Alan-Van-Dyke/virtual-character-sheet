@@ -2,13 +2,27 @@ import "../style/DeathSave.css";
 import {
   faSkullCrossbones,
   faHeartPulse,
+  faRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCharacterContext } from "../context/CharacterContext";
 
-const DeathSave = () => {
-
+const DeathSave: React.FC<{ editModeEnabled: boolean }> = ({
+  editModeEnabled,
+}) => {
   const { state, dispatch } = useCharacterContext();
+
+  const resetSaves = () => {
+    dispatch({
+      type: "CHANGE_DEATH_SAVE_SUCCESSES",
+      payload: { newDeathSaveSuccesses: 0 },
+    });
+
+    dispatch({
+      type: "CHANGE_DEATH_SAVE_FAILS",
+      payload: { newDeathSaveFails: 0 },
+    });
+  };
 
   const handleClickSuccess = (saveIdx: number) => {
     if (saveIdx === state.deathSaveSuccesses + 1) {
@@ -42,6 +56,16 @@ const DeathSave = () => {
 
   return (
     <div className="death-save-card">
+      <div className="death-save-reset-container">
+        <button
+          className="death-save-reset-btn"
+          onClick={() => {
+            resetSaves();
+          }}
+        >
+          <FontAwesomeIcon icon={faRotateLeft}></FontAwesomeIcon>
+        </button>
+      </div>
       <h4>Death Saving Throws</h4>
       <hr></hr>
       <p>Successes</p>
