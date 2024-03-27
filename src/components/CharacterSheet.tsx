@@ -51,7 +51,7 @@ const CharacterSheet = () => {
     document.title = state.name
       ? state.name + " - Character Sheet"
       : "Virtual Character Sheet";
-  }, [state]);
+  }, [state.name]);
 
   return (
     <div className="character-sheet">

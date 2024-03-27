@@ -133,6 +133,7 @@ const StatBar: React.FC<{ editModeEnabled: boolean }> = ({
                     ?.proficiency || 0) *
                     state.proficiencyBonus +
                   (editModeEnabled ? 0 : state.passivePerceptionBonusCustom))}
+              {editModeEnabled ? " (Default)" : ""}
             </p>
             {editModeEnabled && (
               <>
@@ -150,7 +151,7 @@ const StatBar: React.FC<{ editModeEnabled: boolean }> = ({
                     }
                   }}
                 ></input>
-                <p>{"(Bonus)"}</p>
+                <p>{"(Custom)"}</p>
               </>
             )}
           </div>
@@ -169,6 +170,7 @@ const StatBar: React.FC<{ editModeEnabled: boolean }> = ({
                   (editModeEnabled
                     ? 0
                     : state.passiveInvestigationBonusCustom))}
+              {editModeEnabled ? " (Default)" : ""}
             </p>
             {editModeEnabled && (
               <>
@@ -186,7 +188,7 @@ const StatBar: React.FC<{ editModeEnabled: boolean }> = ({
                     }
                   }}
                 ></input>
-                <p>{"(Bonus)"}</p>
+                <p>{"(Custom)"}</p>
               </>
             )}
           </div>
@@ -202,6 +204,7 @@ const StatBar: React.FC<{ editModeEnabled: boolean }> = ({
                     ?.proficiency || 0) *
                     state.proficiencyBonus +
                   (editModeEnabled ? 0 : state.passiveInsightBonusCustom))}
+              {editModeEnabled ? " (Default)" : ""}
             </p>
             {editModeEnabled && (
               <>
@@ -219,7 +222,7 @@ const StatBar: React.FC<{ editModeEnabled: boolean }> = ({
                     }
                   }}
                 ></input>
-                <p>{"(Bonus)"}</p>
+                <p>{"(Custom)"}</p>
               </>
             )}
           </div>
@@ -235,6 +238,7 @@ const StatBar: React.FC<{ editModeEnabled: boolean }> = ({
                     ?.proficiency || 0) *
                     state.proficiencyBonus +
                   (editModeEnabled ? 0 : state.passiveStealthBonusCustom))}
+              {editModeEnabled ? " (Default)" : ""}
             </p>
             {editModeEnabled && (
               <>
@@ -252,7 +256,7 @@ const StatBar: React.FC<{ editModeEnabled: boolean }> = ({
                     }
                   }}
                 ></input>
-                <p>{"(Bonus)"}</p>
+                <p>{"(Custom)"}</p>
               </>
             )}
           </div>

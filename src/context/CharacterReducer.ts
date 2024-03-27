@@ -104,6 +104,7 @@ export interface CharacterState {
   platinum: number;
 
   equippedItems: Item[];
+  favoriteItems: Item[];
   bags: Bag[];
 }
 
@@ -180,6 +181,7 @@ export const defaultCharacter: CharacterState = {
   gold: 0,
   platinum: 0,
   equippedItems: [],
+  favoriteItems: [],
   bags: [{ name: "Backpack", description: "The default backpack", items: [] }],
 };
 
