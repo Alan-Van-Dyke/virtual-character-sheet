@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useCharacterContext } from "../context/CharacterContext";
+import { deathImageOverlay } from "../context/deathImageOverlay";
 import "../style/CharacterImage.css";
 
 const CharacterImage = () => {
@@ -64,7 +65,16 @@ const CharacterImage = () => {
           ref={fileInputRef}
           style={{ display: "none" }}
         />
-        <img src={state.characterImage}></img>
+        <img
+          src={state.characterImage}
+          className={state.deathSaveFails === 3 ? "dead-image" : ""}
+        ></img>
+      </div>
+      <div
+        className="character-picture-container character-picture-death-overlay"
+        style={state.deathSaveFails === 3 ? {} : { display: "none" }}
+      >
+        <img src={deathImageOverlay}></img>
       </div>
       <p onClick={(e) => fileInputRef.current?.click()}>
         <i>Click to upload new image</i>

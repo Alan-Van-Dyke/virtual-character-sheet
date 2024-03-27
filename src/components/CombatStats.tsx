@@ -75,7 +75,7 @@ const CombatStats: React.FC<{ editModeEnabled: boolean }> = ({
                   Dexterity Bonus:{" "}
                   {state.applyDexterityBonusLimit
                     ? applyDexterityBonusLimit()
-                    : (dexterityMod >= 0 ? "+" : "-") + dexterityMod}
+                    : (dexterityMod >= 0 ? "+" : "") + dexterityMod}
                 </p>
               </div>
               <div className="armor-class-edit-sub-row">
@@ -186,7 +186,7 @@ const CombatStats: React.FC<{ editModeEnabled: boolean }> = ({
             </div>
           ) : (
             <h2>
-              {(state.initiativeBonusCustom + dexterityMod >= 0 ? "+" : "-") +
+              {(state.initiativeBonusCustom + dexterityMod >= 0 ? "+" : "") +
                 (state.initiativeBonusCustom + dexterityMod)}
             </h2>
           )}

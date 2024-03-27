@@ -2,8 +2,8 @@ import "../style/Health.css";
 import { useCharacterContext } from "../context/CharacterContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPlus,
-  faMinus,
+  faHeart,
+  faHeartCrack,
   faShieldHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -140,7 +140,7 @@ const Health: React.FC<{ editModeEnabled: boolean }> = ({
             }}
             disabled={editModeEnabled}
           >
-            <FontAwesomeIcon icon={faPlus} />
+            <FontAwesomeIcon icon={faHeart} />
           </button>
           <button
             className="health-btn btn-damage"
@@ -150,7 +150,7 @@ const Health: React.FC<{ editModeEnabled: boolean }> = ({
             }}
             disabled={editModeEnabled}
           >
-            <FontAwesomeIcon icon={faMinus} />
+            <FontAwesomeIcon icon={faHeartCrack} />
           </button>
         </div>
       </div>

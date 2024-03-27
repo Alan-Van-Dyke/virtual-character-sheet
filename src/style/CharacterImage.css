@@ -18,8 +18,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 .character-picture-card p {
   font-size: 0.7em;
   cursor: pointer;
+}
+
+.character-picture-death-overlay {
+  position: absolute;
+  background-color: transparent;
+  opacity: 100%;
+}
+
+.dead-image {
+  filter: grayscale(70%);
 }

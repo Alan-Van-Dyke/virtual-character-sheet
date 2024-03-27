@@ -1,15 +1,43 @@
 import "../style/HitDice.css";
 import { useCharacterContext } from "../context/CharacterContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faMinus,
+  faRotateLeft,
+} from "@fortawesome/free-solid-svg-icons";
 
 const HitDice: React.FC<{ editModeEnabled: boolean }> = ({
   editModeEnabled,
 }) => {
   const { state, dispatch } = useCharacterContext();
 
+  function resetHitDice() {
+    state.hitDice.forEach((hitDie) => {
+      dispatch({
+        type: "CHANGE_HIT_DICE",
+        payload: {
+          type: hitDie.type,
+          newMax: hitDie.max,
+          newCurrent: hitDie.max,
+        },
+      });
+    });
+  }
+
   return (
     <div className="hit-dice-container">
+      <div className="hit-dice-reset-container">
+        <button
+          className="hit-dice-reset-btn"
+          onClick={() => {
+            resetHitDice();
+          }}
+          disabled={editModeEnabled}
+        >
+          <FontAwesomeIcon icon={faRotateLeft}></FontAwesomeIcon>
+        </button>
+      </div>
       <h4>Hit Dice</h4>
       <hr className="hit-dice-divider"></hr>
       {state.hitDice.filter((hitDie) => hitDie.max > 0).length < 1 &&
