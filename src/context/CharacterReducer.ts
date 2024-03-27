@@ -31,6 +31,30 @@ interface HitDie {
   current: number;
 }
 
+interface ItemNoCharge {
+  name: string;
+  shortDescription: string;
+  fullDescription: string;
+  cost: string;
+}
+
+interface ItemWithCharge {
+  name: string;
+  shortDescription: string;
+  fullDescription: string;
+  cost: string;
+  maxCharges: number;
+  currentCharges: number;
+}
+
+type Item = ItemNoCharge | ItemWithCharge;
+
+interface Bag {
+  name: string;
+  description: string;
+  items: Item[];
+}
+
 export interface CharacterState {
   name: string;
   charClass: string;
@@ -73,6 +97,14 @@ export interface CharacterState {
   dexterityBonusLimit: number;
   shieldBonus: number;
   armorClassBonusCustom: number;
+
+  copper: number;
+  silver: number;
+  gold: number;
+  platinum: number;
+
+  equippedItems: Item[];
+  bags: Bag[];
 }
 
 export const defaultCharacter: CharacterState = {
@@ -143,6 +175,12 @@ export const defaultCharacter: CharacterState = {
   dexterityBonusLimit: 0,
   shieldBonus: 0,
   armorClassBonusCustom: 0,
+  copper: 0,
+  silver: 0,
+  gold: 0,
+  platinum: 0,
+  equippedItems: [],
+  bags: [{ name: "Backpack", description: "The default backpack", items: [] }],
 };
 
 type CharacterAction =

@@ -47,6 +47,12 @@ const CharacterSheet = () => {
 
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
+  useEffect(() => {
+    document.title = state.name
+      ? state.name + " - Character Sheet"
+      : "Virtual Character Sheet";
+  }, [state]);
+
   return (
     <div className="character-sheet">
       <div className="character-sheet-main">

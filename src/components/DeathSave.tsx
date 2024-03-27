@@ -54,6 +54,24 @@ const DeathSave: React.FC<{ editModeEnabled: boolean }> = ({
     }
   };
 
+  function getDeathSaveInputClass(
+    idx: number,
+    counter: number,
+    isSuccess: boolean
+  ) {
+    if (idx === counter) {
+      return "death-save-clickable";
+    }
+    if (idx > counter) {
+      return "death-save-inactive";
+    }
+    if (isSuccess) {
+      return "death-save-success";
+    } else {
+      return "death-save-fail";
+    }
+  }
+
   return (
     <div className="death-save-card">
       <div className="death-save-reset-container">
@@ -81,11 +99,11 @@ const DeathSave: React.FC<{ editModeEnabled: boolean }> = ({
           ></input>
           <FontAwesomeIcon
             icon={faHeartPulse}
-            className={
-              state.deathSaveSuccesses > 0
-                ? "death-save-success"
-                : "death-save-inactive"
-            }
+            className={getDeathSaveInputClass(
+              0,
+              state.deathSaveSuccesses,
+              true
+            )}
           />
         </label>
         <label>
@@ -99,11 +117,11 @@ const DeathSave: React.FC<{ editModeEnabled: boolean }> = ({
           ></input>
           <FontAwesomeIcon
             icon={faHeartPulse}
-            className={
-              state.deathSaveSuccesses > 1
-                ? "death-save-success"
-                : "death-save-inactive"
-            }
+            className={getDeathSaveInputClass(
+              1,
+              state.deathSaveSuccesses,
+              true
+            )}
           />
         </label>
         <label>
@@ -117,11 +135,11 @@ const DeathSave: React.FC<{ editModeEnabled: boolean }> = ({
           ></input>
           <FontAwesomeIcon
             icon={faHeartPulse}
-            className={
-              state.deathSaveSuccesses > 2
-                ? "death-save-success"
-                : "death-save-inactive"
-            }
+            className={getDeathSaveInputClass(
+              2,
+              state.deathSaveSuccesses,
+              true
+            )}
           />
         </label>
       </div>
@@ -139,11 +157,7 @@ const DeathSave: React.FC<{ editModeEnabled: boolean }> = ({
           ></input>
           <FontAwesomeIcon
             icon={faSkullCrossbones}
-            className={
-              state.deathSaveFails > 0
-                ? "death-save-fail"
-                : "death-save-inactive"
-            }
+            className={getDeathSaveInputClass(0, state.deathSaveFails, false)}
           />
         </label>
         <label>
@@ -157,11 +171,7 @@ const DeathSave: React.FC<{ editModeEnabled: boolean }> = ({
           ></input>
           <FontAwesomeIcon
             icon={faSkullCrossbones}
-            className={
-              state.deathSaveFails > 1
-                ? "death-save-fail"
-                : "death-save-inactive"
-            }
+            className={getDeathSaveInputClass(1, state.deathSaveFails, false)}
           />
         </label>
         <label>
@@ -175,11 +185,7 @@ const DeathSave: React.FC<{ editModeEnabled: boolean }> = ({
           ></input>
           <FontAwesomeIcon
             icon={faSkullCrossbones}
-            className={
-              state.deathSaveFails > 2
-                ? "death-save-fail"
-                : "death-save-inactive"
-            }
+            className={getDeathSaveInputClass(2, state.deathSaveFails, false)}
           />
         </label>
       </div>

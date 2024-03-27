@@ -40,8 +40,13 @@
 }
 
 .death-save-inactive {
-  cursor: pointer;
   color: var(--background-lighter);
+  opacity: 25%;
+}
+
+.death-save-clickable {
+  cursor: pointer;
+  opacity: 50%;
 }
 
 .death-save-success {

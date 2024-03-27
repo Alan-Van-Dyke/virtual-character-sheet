@@ -18,7 +18,9 @@ const CombatStats: React.FC<{ editModeEnabled: boolean }> = ({
     armorClass += state.armorClassBonusCustom;
 
     if (state.applyDexterityBonusLimit) {
-      if (dexterityMod <= state.dexterityBonusLimit) {
+      if (state.dexterityBonusLimit === 0) {
+        // add or subtract nothing. Heavy armor does this apparently, even with negative dex mod
+      } else if (dexterityMod <= state.dexterityBonusLimit) {
         armorClass += dexterityMod;
       } else {
         armorClass += state.dexterityBonusLimit;
@@ -44,7 +46,12 @@ const CombatStats: React.FC<{ editModeEnabled: boolean }> = ({
 
   return (
     <div className="combat-stat-container">
-      <div className={"combat-stat-row " + (editModeEnabled ? "" : "combat-stat-row-no-edit")}>
+      <div
+        className={
+          "combat-stat-row " +
+          (editModeEnabled ? "" : "combat-stat-row-no-edit")
+        }
+      >
         <div className="armor-class-card">
           <h4>Armor Class</h4>
           {editModeEnabled ? (
@@ -192,7 +199,12 @@ const CombatStats: React.FC<{ editModeEnabled: boolean }> = ({
           )}
         </div>
       </div>
-      <div className={"combat-stat-row " + (editModeEnabled ? "" : "combat-stat-row-no-edit")}>
+      <div
+        className={
+          "combat-stat-row " +
+          (editModeEnabled ? "" : "combat-stat-row-no-edit")
+        }
+      >
         <div className="speed-card">
           <div className="speed-stat-block">
             <h4>Walk Speed</h4>
