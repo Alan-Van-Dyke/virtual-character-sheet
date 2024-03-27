@@ -33,16 +33,18 @@ interface HitDie {
 
 interface ItemNoCharge {
   name: string;
-  shortDescription: string;
-  fullDescription: string;
+  description: string;
+  type: string;
   cost: string;
+  requiresAttunement: boolean;
 }
 
 interface ItemWithCharge {
   name: string;
-  shortDescription: string;
-  fullDescription: string;
+  description: string;
+  type: string;
   cost: string;
+  requiresAttunement: boolean;
   maxCharges: number;
   currentCharges: number;
 }
@@ -103,8 +105,6 @@ export interface CharacterState {
   gold: number;
   platinum: number;
 
-  equippedItems: Item[];
-  favoriteItems: Item[];
   bags: Bag[];
 }
 
@@ -180,9 +180,11 @@ export const defaultCharacter: CharacterState = {
   silver: 0,
   gold: 0,
   platinum: 0,
-  equippedItems: [],
-  favoriteItems: [],
-  bags: [{ name: "Backpack", description: "The default backpack", items: [] }],
+  bags: [
+    { name: "Equipped", description: "Equipped Items", items: [] },
+    { name: "Favorites", description: "Favorited Items", items: [] },
+    { name: "Backpack", description: "The default backpack", items: [] },
+  ],
 };
 
 type CharacterAction =
@@ -269,6 +271,26 @@ type CharacterAction =
   | {
       type: "CHANGE_ARMOR_CLASS_BONUS_CUSTOM";
       payload: { newArmorClassBonusCustom: number };
+    }
+  | { type: "ADD_ITEM"; payload: { bagIdx: number; newItem: Item } }
+  | { type: "DELETE_ITEM"; payload: { bagIdx: number; itemIdx: number } }
+  | {
+      type: "MOVE_ITEM";
+      payload: { bagFromIdx: number; bagToIdx: number; itemIdx: number };
+    }
+  | {
+      type: "EDIT_ITEM";
+      payload: { bagIdx: number; itemIdx: number; newItem: Item };
+    }
+  | { type: "ADD_BAG"; payload: { bagName: string; bagDescription: string } }
+  | { type: "DELETE_BAG"; payload: { bagIdx: number } }
+  | {
+      type: "EDIT_BAG";
+      payload: {
+        bagIdx: number;
+        newBagName: string;
+        newBagDescription: string;
+      };
     };
 
 export function characterReducer(
@@ -419,6 +441,109 @@ export function characterReducer(
       return {
         ...state,
         armorClassBonusCustom: action.payload.newArmorClassBonusCustom,
+      };
+    case "ADD_ITEM":
+      return {
+        ...state,
+        bags: state.bags.map((bag, idx) =>
+          idx === action.payload.bagIdx
+            ? { ...bag, items: [...bag.items, action.payload.newItem] }
+            : bag
+        ),
+      };
+    case "DELETE_ITEM":
+      return {
+        ...state,
+        bags: state.bags.map((bag, idx) =>
+          idx === action.payload.bagIdx
+            ? {
+                ...bag,
+                items: bag.items.filter(
+                  (item, index) => index !== action.payload.itemIdx
+                ),
+              }
+            : bag
+        ),
+      };
+    case "MOVE_ITEM":
+      const { bagFromIdx, bagToIdx, itemIdx } = action.payload;
+
+      const targetItem = state.bags[bagFromIdx].items[itemIdx];
+
+      const bagsItemRemoved = state.bags.map((bag, idx) =>
+        idx === bagFromIdx
+          ? { ...bag, items: bag.items.filter((item, idx) => idx !== itemIdx) }
+          : bag
+      );
+
+      const bagsItemMoved = bagsItemRemoved.map((bag, idx) =>
+        idx === bagToIdx ? { ...bag, items: [...bag.items, targetItem] } : bag
+      );
+
+      return {
+        ...state,
+        bags: bagsItemMoved,
+      };
+    case "EDIT_ITEM":
+      return {
+        ...state,
+        bags: state.bags.map((bag, idx) =>
+          idx === action.payload.bagIdx
+            ? {
+                ...bag,
+                items: bag.items.map((item, idx) =>
+                  idx === action.payload.itemIdx ? action.payload.newItem : item
+                ),
+              }
+            : bag
+        ),
+      };
+    case "ADD_BAG":
+      return {
+        ...state,
+        bags: [
+          ...state.bags,
+          {
+            name: action.payload.bagName,
+            description: action.payload.bagDescription,
+            items: [],
+          },
+        ],
+      };
+    case "DELETE_BAG":
+      if (
+        action.payload.bagIdx <= 2 ||
+        action.payload.bagIdx >= state.bags.length
+      ) {
+        return state;
+      }
+
+      const deletedBagItems = state.bags[action.payload.bagIdx].items;
+
+      const bagsWithDeletion = state.bags.filter(
+        (bag, idx) => idx !== action.payload.bagIdx
+      );
+
+      const bagsWithItemReinsertion = bagsWithDeletion.map((bag, idx) =>
+        idx === 2 ? { ...bag, items: [...bag.items, ...deletedBagItems] } : bag
+      );
+
+      return {
+        ...state,
+        bags: bagsWithItemReinsertion,
+      };
+    case "EDIT_BAG":
+      return {
+        ...state,
+        bags: state.bags.map((bag, idx) =>
+          idx === action.payload.bagIdx
+            ? {
+                ...bag,
+                name: action.payload.newBagName,
+                description: action.payload.newBagDescription,
+              }
+            : bag
+        ),
       };
 
     default:
