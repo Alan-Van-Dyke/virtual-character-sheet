@@ -97,7 +97,7 @@
 }
 
 .popup input {
-  background: var(--background-lighter);
+  background: var(--background-dark);
   border: 1px solid var(--background-dark);
   border-radius: 5px;
   width: 75%;

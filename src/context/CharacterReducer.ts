@@ -275,6 +275,17 @@ type CharacterAction =
       type: "CHANGE_ARMOR_CLASS_BONUS_CUSTOM";
       payload: { newArmorClassBonusCustom: number };
     }
+  | {
+      type: "UPDATE_CURRENCY";
+      payload: {
+        newAmmounts: {
+          newCopper: number;
+          newSilver: number;
+          newGold: number;
+          newPlatinum: number;
+        };
+      };
+    }
   | { type: "ADD_ITEM"; payload: { bagIdx: number; newItem: Item } }
   | { type: "DELETE_ITEM"; payload: { bagIdx: number; itemIdx: number } }
   | {
@@ -444,6 +455,17 @@ export function characterReducer(
       return {
         ...state,
         armorClassBonusCustom: action.payload.newArmorClassBonusCustom,
+      };
+    case "UPDATE_CURRENCY":
+      const { newCopper, newSilver, newGold, newPlatinum } =
+        action.payload.newAmmounts;
+
+      return {
+        ...state,
+        copper: state.copper + newCopper,
+        silver: state.silver + newSilver,
+        gold: state.gold + newGold,
+        platinum: state.platinum + newPlatinum,
       };
     case "ADD_ITEM":
       return {

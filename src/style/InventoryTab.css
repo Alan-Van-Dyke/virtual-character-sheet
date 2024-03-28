@@ -1,0 +1,36 @@
+.inventory-tab-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  gap: 20px;
+  width: 100%;
+  min-height: 100%;
+  margin: 10px;
+  margin-top: 30px;
+}
+
+.side-inventory-group {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.inventory-bottom {
+  grid-column: 1 / span 2;
+  position: relative;
+  margin-top: 50px;
+}
+
+.item-list-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bag-dropdown-container {
+  position: relative;
+  left: 5px;
+  top: -40px;
+  width: 150px;
+  height: 35px;
+}

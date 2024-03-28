@@ -11,6 +11,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CharacterTab from "./CharacterTab";
 import { useCharacterContext } from "../context/CharacterContext";
+import InventoryTab from "./InventoryTab";
 
 export function calculateModifier(stat: number) {
   return Math.floor((stat - 10) / 2);
@@ -35,7 +36,7 @@ const CharacterSheet = () => {
       label: "Inventory",
       icon: <FontAwesomeIcon icon={faSackDollar} />,
       key: 2,
-      content: <div>Inventory</div>,
+      content: <InventoryTab></InventoryTab>,
     },
     {
       label: "Notes",

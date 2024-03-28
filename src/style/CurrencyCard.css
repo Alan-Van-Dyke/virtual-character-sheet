@@ -1,0 +1,127 @@
+.currency-card {
+  display: flex;
+  height: 20%;
+  border: 1px solid var(--background-lighter);
+  border-radius: 10px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
+}
+
+.currency-card h2 {
+  margin: 0;
+}
+
+.currency-card hr {
+  height: calc(100% - 25px);
+}
+
+.currency-popup {
+  position: absolute;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  height: 75%;
+  display: flex;
+  background-color: var(--background-light);
+  border: 2px solid var(--background-dark);
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.currency-popup-input {
+  width: 15%;
+  display: flex;
+  align-items: baseline;
+}
+
+.currency-popup-input input {
+  background: var(--background-dark);
+  border: 1px solid var(--background-dark);
+  border-radius: 5px;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  font: inherit;
+}
+
+.currency-popup p {
+  margin-left: 5px;
+}
+
+.currency-btn-container {
+  position: absolute;
+  height: 20px;
+  right: 0px;
+  top: -25px;
+}
+
+.currency-popup-btn-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 12%;
+  height: 100%;
+  margin-right: 5px;
+}
+
+.currency-popup-btn {
+  border: 1px solid var(--background-dark);
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.btn-confirm {
+  background-color: var(--dark-primary);
+}
+
+.btn-cancel {
+  background-color: var(--alert-color);
+}
+
+.currency-btn {
+  cursor: pointer;
+  background-color: var(--background-light);
+  border: none;
+  margin: 0px 5px;
+  color: var(--text-color);
+}
+
+.currency-btn:disabled {
+  cursor: default;
+  color: var(--background-lighter);
+}
+
+.spend {
+  color: var(--alert-color);
+}
+
+.recieve {
+  color: var(--primary-color);
+}
+
+.currency-label {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
+.copper {
+  color: #c96100;
+}
+
+.silver {
+  color: #dfe4ff;
+}
+
+.gold {
+  color: #edd600;
+}
+
+.platinum {
+  color: #94d1ff;
+}
