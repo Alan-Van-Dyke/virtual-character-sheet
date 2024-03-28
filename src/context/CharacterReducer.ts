@@ -31,6 +31,8 @@ interface HitDie {
   current: number;
 }
 
+type RefreshCondition = "short-rest" | "long-rest" | "turn" | "manual";
+
 interface ItemNoCharge {
   name: string;
   description: string;
@@ -47,6 +49,7 @@ interface ItemWithCharge {
   requiresAttunement: boolean;
   maxCharges: number;
   currentCharges: number;
+  refreshCondition: RefreshCondition;
 }
 
 type Item = ItemNoCharge | ItemWithCharge;

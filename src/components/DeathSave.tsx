@@ -37,6 +37,12 @@ const DeathSave: React.FC<{ editModeEnabled: boolean }> = ({
         payload: { newDeathSaveSuccesses: saveIdx - 1 },
       });
     }
+    if (saveIdx === 3 && state.currentHitPoints === 0) {
+      dispatch({
+        type: "CHANGE_CURRENT_HIT_POINTS",
+        payload: { newCurrentHitPoints: 1 },
+      });
+    }
   };
 
   const handleClickFail = (saveIdx: number) => {
