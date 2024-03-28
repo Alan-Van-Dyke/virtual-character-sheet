@@ -1,20 +1,25 @@
 import "../style/InventoryTab.css";
 import { useCharacterContext } from "../context/CharacterContext";
 import CurrencyCard from "./CurrencyCard";
+import ItemList from "./ItemList";
+import { useState } from "react";
 
 const InventoryTab = () => {
   const { state, dispatch } = useCharacterContext();
 
   return (
-    <div className="inventory-tab-grid">
-      <div className="item-list-container">{/* favorite items here */}</div>
-      <div className="side-inventory-group">
+    <div className="inventory-tab-container">
+      <div className="inventory-top">
+        <div className="item-list-container top-bag">
+          <ItemList bagIdx={0} isVariable={false} />
+        </div>
         <CurrencyCard></CurrencyCard>
-        <div className="item-list-container">{/* equipped items here */}a</div>
       </div>
-      <div className="item-list-container inventory-bottom">
-        <div className="bag-dropdown-container">{/* bag dropdown here */}</div>
-        {/* bag items here */}
+
+      <div className="inventory-bottom">
+        <div className="item-list-container bottom-bag">
+          <ItemList bagIdx={2} isVariable={true} />
+        </div>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 .currency-card {
   display: flex;
-  height: 20%;
-  border: 1px solid var(--background-lighter);
-  border-radius: 10px;
+  flex-direction: column;
+  width: 12.5%;
+  border: 2px solid var(--background-lighter);
+  border-radius: 20px;
   justify-content: space-evenly;
   align-items: center;
-  margin-top: 20px;
   position: relative;
 }
 
@@ -14,7 +14,35 @@
 }
 
 .currency-card hr {
-  height: calc(100% - 25px);
+  width: calc(100% - 25px);
+}
+
+.currency-btn-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+
+.currency-btn {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  margin: 0px 5px;
+}
+
+.currency-btn:disabled {
+  cursor: default;
+  color: var(--background-lighter);
+}
+
+.spend {
+  color: var(--alert-color);
+}
+
+.recieve {
+  color: var(--primary-color);
 }
 
 .currency-popup {
@@ -24,6 +52,7 @@
   width: 90%;
   height: 75%;
   display: flex;
+  flex-direction: column;
   background-color: var(--background-light);
   border: 2px solid var(--background-dark);
   border-radius: 5px;
@@ -31,9 +60,10 @@
 }
 
 .currency-popup-input {
-  width: 15%;
+  width: 60%;
   display: flex;
   align-items: baseline;
+  position: relative;
 }
 
 .currency-popup-input input {
@@ -47,22 +77,17 @@
 }
 
 .currency-popup p {
-  margin-left: 5px;
-}
-
-.currency-btn-container {
   position: absolute;
-  height: 20px;
-  right: 0px;
-  top: -25px;
+  right: -10px;
+  top: 10px;
 }
 
 .currency-popup-btn-container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 12%;
-  height: 100%;
+  width: 80%;
+  height: 20%;
   margin-right: 5px;
 }
 
@@ -80,27 +105,6 @@
 
 .btn-cancel {
   background-color: var(--alert-color);
-}
-
-.currency-btn {
-  cursor: pointer;
-  background-color: var(--background-light);
-  border: none;
-  margin: 0px 5px;
-  color: var(--text-color);
-}
-
-.currency-btn:disabled {
-  cursor: default;
-  color: var(--background-lighter);
-}
-
-.spend {
-  color: var(--alert-color);
-}
-
-.recieve {
-  color: var(--primary-color);
 }
 
 .currency-label {

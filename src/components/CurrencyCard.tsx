@@ -60,7 +60,7 @@ const CurrencyCard = () => {
             showPopup(false);
           }}
         >
-          <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon> Recieve
+          <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
         </button>
         <button
           className="currency-btn spend"
@@ -69,14 +69,14 @@ const CurrencyCard = () => {
             showPopup(true);
           }}
         >
-          <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon> Spend
+          <FontAwesomeIcon icon={faMinus}></FontAwesomeIcon>
         </button>
       </div>
       {currencyPopupEnabled && (
         <div className="currency-popup">
-          <p className="currency-popup-title">
+          <h4 className="currency-popup-title">
             {isSpending ? "Spend: " : "Recieve: "}
-          </p>
+          </h4>
           <div className="currency-popup-input">
             <input
               type="text"

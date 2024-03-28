@@ -1,0 +1,72 @@
+.item-list {
+  border: 2px solid var(--background-lighter);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.item-list-header {
+  display: flex;
+  height: 10%;
+  align-items: center;
+}
+
+.item-list-header h3 {
+  width: 15%;
+  margin-left: 10px;
+}
+
+.bag-dropdown-container {
+  width: 20%;
+  height: 35px;
+  margin-left: 20px;
+}
+
+.bag-dropdown {
+  width: 100%;
+  border: none;
+  background-color: var(--background-light);
+  color: var(--text-color);
+  font-size: 1.17em;
+  font-family: inherit;
+  font-weight: bold;
+}
+
+.item-list-search-bar {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-left: 10px;
+}
+
+.item-list-search-bar input {
+  background-color: var(--background-light);
+  border: none;
+  color: var(--text-color);
+  font-family: inherit;
+}
+
+.edit-bag-btn-container {
+  margin-left: 10px;
+}
+
+.edit-bag-btn {
+  cursor: pointer;
+  background-color: var(--background-light);
+  border: none;
+  margin: 0px 5px;
+  color: var(--text-color);
+}
+
+.add {
+  color: var(--primary-color);
+}
+
+.edit {
+  color: var(--prof-color);
+}
+
+.delete {
+  color: var(--alert-color);
+}
