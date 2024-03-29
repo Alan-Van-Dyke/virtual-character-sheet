@@ -10,6 +10,7 @@
   display: flex;
   height: 10%;
   align-items: center;
+  position: relative;
 }
 
 .item-list-header h3 {
@@ -69,4 +70,13 @@
 
 .delete {
   color: var(--alert-color);
+}
+
+.new-item-button {
+  position: absolute;
+  right: 25px;
+  cursor: pointer;
+  background-color: var(--background-light);
+  border: none;
+  margin: 0px 5px;
 }

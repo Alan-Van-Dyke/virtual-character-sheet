@@ -9,15 +9,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 interface ItemListProps {
-  bagIdx: number;
+  categoryIdx: number;
   isVariable: boolean;
 }
 
-const ItemList = ({ bagIdx, isVariable }: ItemListProps) => {
+const ItemList = ({ categoryIdx, isVariable }: ItemListProps) => {
   const { state, dispatch } = useCharacterContext();
 
-  const [activeBagIdx, setActiveBagIdx] = useState(bagIdx);
-  const [serachFilter, setSearchFilter] = useState("");
+  const [activeCategoryIdx, setActiveCategoryIdx] = useState(categoryIdx);
+  const [searchFilter, setSearchFilter] = useState("");
 
   return (
     <div className="item-list">
@@ -27,14 +27,15 @@ const ItemList = ({ bagIdx, isVariable }: ItemListProps) => {
             <select
               className="bag-dropdown"
               onChange={(event) => {
-                setActiveBagIdx(Number(event.target.value));
+                setActiveCategoryIdx(Number(event.target.value));
               }}
             >
-              {state.bags.map(
-                (bag, idx) =>
-                  idx >= 2 && (
+              <option value={-1}>All Inventory</option>
+              {state.inventoryCategories.map(
+                (category, idx) =>
+                  idx >= 1 && (
                     <option className={"bag-dropdown-option"} value={idx}>
-                      {bag.name}
+                      {category.name}
                     </option>
                   )
               )}
@@ -42,18 +43,20 @@ const ItemList = ({ bagIdx, isVariable }: ItemListProps) => {
             <hr></hr>
           </div>
         ) : (
-          <h3>{state.bags[activeBagIdx].name}</h3>
+          <h3>{state.inventoryCategories[activeCategoryIdx].name}</h3>
         )}
         {isVariable && (
           <div className="edit-bag-btn-container">
             <button className="edit-bag-btn add">
-              <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon> Add Bag
+              <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon> Add Category
             </button>
             <button className="edit-bag-btn delete">
-              <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon> Delete Bag
+              <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon> Delete
+              Category
             </button>
             <button className="edit-bag-btn edit">
-              <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon> Edit Bag
+              <FontAwesomeIcon icon={faPencil}></FontAwesomeIcon> Rename
+              Category
             </button>
           </div>
         )}
@@ -61,6 +64,9 @@ const ItemList = ({ bagIdx, isVariable }: ItemListProps) => {
           <input type="text" placeholder={"Search..."}></input>
           <hr></hr>
         </div>
+        <button className="new-item-button add">
+          <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon> New Item
+        </button>
       </div>
       <hr></hr>
     </div>

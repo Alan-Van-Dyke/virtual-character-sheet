@@ -39,6 +39,7 @@ interface ItemNoCharge {
   type: string;
   cost: string;
   requiresAttunement: boolean;
+  location: string;
 }
 
 interface ItemWithCharge {
@@ -47,6 +48,7 @@ interface ItemWithCharge {
   type: string;
   cost: string;
   requiresAttunement: boolean;
+  location: string;
   maxCharges: number;
   currentCharges: number;
   refreshCondition: RefreshCondition;
@@ -54,9 +56,8 @@ interface ItemWithCharge {
 
 type Item = ItemNoCharge | ItemWithCharge;
 
-interface Bag {
+interface InventoryCategory {
   name: string;
-  description: string;
   items: Item[];
 }
 
@@ -108,7 +109,7 @@ export interface CharacterState {
   gold: number;
   platinum: number;
 
-  bags: Bag[];
+  inventoryCategories: InventoryCategory[];
 }
 
 export const defaultCharacter: CharacterState = {
@@ -183,10 +184,10 @@ export const defaultCharacter: CharacterState = {
   silver: 0,
   gold: 0,
   platinum: 0,
-  bags: [
-    { name: "Equipped", description: "Equipped Items", items: [] },
-    { name: "Favorites", description: "Favorited Items", items: [] },
-    { name: "Backpack", description: "The default backpack", items: [] },
+  inventoryCategories: [
+    { name: "Quick Access", items: [] },
+    { name: "Category A", items: [] },
+    { name: "Category B", items: [] },
   ],
 };
 
@@ -286,24 +287,27 @@ type CharacterAction =
         };
       };
     }
-  | { type: "ADD_ITEM"; payload: { bagIdx: number; newItem: Item } }
-  | { type: "DELETE_ITEM"; payload: { bagIdx: number; itemIdx: number } }
+  | { type: "ADD_ITEM"; payload: { categoryIdx: number; newItem: Item } }
+  | { type: "DELETE_ITEM"; payload: { categoryIdx: number; itemIdx: number } }
   | {
       type: "MOVE_ITEM";
-      payload: { bagFromIdx: number; bagToIdx: number; itemIdx: number };
+      payload: {
+        categoryFromIdx: number;
+        categoryToIdx: number;
+        itemIdx: number;
+      };
     }
   | {
       type: "EDIT_ITEM";
-      payload: { bagIdx: number; itemIdx: number; newItem: Item };
+      payload: { categoryIdx: number; itemIdx: number; newItem: Item };
     }
-  | { type: "ADD_BAG"; payload: { bagName: string; bagDescription: string } }
-  | { type: "DELETE_BAG"; payload: { bagIdx: number } }
+  | { type: "ADD_INVENTORY_CATEGORY"; payload: { categoryName: string } }
+  | { type: "DELETE_INVENTORY_CATEGORY"; payload: { categoryIdx: number } }
   | {
-      type: "EDIT_BAG";
+      type: "RENAME_INVENTORY_CATEGORY";
       payload: {
-        bagIdx: number;
-        newBagName: string;
-        newBagDescription: string;
+        categoryIdx: number;
+        newCategoryName: string;
       };
     };
 
@@ -470,104 +474,116 @@ export function characterReducer(
     case "ADD_ITEM":
       return {
         ...state,
-        bags: state.bags.map((bag, idx) =>
-          idx === action.payload.bagIdx
-            ? { ...bag, items: [...bag.items, action.payload.newItem] }
-            : bag
+        inventoryCategories: state.inventoryCategories.map((category, idx) =>
+          idx === action.payload.categoryIdx
+            ? {
+                ...category,
+                items: [...category.items, action.payload.newItem],
+              }
+            : category
         ),
       };
     case "DELETE_ITEM":
       return {
         ...state,
-        bags: state.bags.map((bag, idx) =>
-          idx === action.payload.bagIdx
+        inventoryCategories: state.inventoryCategories.map((category, idx) =>
+          idx === action.payload.categoryIdx
             ? {
-                ...bag,
-                items: bag.items.filter(
+                ...category,
+                items: category.items.filter(
                   (item, index) => index !== action.payload.itemIdx
                 ),
               }
-            : bag
+            : category
         ),
       };
     case "MOVE_ITEM":
-      const { bagFromIdx, bagToIdx, itemIdx } = action.payload;
+      const { categoryFromIdx, categoryToIdx, itemIdx } = action.payload;
 
-      const targetItem = state.bags[bagFromIdx].items[itemIdx];
+      const targetItem =
+        state.inventoryCategories[categoryFromIdx].items[itemIdx];
 
-      const bagsItemRemoved = state.bags.map((bag, idx) =>
-        idx === bagFromIdx
-          ? { ...bag, items: bag.items.filter((item, idx) => idx !== itemIdx) }
-          : bag
+      const categoryItemRemoved = state.inventoryCategories.map(
+        (category, idx) =>
+          idx === categoryFromIdx
+            ? {
+                ...category,
+                items: category.items.filter((item, idx) => idx !== itemIdx),
+              }
+            : category
       );
 
-      const bagsItemMoved = bagsItemRemoved.map((bag, idx) =>
-        idx === bagToIdx ? { ...bag, items: [...bag.items, targetItem] } : bag
+      const categoryItemMoved = categoryItemRemoved.map((category, idx) =>
+        idx === categoryToIdx
+          ? { ...category, items: [...category.items, targetItem] }
+          : category
       );
 
       return {
         ...state,
-        bags: bagsItemMoved,
+        inventoryCategories: categoryItemMoved,
       };
     case "EDIT_ITEM":
       return {
         ...state,
-        bags: state.bags.map((bag, idx) =>
-          idx === action.payload.bagIdx
+        inventoryCategories: state.inventoryCategories.map((category, idx) =>
+          idx === action.payload.categoryIdx
             ? {
-                ...bag,
-                items: bag.items.map((item, idx) =>
+                ...category,
+                items: category.items.map((item, idx) =>
                   idx === action.payload.itemIdx ? action.payload.newItem : item
                 ),
               }
-            : bag
+            : category
         ),
       };
-    case "ADD_BAG":
+    case "ADD_INVENTORY_CATEGORY":
       return {
         ...state,
-        bags: [
-          ...state.bags,
+        inventoryCategories: [
+          ...state.inventoryCategories,
           {
-            name: action.payload.bagName,
-            description: action.payload.bagDescription,
+            name: action.payload.categoryName,
             items: [],
           },
         ],
       };
-    case "DELETE_BAG":
+    case "DELETE_INVENTORY_CATEGORY":
       if (
-        action.payload.bagIdx <= 2 ||
-        action.payload.bagIdx >= state.bags.length
+        action.payload.categoryIdx <= 1 ||
+        action.payload.categoryIdx >= state.inventoryCategories.length
       ) {
         return state;
       }
 
-      const deletedBagItems = state.bags[action.payload.bagIdx].items;
+      const deletedBagItems =
+        state.inventoryCategories[action.payload.categoryIdx].items;
 
-      const bagsWithDeletion = state.bags.filter(
-        (bag, idx) => idx !== action.payload.bagIdx
+      const categoriesWithDeletion = state.inventoryCategories.filter(
+        (category, idx) => idx !== action.payload.categoryIdx
       );
 
-      const bagsWithItemReinsertion = bagsWithDeletion.map((bag, idx) =>
-        idx === 2 ? { ...bag, items: [...bag.items, ...deletedBagItems] } : bag
+      const categoriesWithItemReinsertion = categoriesWithDeletion.map(
+        (category, idx) =>
+          idx === 1
+            ? { ...category, items: [...category.items, ...deletedBagItems] }
+            : category
       );
 
       return {
         ...state,
-        bags: bagsWithItemReinsertion,
+        inventoryCategories: categoriesWithItemReinsertion,
       };
-    case "EDIT_BAG":
+    case "RENAME_INVENTORY_CATEGORY":
       return {
         ...state,
-        bags: state.bags.map((bag, idx) =>
-          idx === action.payload.bagIdx
+        inventoryCategories: state.inventoryCategories.map((category, idx) =>
+          idx === action.payload.categoryIdx
             ? {
-                ...bag,
-                name: action.payload.newBagName,
-                description: action.payload.newBagDescription,
+                ...category,
+                name: action.payload.newCategoryName,
               }
-            : bag
+            : category
         ),
       };
 

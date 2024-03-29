@@ -11,14 +11,14 @@ const InventoryTab = () => {
     <div className="inventory-tab-container">
       <div className="inventory-top">
         <div className="item-list-container top-bag">
-          <ItemList bagIdx={0} isVariable={false} />
+          <ItemList categoryIdx={0} isVariable={false} />
         </div>
         <CurrencyCard></CurrencyCard>
       </div>
 
       <div className="inventory-bottom">
         <div className="item-list-container bottom-bag">
-          <ItemList bagIdx={2} isVariable={true} />
+          <ItemList categoryIdx={1} isVariable={true} />
         </div>
       </div>
     </div>
