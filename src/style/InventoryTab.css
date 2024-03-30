@@ -4,6 +4,7 @@
   width: 100%;
   min-height: 100%;
   margin: 10px;
+  position: relative;
 }
 
 .inventory-top {
@@ -28,11 +29,138 @@
   height: 80%;
 }
 
-.top-bag {
+.top-category {
   width: calc(87.5% - 10px);
   margin-right: 10px;
 }
 
-.bottom-bag {
+.bottom-category {
   height: 100%;
+}
+
+.new-item-popup {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 60%;
+  height: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background-light);
+  border: 2px solid var(--background-dark);
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+  align-items: center;
+}
+
+.new-item-popup h2 {
+  display: flex;
+  align-items: center;
+  height: 15%;
+}
+
+.new-item-popup-body {
+  display: flex;
+  flex-direction: column;
+  height: 85%;
+  width: 100%;
+}
+
+.new-item-popup-input-row {
+  display: flex;
+  width: 100%;
+  margin: 3px 0px;
+}
+
+.new-item-popup-input {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  width: calc(50% - 20px);
+  margin: 0px 10px;
+}
+
+.new-item-popup-input input[type="text"] {
+  background: var(--background-dark);
+  border: 1px solid var(--background-dark);
+  border-radius: 5px;
+  width: 80%;
+  text-align: center;
+  font: inherit;
+  color: var(--text-color);
+  text-align: left;
+}
+
+.check-input {
+  justify-content: center;
+  margin: 10px 10px;
+}
+
+.check-input input[type="text"] {
+  width: 10%;
+}
+
+.new-item-popup-input p,
+label {
+  margin: 0px 5px;
+}
+
+.refresh-drop-down {
+  border: 1px solid var(--background-lighter);
+  background-color: var(--background-light);
+  border-radius: 5px;
+  color: var(--text-color);
+  font-family: inherit;
+}
+
+.charge-input-disabled {
+  color: var(--background-lighter);
+}
+
+.new-item-popup-description-container {
+  width: 100%;
+  height: 150px;
+}
+
+.new-item-popup-description-container p {
+  margin-left: 5px;
+  height: 20%;
+}
+
+.new-item-popup-description-container textarea {
+  background-color: var(--background-dark);
+  border: 1px solid var(--background-dark);
+  resize: none;
+  width: calc(100% - 10px);
+  margin: 5px;
+  padding: 0;
+  height: 80%;
+  color: var(--text-color);
+}
+
+.new-item-popup-btn-container {
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.new-item-btn {
+  border: 1px solid var(--background-dark);
+  height: 30px;
+  width: 20%;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.confirm-btn {
+  background-color: var(--dark-primary);
+}
+
+.cancel-btn {
+  background-color: var(--alert-color);
 }

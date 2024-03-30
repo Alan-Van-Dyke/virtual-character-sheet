@@ -31,7 +31,12 @@ interface HitDie {
   current: number;
 }
 
-type RefreshCondition = "short-rest" | "long-rest" | "turn" | "manual";
+type RefreshCondition =
+  | "short-rest"
+  | "long-rest"
+  | "turn"
+  | "never"
+  | "manual";
 
 interface ItemNoCharge {
   name: string;
@@ -54,7 +59,7 @@ interface ItemWithCharge {
   refreshCondition: RefreshCondition;
 }
 
-type Item = ItemNoCharge | ItemWithCharge;
+export type Item = ItemNoCharge | ItemWithCharge;
 
 interface InventoryCategory {
   name: string;
@@ -186,7 +191,7 @@ export const defaultCharacter: CharacterState = {
   platinum: 0,
   inventoryCategories: [
     { name: "Quick Access", items: [] },
-    { name: "Category A", items: [] },
+    { name: "Uncategorized Items", items: [] },
     { name: "Category B", items: [] },
   ],
 };
