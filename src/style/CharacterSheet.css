@@ -1,0 +1,16 @@
+.character-sheet-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: transparent;
+}
+
+.character-sheet-card {
+  width: 80%;
+  margin: 0 10px 0 25px;
+  border-radius: 10px;
+  background-color: var(--sheet-background);
+
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
